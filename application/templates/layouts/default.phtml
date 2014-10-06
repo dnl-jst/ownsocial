@@ -1,70 +1,103 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta http-equiv="Content-Encoding" charset="utf-8" />
 	<title><?= $this->escape($this->_config['site_title']['value']); ?></title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+
 	<link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.1/jquery-ui.min.css" />
 	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/js/jquery-ui-1.11.1/jquery-ui.min.css"></script>
 	<script type="text/javascript" src="/js/index/index.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 <body>
-	<div id="head_box">
-		<div id="head_box_inner">
-			<a href="/"><?= $this->escape($this->_config['site_title']['value']); ?></a>
-			<?php if ($this->_currentUser): ?>
-			<div class="right_box">
-				Angemeldet als: <a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a> &bull;
-				<a href="/index/logout/">Abmelden</a>
-			</div>
-			<?php endif; ?>
-		</div>
-	</div>
 
-	<div id="page_container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+
+		<a class="navbar-brand" href="/"><?= $this->escape($this->_config['site_title']['value']); ?></a>
 
 		<?php if ($this->_currentUser): ?>
-		<div id="left_box">
 
-			<a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a>
+		<form class="navbar-form navbar-left" role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
 
-			<div class="groups">
-				<ul>
-					<li><a href="#" class="add-group-dialog">Neue Gruppe</a></li>
-				<?php if ($groups = $this->_currentUser->getGroups()): ?>
-				<?php foreach ($groups as $group): ?>
-					<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
-				<?php endforeach; ?>
-				<?php endif; ?>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/profile/me/">My profile</a></li>
+					<li class="divider"></li>
+					<li><a href="/index/logout/">Logout</a></li>
 				</ul>
-			</div>
-		</div>
+			</li>
+		</ul>
+
+		<p class="navbar-text navbar-right">Signed in as <a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></p>
+
 		<?php endif; ?>
 
-		<div id="middle_box">
-			<?= $html; ?>
-		</div>
+	</div>
+</nav>
 
+<div class="row">
+
+	<div class="col-md-3 col-lg-3">
 		<?php if ($this->_currentUser): ?>
-		<div id="right_box">
-			<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
-			<div class="unconfirmed_contacts">
-				<p class="headline">KONTAKTANFRAGEN</p>
-				<?php foreach ($contacts as $contact): ?>
+			<div id="left_box">
 
-				<div class="unconfirmed_contact">
-					<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
-					<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
-					<br />
-					<a href="#" class="accept_request" data-id="<?= $contact->getId(); ?>">Annehmen</a>
-					<a href="#" class="decline_request" data-id="<?= $contact->getId(); ?>">Ablehnen</a>
+				<a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a>
+
+				<div class="groups">
+					<ul>
+						<li><a href="#" class="add-group-dialog">Neue Gruppe</a></li>
+						<?php if ($groups = $this->_currentUser->getGroups()): ?>
+							<?php foreach ($groups as $group): ?>
+								<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</ul>
 				</div>
-				<?php endforeach; ?>
 			</div>
-			<?php endif; ?>
-		</div>
 		<?php endif; ?>
 	</div>
+
+	<div class="col-md-6 col-lg-6">
+		<?= $html; ?>
+	</div>
+
+	<div class="col-md-3 col-lg-3">
+		<?php if ($this->_currentUser): ?>
+			<div id="right_box">
+				<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
+					<div class="unconfirmed_contacts">
+						<p class="headline">KONTAKTANFRAGEN</p>
+						<?php foreach ($contacts as $contact): ?>
+
+							<div class="unconfirmed_contact">
+								<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
+								<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
+								<br />
+								<a href="#" class="accept_request" data-id="<?= $contact->getId(); ?>">Annehmen</a>
+								<a href="#" class="decline_request" data-id="<?= $contact->getId(); ?>">Ablehnen</a>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
+	</div>
+</div>
+
 </body>
 </html>

@@ -20,6 +20,8 @@ sudo cat >> /etc/nginx/sites-available/default <<'EOF'
 server {
   listen   80;
 
+  sendfile off;
+
   root /usr/share/nginx/html/public/;
   index index.php index.html index.htm;
 
