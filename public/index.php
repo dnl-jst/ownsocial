@@ -7,6 +7,8 @@ date_default_timezone_set('Europe/Berlin');
 
 define('APPLICATION_ROOT', realpath(dirname(__FILE__) . '/../') . '/');
 
+require_once(APPLICATION_ROOT . 'vendor/autoload.php');
+
 set_include_path(
 	APPLICATION_ROOT . 'library' . PATH_SEPARATOR . get_include_path()
 );
