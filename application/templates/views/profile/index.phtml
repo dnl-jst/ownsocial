@@ -1,0 +1,6 @@
+<div class="profile_index">
+
+	<h2><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></h2>
+
+	<a href="#" class="add_request" data-id="<?= $this->user->getId(); ?>">Kontaktanfrage senden</a>
+</div>
