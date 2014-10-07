@@ -45,57 +45,73 @@
 
 		<p class="navbar-text navbar-right">Signed in as <a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></p>
 
+		<?php else: ?>
+
+		<form class="navbar-form form-inline pull-right" role="form" method="post" action="/index/login">
+			<div class="form-group">
+				<label class="sr-only" for="email">Email address</label>
+				<input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="password">Password</label>
+				<input name="password" type="password" class="form-control" id="password" placeholder="Password">
+			</div>
+			<button type="submit" class="btn btn-default">Sign in</button>
+		</form>
+
 		<?php endif; ?>
 
 	</div>
 </nav>
 
-<div class="row">
+<div class="container">
+	<div class="row">
 
-	<div class="col-md-3 col-lg-3">
-		<?php if ($this->_currentUser): ?>
-			<div id="left_box">
+		<div class="col-md-3 col-lg-3">
+			<?php if ($this->_currentUser): ?>
+				<div id="left_box">
 
-				<a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a>
+					<a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a>
 
-				<div class="groups">
-					<ul>
-						<li><a href="#" class="add-group-dialog">Neue Gruppe</a></li>
-						<?php if ($groups = $this->_currentUser->getGroups()): ?>
-							<?php foreach ($groups as $group): ?>
-								<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</ul>
-				</div>
-			</div>
-		<?php endif; ?>
-	</div>
-
-	<div class="col-md-6 col-lg-6">
-		<?= $html; ?>
-	</div>
-
-	<div class="col-md-3 col-lg-3">
-		<?php if ($this->_currentUser): ?>
-			<div id="right_box">
-				<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
-					<div class="unconfirmed_contacts">
-						<p class="headline">KONTAKTANFRAGEN</p>
-						<?php foreach ($contacts as $contact): ?>
-
-							<div class="unconfirmed_contact">
-								<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
-								<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
-								<br />
-								<a href="#" class="accept_request" data-id="<?= $contact->getId(); ?>">Annehmen</a>
-								<a href="#" class="decline_request" data-id="<?= $contact->getId(); ?>">Ablehnen</a>
-							</div>
-						<?php endforeach; ?>
+					<div class="groups">
+						<ul>
+							<li><a href="#" class="add-group-dialog">Neue Gruppe</a></li>
+							<?php if ($groups = $this->_currentUser->getGroups()): ?>
+								<?php foreach ($groups as $group): ?>
+									<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</ul>
 					</div>
-				<?php endif; ?>
-			</div>
-		<?php endif; ?>
+				</div>
+			<?php endif; ?>
+		</div>
+
+		<div class="col-md-6 col-lg-6">
+			<?= $html; ?>
+		</div>
+
+		<div class="col-md-3 col-lg-3">
+			<?php if ($this->_currentUser): ?>
+				<div id="right_box">
+					<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
+						<div class="unconfirmed_contacts">
+							<p class="headline">KONTAKTANFRAGEN</p>
+							<?php foreach ($contacts as $contact): ?>
+
+								<div class="unconfirmed_contact">
+									<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
+									<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
+									<br />
+									<a href="#" class="accept_request" data-id="<?= $contact->getId(); ?>">Annehmen</a>
+									<a href="#" class="decline_request" data-id="<?= $contact->getId(); ?>">Ablehnen</a>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+		</div>
 	</div>
 </div>
 

@@ -1,23 +1,16 @@
 <div class="index_login">
 
-	<div class="login">
+		<form class="form-signin" role="form" method="post">
 
-		<form method="post" action="">
+			<h2 class="form-signin-heading"><?= $this->escape($this->_config['site_title']['value']); ?></h2>
+			<h3 class="form-signin-subheading">Please sign in</h3>
 
-			<div class="email">
-				<input type="text" name="email" placeholder="Your e-mail-address" />
-			</div>
+			<input name="email" type="email" class="form-control" placeholder="Email address" required autofocus>
 
-			<div class="password">
-				<input type="password" name="password" placeholder="Your password" />
-			</div>
+			<input name="password" type="password" class="form-control" placeholder="Password" required>
 
-			<div class="submit">
-				<input type="submit" value="Login" />
-			</div>
-
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			
 		</form>
-
-	</div>
 
 </div>
