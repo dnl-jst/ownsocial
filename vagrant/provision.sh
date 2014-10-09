@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 export DEBIAN_FRONTEND=noninteractive
 
+cp -f /vagrant/vagrant/sources.list /etc/apt/
+
 sudo aptitude update -q
 
 # Force a blank root password for mysql
