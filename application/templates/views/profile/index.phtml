@@ -2,5 +2,25 @@
 
 	<h2><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></h2>
 
-	<a href="#" class="add_request" data-id="<?= $this->user->getId(); ?>">Kontaktanfrage senden</a>
+	<?php if ($this->_currentUser->getId() !== $this->user->getId()): ?>
+		<?php
+
+		$relation = $this->_currentUser->getRelationTo($this->user);
+
+		if ($relation === null): ?>
+		<a href="#" class="btn btn-primary add_request" data-id="<?= $this->user->getId(); ?>">
+			<i class="fa fa-user"></i> Send contact request
+		</a>
+		<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->user->getId()): ?>
+		<a href="#" class="btn btn-primary" data-id="<?= $this->user->getId(); ?>">
+			<i class="fa fa-clock-o"></i> Request pending...
+		</a>
+		<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->_currentUser->getId()): ?>
+		<p>Contact request:</p>
+		<div class="btn-group">
+			<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-primary accept_request">Accept</button>
+			<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-default decline_request">Decline</button>
+		</div>
+		<?php endif; ?>
+	<?php endif; ?>
 </div>

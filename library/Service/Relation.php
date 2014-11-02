@@ -28,4 +28,12 @@ class Service_Relation extends Core_Service
 		$query->query();
 	}
 
+	public static function delete(Model_Relation $relation)
+	{
+		$query = new Db_Relation_Delete();
+		$query->setUserId($relation->getUserId());
+		$query->setUserId2($relation->getUserId2());
+		$query->query();
+	}
+
 }

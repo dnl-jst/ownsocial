@@ -5,6 +5,7 @@ class Db_Like_Store extends Core_Query
 
 	protected $userId;
 	protected $postId;
+	protected $created;
 
 	protected function build()
 	{
@@ -13,16 +14,19 @@ class Db_Like_Store extends Core_Query
 				likes
 				(
 					user_id,
-					post_id
+					post_id,
+					created
 				)
 			VALUES
 				(
+					?,
 					?,
 					?
 				)';
 
 		$this->addBind($this->userId);
 		$this->addBind($this->postId);
+		$this->addBind($this->created);
 
 		return $query;
 	}
@@ -41,6 +45,14 @@ class Db_Like_Store extends Core_Query
 	public function setUserId($userId)
 	{
 		$this->userId = $userId;
+	}
+
+	/**
+	 * @param mixed $created
+	 */
+	public function setCreated($created)
+	{
+		$this->created = $created;
 	}
 
 }

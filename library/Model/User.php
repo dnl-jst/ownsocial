@@ -152,4 +152,9 @@ class Model_User extends Core_Model
 		return Service_Group::getByUserId($this->getId());
 	}
 
+	public function getRelationTo(Model_User $user)
+	{
+		return Service_User::getRelation($this, $user);
+	}
+
 }

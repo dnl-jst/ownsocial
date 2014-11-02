@@ -67,4 +67,38 @@ class Service_User extends Core_Service
 		return self::fillCollection(new Model_User(), $query->fetchAll());
 	}
 
+	/**
+	 * @param $search
+	 * @return Model_User[]
+	 * @throws Core_Query_NoResultException
+	 */
+	public static function search($search)
+	{
+		$query = new Db_User_Search();
+		$query->setSearch($search);
+
+		return self::fillCollection(new Model_User(), $query->fetchAll());
+	}
+
+	public static function getRelation($user1, $user2)
+	{
+		$relation = null;
+
+		try {
+			$relation = Service_Relation::getByUsers($user1->getId(), $user2->getId());
+		}
+		catch (Core_Query_NoResultException $e)
+		{}
+
+		if (!$relation) {
+			try {
+				$relation = Service_Relation::getByUsers($user2->getId(), $user1->getId());
+			}
+			catch (Core_Query_NoResultException $e)
+			{}
+		}
+
+		return $relation;
+	}
+
 }

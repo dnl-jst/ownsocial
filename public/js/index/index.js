@@ -20,12 +20,12 @@ function getPost(post) {
     var interactionLine = '<hr><p class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
 
     if (post.liked == 0) {
-        interactionLine += 'Gefällt mir';
+        interactionLine += 'Like';
     } else {
-        interactionLine += 'Gefällt mir nicht mehr';
+        interactionLine += 'Dislike';
     }
 
-    interactionLine += '</a> &bull; <a class="action_comments" href="#" data-post="' + post.id + '">Kommentieren</a>';
+    interactionLine += '</a> &bull; <a class="action_comments" href="#" data-post="' + post.id + '">Write comment</a>';
 
     if (post.likes > 0) {
         interactionLine += ' &bull; <i class="fa fa-thumbs-o-up"></i> ' + post.likes;
@@ -72,18 +72,24 @@ $(function() {
 
         event.preventDefault();
 
-        $.ajax({
-            method: 'post',
-            url: '/post/add/',
-            data: {
-                content: $('#post_content').val()
-            },
-            dataType: 'json',
-            success: function(result) {
-                $(getPost(result)).prependTo('.posts');
-                $('#post_content').val('');
-            }
-        })
+        if ($('#post_content').val()) {
+
+            $.ajax({
+                method: 'post',
+                url: '/post/add/',
+                data: {
+                    content: $('#post_content').val()
+                },
+                dataType: 'json',
+                success: function(result) {
+                    $(getPost(result)).prependTo('.posts');
+                    $('#post_content').val('');
+                }
+            });
+
+        } else {
+            $('#post_content').parent('.form-group').addClass('has-error');
+        }
 
     });
 
@@ -177,7 +183,36 @@ $(function() {
             dataType: 'json',
             success: function(result) {
 
-                $(aTag).parent('.unconfirmed_contact').fadeOut(function() {
+                $(aTag).closest('.unconfirmed_contact').fadeOut(function() {
+                    var unconfirmedContacts = $('.unconfirmed_contacts .unconfirmed_contact');
+
+                    if (unconfirmedContacts.length == 0) {
+                        $('.unconfirmed_contacts').fadeOut();
+                    }
+                });
+
+            }
+        });
+
+    });
+
+    $('body').on('click', '.decline_request', function(event) {
+
+        event.preventDefault();
+
+        var aTag = $(this);
+        var relUserId = $(this).data('id');
+
+        $.ajax({
+            method: 'post',
+            url: '/relation/decline-request/',
+            data: {
+                user: relUserId
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $(aTag).closest('.unconfirmed_contact').fadeOut(function() {
                     var unconfirmedContacts = $('.unconfirmed_contacts .unconfirmed_contact');
 
                     if (unconfirmedContacts.length == 0) {

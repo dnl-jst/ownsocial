@@ -5,6 +5,7 @@ class Model_Like extends Core_Model
 
 	protected $userId;
 	protected $postId;
+	protected $created;
 
 	/**
 	 * @return mixed
@@ -36,6 +37,22 @@ class Model_Like extends Core_Model
 	public function setUserId($userId)
 	{
 		$this->userId = $userId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCreated()
+	{
+		return $this->created;
+	}
+
+	/**
+	 * @param mixed $created
+	 */
+	public function setCreated($created)
+	{
+		$this->created = $created;
 	}
 
 }

@@ -1,0 +1,12 @@
+<div class="block" id="search">
+	<div class="list-group">
+		<?php foreach ($this->users as $user): ?>
+		<a href="/profile/?user=<?= $user->getId(); ?>" class="list-group-item">
+			<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
+			<p class="list-group-item-text">
+				Lorem ipsum dolor
+			</p>
+		</a>
+		<?php endforeach; ?>
+	</div>
+</div>

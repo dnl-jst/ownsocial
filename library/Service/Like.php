@@ -7,6 +7,7 @@ class Service_Like extends Core_Service
 		$query = new Db_Like_Store();
 		$query->setUserId($like->getUserId());
 		$query->setPostId($like->getPostId());
+		$query->setCreated($like->getCreated());
 		$query->query();
 	}
 

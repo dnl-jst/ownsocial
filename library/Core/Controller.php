@@ -69,6 +69,8 @@ class Core_Controller
 	{
 		header('Location: ' . $url);
 		exit();
+
+		return null;
 	}
 
 }

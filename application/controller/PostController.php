@@ -47,6 +47,7 @@ class PostController extends Core_Controller
 		$like = new Model_Like();
 		$like->setUserId($userId);
 		$like->setPostId($postId);
+		$like->setCreated(time());
 
 		if (!$post->getLiked()) {
 			Service_Like::store($like);

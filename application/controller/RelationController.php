@@ -31,4 +31,15 @@ class RelationController extends Core_Controller
 		$this->json(true);
 	}
 
+	public function declineRequestAction()
+	{
+		$user = Service_User::getCurrent();
+		$relUserId = $this->getRequest()->getPost('user');
+
+		$relation = Service_Relation::getByUsers($relUserId, $user->getId());
+		Service_Relation::delete($relation);
+
+		$this->json(true);
+	}
+
 }
