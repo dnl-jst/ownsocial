@@ -7,6 +7,11 @@ body {
     height: 40px;
 }
 
+.unconfirmed_contacts .unconfirmed_contact img.portrait {
+    width: 40px;
+    height: 40px;
+}
+
 .form-signin {
     max-width: 330px;
     padding: 15px;
