@@ -5,7 +5,7 @@ class FeedController extends Core_Controller
 
 	public function indexAction()
 	{
-		$user = Service_User::getCurrent();
+		$user = $this->_currentUser;
 		$parentPostId = $this->getRequest()->getPost('parent_post', null);
 
 		$feed = Service_Feed::getUserFeed($parentPostId, $user->getId());

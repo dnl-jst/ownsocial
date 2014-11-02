@@ -98,7 +98,6 @@
 						<div class="unconfirmed_contacts">
 							<p class="headline">KONTAKTANFRAGEN</p>
 							<?php foreach ($contacts as $contact): ?>
-
 								<div class="unconfirmed_contact">
 									<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
 									<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
