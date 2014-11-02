@@ -9,29 +9,37 @@
 ## Installation:
 
 Clone from git:
+
 	git clone https://github.com/dnl-jst/ownsocial.git
 
 Go to project folder:
+
 	cd ownsocial/
 
 Get composer dependencies:
+
 	composer install
 
 Get bower dependencies:
+
 	bower install
 
 If not installed, install vagrant-hostsupdater plugin:
+
 	vagrant plugin install vagrant-hostsupdater
 
 Fire up vagrant VM:
+
 	vagrant up
 
 Point your browser to:
+
 	http://ownsocial.local/
 
 and you will be redirected to the installer.
 
 Credentials for the local database server are:
+
 	Username: root
 	Password: rootpass
 
