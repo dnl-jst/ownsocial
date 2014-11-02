@@ -107,55 +107,106 @@ return ' . var_export($config, true) . ';';
 	<head>
 		<meta http-equiv="Content-Type" content="charset=utf-8" />
 		<title>OwnSocial Installation</title>
+
+		<link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+
+		<script src="/components/jquery/dist/jquery.min.js"></script>
+		<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<form method="post" action="">
+		<div class="container">
 
-			<div class="text required">
-				<input type="text" name="site_title" placeholder="Title of the network" />
+			<form method="post" action="" role="form">
+
+			<div class="row">
+
+				<div class="page-header">
+					<h1>OwnSocial <small>Installation</small></h1>
+				</div>
+
+				<fieldset>
+					<legend>General</legend>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="site_title" placeholder="Title of the network">
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend>Database (MySQL)</legend>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="db_host" placeholder="Database host" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="db_name" placeholder="Database name" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="db_user" placeholder="Database user" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="password" class="form-control" name="db_pass" placeholder="Database password" />
+						</div>
+					</div>
+
+				</fieldset>
+
+				<fieldset>
+
+					<legend>Your user account</legend>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="first_name" placeholder="First name" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="last_name" placeholder="Last name" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="email" placeholder="Your e-mail-address" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="password" class="form-control" name="password" placeholder="Your new password" />
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<input type="password" class="form-control" name="password2" placeholder="Confirm your new password" />
+						</div>
+					</div>
+
+				</fieldset>
+
+				<div>
+					<input type="submit" class="btn btn-primary btn-lg" value="Install..." />
+				</div>
+
 			</div>
-
-			<div class="text required">
-				<input type="text" name="db_host" placeholder="Database host" />
-			</div>
-
-			<div class="text required">
-				<input type="text" name="db_name" placeholder="Database name" />
-			</div>
-
-			<div class="text required">
-				<input type="text" name="db_user" placeholder="Database user" />
-			</div>
-
-			<div class="text required">
-				<input type="password" name="db_pass" placeholder="Database password" />
-			</div>
-
-			<div class="text required">
-				<input type="text" name="first_name" placeholder="First name" />
-			</div>
-
-			<div class="text required">
-				<input type="text" name="last_name" placeholder="Last name" />
-			</div>
-
-			<div class="text required">
-				<input type="text" name="email" placeholder="Your e-mail-address" />
-			</div>
-
-			<div class="text required">
-				<input type="password" name="password" placeholder="Your new password" />
-			</div>
-
-			<div class="text required">
-				<input type="password" name="password2" placeholder="Confirm your new password" />
-			</div>
-
-			<div class="submit">
-				<input type="submit" value="Install..." />
-			</div>
-
-		</form>
+			</form>
+		</div>
 	</body>
 	</html>
 
