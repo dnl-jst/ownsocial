@@ -1,6 +1,3 @@
-# copy sources.list
-cp -f /vagrant/vagrant/sources.list /etc/apt/
-
 # set mysql password so it isn't prompted during installation
 debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password rootpass'
 debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password rootpass'
