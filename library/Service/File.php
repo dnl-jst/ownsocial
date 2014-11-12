@@ -16,4 +16,20 @@ class Service_File extends Core_Service
 		return self::fillModel(new Model_File(), $query->fetchRow());
 	}
 
+	public static function store(Model_File $file)
+	{
+		$query = new Db_File_Store();
+		$query->setId($file->getId());
+		$query->setContent($file->getContent());
+		$query->setType($file->getType());
+		$query->setCreated($file->getCreated());
+
+		if ($file->getId()) {
+			$query->query();
+			return $file->getId();
+		} else {
+			return $query->insert();
+		}
+	}
+
 }

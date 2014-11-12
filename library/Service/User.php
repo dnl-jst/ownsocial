@@ -101,4 +101,23 @@ class Service_User extends Core_Service
 		return $relation;
 	}
 
+	public static function store(Model_User $user)
+	{
+		$query = new Db_User_Store();
+		$query->setId($user->getId());
+		$query->setEmail($user->getEmail());
+		$query->setPassword($user->getPassword());
+		$query->setFirstName($user->getFirstName());
+		$query->setLastName($user->getLastName());
+		$query->setPortraitFileId($user->getPortraitFileId());
+		$query->setCreated($user->getCreated());
+
+		if ($user->getId()) {
+			$query->query();
+			return $user->getId();
+		} else {
+			return $query->insert();
+		}
+	}
+
 }
