@@ -9,15 +9,15 @@ class Core_Helper_DateSince
 		$difference = $now - $timespam;
 
 		if ($difference < 60) {
-			return 'vor wenigen Sekunden';
+			return 'few seconds ago';
 		} else if ($difference < 300) {
-			return 'vor wenigen Minuten';
+			return 'few minutes ago';
 		} else if ($difference < 3600) {
-			return 'vor ' . floor($difference / 60) . ' Minuten';
+			return floor($difference / 60) . ' minutes ago';
 		} else if ($difference < 86400) {
-			return 'vor ' . floor($difference / 60 / 60) . ' Stunden';
+			return floor($difference / 60 / 60) . ' hours ago';
 		} else {
-			return 'vor ' . floor($difference / 60 / 60 / 24) . ' Tagen';
+			return floor($difference / 60 / 60 / 24) . ' days ago';
 		}
 	}
 
