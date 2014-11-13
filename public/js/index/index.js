@@ -63,8 +63,6 @@ $(function() {
         dataType: 'json',
         success: function(result) {
 
-            console.log(result);
-
             for (var i = 0; i < result.posts.length; i++) {
 
                 $(getPost(result.posts[i])).appendTo('.posts');
