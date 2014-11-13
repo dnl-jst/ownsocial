@@ -43,7 +43,7 @@ function getPost(post) {
 
     $(interactionLine).appendTo(element);
 
-    var comments = $('<div class="comments" style="display: none;"></div>');
+    var comments = $('<div class="comments" style="display: none;"><hr></div>');
 
     $('<div class="add_comment"><form class="" role="form"><div class="col-xs-10"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><button type="submit" class="col-xs-2 btn btn-primary">Send</button></form></div>').appendTo(comments);
 

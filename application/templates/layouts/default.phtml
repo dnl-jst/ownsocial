@@ -103,7 +103,7 @@
 				<div id="right_box">
 					<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
 						<div class="unconfirmed_contacts">
-							<p class="headline">KONTAKTANFRAGEN</p>
+							<p class="headline">CONTACT REQUESTS</p>
 							<?php foreach ($contacts as $contact): ?>
 								<div class="unconfirmed_contact">
 									<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
