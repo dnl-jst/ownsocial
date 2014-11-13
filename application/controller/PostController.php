@@ -38,6 +38,21 @@ class PostController extends Core_Controller
 		$this->json($post->toArray());
 	}
 
+	public function deleteAction()
+	{
+		$postId = $this->getRequest()->getPost('post');
+		$post = Service_Post::getById($postId);
+
+		if ($post->getUserId() != $this->_currentUser->getId())
+		{
+			return $this->json(array('status' => 'error', 'message' => 'permission denied'));
+		}
+
+		Service_Post::delete($postId);
+
+		return $this->json(array('status' => 'success'));
+	}
+
 	public function toggleLikeAction()
 	{
 		$userId = $this->_currentUser->getId();

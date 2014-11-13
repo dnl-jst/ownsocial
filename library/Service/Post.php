@@ -35,4 +35,11 @@ class Service_Post extends Core_Service
 		return self::fillModel(new Model_Post(), $query->fetchRow());
 	}
 
+	public static function delete($id)
+	{
+		$query = new Db_Post_Delete();
+		$query->setId($id);
+		$query->query();
+	}
+
 }

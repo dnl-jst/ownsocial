@@ -1,6 +1,6 @@
 function getPost(post) {
 
-    var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
+    var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"><a class="action_delete_post" href="#" data-post="' + post.id + '">X</a></div>');
 
     var userP = $('<p class="user"></p>');
     $('<img class="portrait" src="/file/?file=' + post.portraitFileId + '" />').appendTo(userP);
@@ -109,7 +109,7 @@ $(function() {
             success: function(result) {
                 $('#post_' + postId).replaceWith(getPost(result));
             }
-        })
+        });
 
     });
 
@@ -140,6 +140,26 @@ $(function() {
                         $('#post_' + postId + '>.comments').append(getPost(result.posts[i]));
                     }
                 }
+            }
+        })
+
+    });
+
+    $('body').on('click', '.action_delete_post', function() {
+
+        event.preventDefault();
+
+        var postId = $(this).data('post');
+
+        $.ajax({
+            method: 'post',
+            url: '/post/delete/',
+            data: {
+                post: postId
+            },
+            dataType: 'json',
+            success: function(result) {
+                $('#post_' + postId).remove();
             }
         })
 
