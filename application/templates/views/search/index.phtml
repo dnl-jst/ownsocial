@@ -1,19 +1,26 @@
 <div class="block" id="search">
-	<?php foreach ($this->users as $user): ?>
-	<div class="row list-group-item">
-		<div class="col-xs-3">
-			<a href="/profile/?user=<?= $user->getId(); ?>">
-				<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
-			</a>
+	<?php if ($this->users): ?>
+		<?php foreach ($this->users as $user): ?>
+		<div class="row list-group-item">
+			<div class="col-xs-3">
+				<a href="/profile/?user=<?= $user->getId(); ?>">
+					<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+				</a>
+			</div>
+			<div class="col-xs-9">
+				<a href="/profile/?user=<?= $user->getId(); ?>">
+					<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
+					<p class="list-group-item-text">
+						Lorem ipsum dolor
+					</p>
+				</a>
+			</div>
 		</div>
-		<div class="col-xs-9">
-			<a href="/profile/?user=<?= $user->getId(); ?>">
-				<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
-				<p class="list-group-item-text">
-					Lorem ipsum dolor
-				</p>
-			</a>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<div class="well">
+			<h3>Sorry.</h3>
+			<p>No users matched your search criteria.</p>
 		</div>
-	</div>
-	<?php endforeach; ?>
+	<?php endif; ?>
 </div>
