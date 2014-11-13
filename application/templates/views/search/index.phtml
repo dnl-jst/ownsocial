@@ -1,12 +1,19 @@
 <div class="block" id="search">
-	<div class="list-group">
-		<?php foreach ($this->users as $user): ?>
-		<a href="/profile/?user=<?= $user->getId(); ?>" class="list-group-item">
-			<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
-			<p class="list-group-item-text">
-				Lorem ipsum dolor
-			</p>
-		</a>
-		<?php endforeach; ?>
+	<?php foreach ($this->users as $user): ?>
+	<div class="row list-group-item">
+		<div class="col-xs-3">
+			<a href="/profile/?user=<?= $user->getId(); ?>">
+				<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+			</a>
+		</div>
+		<div class="col-xs-9">
+			<a href="/profile/?user=<?= $user->getId(); ?>">
+				<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
+				<p class="list-group-item-text">
+					Lorem ipsum dolor
+				</p>
+			</a>
+		</div>
 	</div>
+	<?php endforeach; ?>
 </div>

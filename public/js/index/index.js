@@ -1,6 +1,6 @@
 function getPost(post) {
 
-    var element = $('<div class="post" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
+    var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
 
     var userP = $('<p class="user"></p>');
     $('<img class="portrait" src="/file/?file=' + post.portraitFileId + '" />').appendTo(userP);

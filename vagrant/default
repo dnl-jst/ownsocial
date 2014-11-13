@@ -3,6 +3,10 @@ server {
 
   sendfile off;
 
+  # upload limits
+  client_max_body_size 128m;
+  client_body_timeout 600;
+
   root /usr/share/nginx/html/public/;
   index index.php index.html index.htm;
 

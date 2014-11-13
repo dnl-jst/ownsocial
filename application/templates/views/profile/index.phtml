@@ -1,16 +1,16 @@
 <div class="profile_index">
 
 	<div class="row">
-		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
 			<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
-			<div id="croppic-area" style="width: 100px; height: 100px;">
+			<div class="portait" id="croppic-area" style="width: 200px; height: 200px; position: relative;">
 			<?php endif; ?>
-				<img style="width: 100px; height: 100px;" src="/file/?file=<?= $this->user->getPortraitFileId(); ?>" />
+				<img style="width: 200px; height: 200px;" src="/file/?file=<?= $this->user->getPortraitFileId(); ?>" />
 			<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
 			</div>
 			<?php endif; ?>
 		</div>
-		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
 			<h2><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></h2>
 		</div>
 	</div>
