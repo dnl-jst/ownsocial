@@ -1,0 +1,14 @@
+{
+  "name": "croppic",
+  "homepage": "https://github.com/styoe/croppic",
+  "_release": "75c34c3438",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "75c34c343872396543ef8281c35f1eef5325d405"
+  },
+  "_source": "git://github.com/styoe/croppic.git",
+  "_target": "*",
+  "_originalSource": "croppic",
+  "_direct": true
+}

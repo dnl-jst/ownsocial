@@ -1,5 +1,3 @@
 /.idea/
-/vendor/*
 /config.php
 /.vagrant/*
-/public/components/*
