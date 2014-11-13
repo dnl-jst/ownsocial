@@ -3,7 +3,7 @@ function getPost(post) {
     var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"><a class="action_delete_post" href="#" data-post="' + post.id + '">X</a></div>');
 
     var userP = $('<p class="user"></p>');
-    $('<img class="portrait" src="/file/?file=' + post.portraitFileId + '" />').appendTo(userP);
+    $('<a href="/profile/?user=' + post.userId + '"><img class="portrait" src="/file/?file=' + post.portraitFileId + '" /></a>').appendTo(userP);
     $('<span class="name"><a href="/profile/?user=' + post.userId + '">' + post.firstName + ' ' + post.lastName + '</a></span>').appendTo(userP);
 
     if (post.groupId) {
