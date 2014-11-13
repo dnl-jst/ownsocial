@@ -20,6 +20,7 @@ class Service_File extends Core_Service
 	{
 		$query = new Db_File_Store();
 		$query->setId($file->getId());
+		$query->setUserId($file->getUserId());
 		$query->setContent($file->getContent());
 		$query->setType($file->getType());
 		$query->setCreated($file->getCreated());

@@ -6,6 +6,9 @@ class Db_File_Store extends Core_Query
 	/** @var null|integer */
 	protected $id;
 
+	/** @var null|integer */
+	protected $userId;
+
 	/** @var string */
 	protected $content;
 
@@ -22,12 +25,14 @@ class Db_File_Store extends Core_Query
 				files
 				(
 					id,
+					user_id,
 					content,
 					type,
 					created
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -38,6 +43,7 @@ class Db_File_Store extends Core_Query
 				type = VALUES(type)';
 
 		$this->addBind($this->id);
+		$this->addBind($this->userId);
 		$this->addBind($this->content);
 		$this->addBind($this->type);
 		$this->addBind($this->created);
@@ -75,6 +81,14 @@ class Db_File_Store extends Core_Query
 	public function setType($type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @param int|null $userId
+	 */
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
 	}
 
 }

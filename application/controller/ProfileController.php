@@ -46,8 +46,8 @@ class ProfileController extends Core_Controller
 
 		}
 
-		if ($aFile['error'] > 0) {
-
+		if ($aFile['error'] > 0)
+		{
 			return $this->json(array(
 				'status' => 'error',
 				'message' => 'ERROR Return Code: '. $aFile['error']
@@ -63,6 +63,7 @@ class ProfileController extends Core_Controller
 		$sMime = $aData['mime'];
 
 		$oFile = new Model_File();
+		$oFile->setUserId($this->_currentUser->getId());
 		$oFile->setContent(file_get_contents($sFileName));
 		$oFile->setType($sMime);
 		$oFile->setCreated(new Zend_Date());
@@ -98,6 +99,14 @@ class ProfileController extends Core_Controller
 		$jpegQuality = 100;
 
 		$file = Service_File::getById($fileId);
+
+		if ($file->getUserId() != $this->_currentUser->getId())
+		{
+			return $this->json(array(
+				'status' => 'error',
+				'message' => 'permission denied'
+			));
+		}
 
 		$image = getimagesizefromstring($file->getContent());
 		$rImage = imagecreatefromstring($file->getContent());

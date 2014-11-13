@@ -10,6 +10,7 @@ class Db_File_GetById extends Core_Query
 		$sQuery = '
 			SELECT
 				id,
+				user_id,
 				content,
 				type,
 				created

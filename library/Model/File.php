@@ -3,9 +3,19 @@
 class Model_File extends Core_Model
 {
 
+	/** @var integer */
 	protected $id;
+
+	/** @var integer */
+	protected $userId;
+
+	/** @var string */
 	protected $content;
+
+	/** @var string */
 	protected $type;
+
+	/** @var Zend_Date */
 	protected $created;
 
 	/**
@@ -70,6 +80,22 @@ class Model_File extends Core_Model
 	public function setType($type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getUserId()
+	{
+		return $this->userId;
+	}
+
+	/**
+	 * @param integer $userId
+	 */
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
 	}
 
 }
