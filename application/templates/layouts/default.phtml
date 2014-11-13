@@ -13,6 +13,12 @@
 	<script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script tpye="text/javascript" src="/components/croppic/croppic.min.js"></script>
 	<script type="text/javascript" src="/js/index/index.js"></script>
+
+	<script type="text/javascript">
+
+		var currentUserId = <?= json_encode(($this->_currentUser) ? $this->_currentUser->getId() : null); ?>;
+
+	</script>
 </head>
 <body>
 
@@ -27,7 +33,7 @@
 			<div class="form-group">
 				<input type="text" class="form-control" name="search" placeholder="Search">
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-default"><i class="fa fa-search"></i> Search</button>
 		</form>
 
 		<ul class="nav navbar-nav navbar-right">

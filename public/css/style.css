@@ -7,9 +7,14 @@ img.portrait {
     height: 100px;
 }
 
-.posts .post img.portrait {
-    width: 40px;
-    height: 40px;
+.posts .post {
+    position: relative;
+}
+
+.posts .post a.action_delete_post {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .unconfirmed_contacts .unconfirmed_contact img.portrait {

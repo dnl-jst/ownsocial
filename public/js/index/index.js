@@ -1,16 +1,20 @@
 function getPost(post) {
 
-    var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"><a class="action_delete_post" href="#" data-post="' + post.id + '">X</a></div>');
+    var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
 
-    var userP = $('<p class="user"></p>');
-    $('<a href="/profile/?user=' + post.userId + '"><img class="portrait" src="/file/?file=' + post.portraitFileId + '" /></a>').appendTo(userP);
+    if (post.userId == currentUserId) {
+        $('<a class="action_delete_post btn btn-default" href="#" data-post="' + post.id + '"><i class="fa fa-trash-o"></i></a>').appendTo(element);
+    }
+
+    var userP = $('<div class="row user"></p>');
+    $('<div class="col-xs-2"><a href="/profile/?user=' + post.userId + '"><img class="img-responsive" src="/file/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userP);
     $('<span class="name"><a href="/profile/?user=' + post.userId + '">' + post.firstName + ' ' + post.lastName + '</a></span>').appendTo(userP);
 
     if (post.groupId) {
         $('<span class="in_group"> in <a href="/group/?id=' + post.groupId + '">' + post.group.name + '</a></span>').appendTo(userP);
     }
 
-    $('<span class="created">' + post.created + '</span></p>').appendTo(userP);
+    $('<br><small><span class="created">' + post.created + '</span></small></p>').appendTo('<div class="col-xs-10"></div>').appendTo(userP);
 
     $(userP).appendTo(element);
 
