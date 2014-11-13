@@ -29,7 +29,7 @@ function getPost(post) {
         interactionLine += 'Dislike';
     }
 
-    interactionLine += '</a> &bull; <a class="action_comments" href="#" data-post="' + post.id + '">Write comment</a>';
+    interactionLine += '</a> &bull; <a class="action_comments" href="#" data-post="' + post.id + '">Comments</a>';
 
     if (post.likes > 0) {
         interactionLine += ' &bull; <i class="fa fa-thumbs-o-up"></i> ' + post.likes;
@@ -43,7 +43,12 @@ function getPost(post) {
 
     $(interactionLine).appendTo(element);
 
-    $('<div class="comments"></div>').appendTo(element);
+    var comments = $('<div class="comments" style="display: none;"></div>');
+
+    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-10"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><button type="submit" class="col-xs-2 btn btn-primary">Send</button></form></div>').appendTo(comments);
+
+    $(comments).appendTo(element);
+    $('<div class="clearfix"></div>').appendTo(comments);
 
     return element;
 }
@@ -122,6 +127,8 @@ $(function() {
         event.preventDefault();
 
         var postId = $(this).data('post');
+
+        $('#post_' + postId + '>.comments').show();
 
         $.ajax({
             method: 'post',
