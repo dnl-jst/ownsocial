@@ -21,7 +21,7 @@ class Db_User_Store extends Core_Query
 	/** @var integer */
 	protected $portraitFileId;
 
-	/** @var Zend_Date */
+	/** @var integer */
 	protected $created;
 
 	protected function build()
@@ -75,7 +75,7 @@ class Db_User_Store extends Core_Query
 	}
 
 	/**
-	 * @param Zend_Date $created
+	 * @param integer $created
 	 */
 	public function setCreated($created)
 	{

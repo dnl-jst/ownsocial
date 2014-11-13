@@ -5,7 +5,8 @@ class Bootstrap
 
 	public static function initDb($config)
 	{
-		$oDb = new Zend_Db_Adapter_Pdo_Mysql(array(
+		$db = new Zend\Db\Adapter\Adapter(array(
+			'driver'   => 'Pdo_Mysql',
 			'host'     => $config['db_host'],
 			'username' => $config['db_user'],
 			'password' => $config['db_pass'],
@@ -13,7 +14,7 @@ class Bootstrap
 			'charset'  => 'utf8mb4'
 		));
 
-		Core_Query::configureDb($oDb);
+		Core_Query::configureDb($db);
 	}
 
 	public static function initSession()

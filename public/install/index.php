@@ -63,7 +63,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 				:password,
 				:first_name,
 				:last_name,
-				NOW()
+				:created
 			)'
 	);
 
@@ -71,7 +71,8 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 		':email' => $email,
 		':password' => password_hash($password, PASSWORD_DEFAULT),
 		':first_name' => $firstName,
-		':last_name' => $lastName
+		':last_name' => $lastName,
+		':created' => time()
 	));
 
 	$stmt = $db->prepare('INSERT INTO configs (`key`, `value`) VALUES (\'site_title\', :site_title)');

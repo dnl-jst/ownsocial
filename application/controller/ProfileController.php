@@ -66,7 +66,7 @@ class ProfileController extends Core_Controller
 		$oFile->setUserId($this->_currentUser->getId());
 		$oFile->setContent(file_get_contents($sFileName));
 		$oFile->setType($sMime);
-		$oFile->setCreated(new Zend_Date());
+		$oFile->setCreated(time());
 
 		$iNewFileId = Service_File::store($oFile);
 

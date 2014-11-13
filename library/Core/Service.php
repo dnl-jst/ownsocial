@@ -28,7 +28,7 @@ abstract class Core_Service
 		return $model;
 	}
 
-	protected static function fillCollection($model, array $elements)
+	protected static function fillCollection($model, \Zend\Db\Adapter\Driver\Pdo\Result $elements)
 	{
 		$collection = array();
 

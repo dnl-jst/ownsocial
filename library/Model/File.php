@@ -15,7 +15,7 @@ class Model_File extends Core_Model
 	/** @var string */
 	protected $type;
 
-	/** @var Zend_Date */
+	/** @var integer */
 	protected $created;
 
 	/**

@@ -15,7 +15,7 @@ class Db_File_Store extends Core_Query
 	/** @var string */
 	protected $type;
 
-	/** @var Zend_Date */
+	/** @var integer */
 	protected $created;
 
 	protected function build()
@@ -68,7 +68,7 @@ class Db_File_Store extends Core_Query
 	}
 
 	/**
-	 * @param Zend_Date $created
+	 * @param integer $created
 	 */
 	public function setCreated($created)
 	{

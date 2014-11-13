@@ -3,137 +3,113 @@
 abstract class Core_Query
 {
 	/**
-	 * @var Zend_Db_Adapter_Pdo_Mysql
+	 * @var Zend\Db\Adapter\Adapter
 	 */
-	protected static $oDb;
+	protected static $db;
 
 	/**
 	 * @var array
 	 */
-	protected $aBinds = array();
+	protected $binds = array();
 
-	public static function configureDb(Zend_Db_Adapter_Pdo_Mysql $oDb)
+	public static function configureDb(Zend\Db\Adapter\Adapter $db)
 	{
-		self::$oDb = $oDb;
+		self::$db = $db;
 	}
 
 	abstract protected function build();
 
-	public function addBind($mBind)
+	public function addBind($bind)
 	{
-		if (is_object($mBind) && $mBind instanceof Zend_Date)
-		{
-			/** @var $mBind Zend_Date */
-			$mBind = $mBind->get('yyyy-MM-dd HH:mm:ss');
-		}
-
-		$this->aBinds[] = $mBind;
+		$this->binds[] = $bind;
 	}
 
-	public function getBinds($bClear = false)
+	public function getBinds($clear = false)
 	{
-		$aBinds = $this->aBinds;
+		$binds = $this->binds;
 
-		if ($bClear)
-		{
+		if ($clear) {
 			$this->clearBinds();
 		}
 
-		return $aBinds;
+		return $binds;
 	}
 
 	public function clearBinds()
 	{
-		$this->aBinds = array();
+		$this->binds = array();
 	}
 
 	public function query()
 	{
-		return self::$oDb->query($this->build(), $this->getBinds(true));
+		$statement = self::$db->createStatement($this->build());
+
+		return $statement->execute($this->getBinds(true));
 	}
 
 	public function fetchRow()
 	{
-		$mResult = self::$oDb->fetchRow($this->build(), $this->getBinds(true));
+		$result = $this->query();
 
-		if ($mResult === false)
+		if ($result === false)
 		{
 			throw new Core_Query_NoResultException();
 		}
 
-		return $mResult;
-	}
-
-	public function fetchCol()
-	{
-		$mResult = self::$oDb->fetchCol($this->build(), $this->getBinds(true));
-
-		if ($mResult === false)
-		{
-			throw new Core_Query_NoResultException();
-		}
-
-		return $mResult;
+		return $result->current();
 	}
 
 	public function fetchAll()
 	{
-		$mResult = self::$oDb->fetchAll($this->build(), $this->getBinds(true));
+		$result = $this->query();
 
-		if ($mResult === false)
-		{
+		if ($result === false) {
 			throw new Core_Query_NoResultException();
 		}
 
-		return $mResult;
+		return $result;
 	}
 
 	public function fetchOne()
 	{
-		$mResult = self::$oDb->fetchOne($this->build(), $this->getBinds(true));
+		$result = $this->query();
 
-		if ($mResult === false)
-		{
+		if ($result === false) {
 			throw new Core_Query_NoResultException();
 		}
 
-		return $mResult;
+		$row = $result->current();
+
+		return reset($row);
 	}
 
 	public function fetchAssoc()
 	{
-		$mResult = self::$oDb->fetchAssoc($this->build(), $this->getBinds(true));
+		$result = $this->query();
 
-		if ($mResult === false)
-		{
+		if ($result === false) {
 			throw new Core_Query_NoResultException();
 		}
 
-		return $mResult;
-	}
+		$return = array();
 
-	public function fetchPairs()
-	{
-		$mResult = self::$oDb->fetchPairs($this->build(), $this->getBinds(true));
-
-		if ($mResult === false)
-		{
-			throw new Core_Query_NoResultException();
+		foreach ($result as $row) {
+			$return[$row['key']] = $row;
 		}
 
-		return $mResult;
+		return $return;
 	}
 
 	public function insert()
 	{
-		self::$oDb->query($this->build(), $this->getBinds(true));
+		$this->query();
 
 		return $this->lastInsertId();
 	}
 
 	public function lastInsertId()
 	{
-		return self::$oDb->lastInsertId();
+		return self::$db->getDriver()->getLastGeneratedValue();
 	}
 
 }

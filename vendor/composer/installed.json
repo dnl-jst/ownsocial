@@ -1,51 +1,55 @@
 [
     {
-        "name": "zendframework/zendframework1",
-        "version": "1.12.9",
-        "version_normalized": "1.12.9.0",
+        "name": "zendframework/zend-db",
+        "version": "2.3.3",
+        "version_normalized": "2.3.3.0",
+        "target-dir": "Zend/Db",
         "source": {
             "type": "git",
-            "url": "https://github.com/zendframework/zf1.git",
-            "reference": "5faa0abbd371bebb76f2208c389e4d7e15c11f81"
+            "url": "https://github.com/zendframework/Component_ZendDb.git",
+            "reference": "2c0515b3d8e9d152165ff8081beb5adcbf380857"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/zf1/zipball/5faa0abbd371bebb76f2208c389e4d7e15c11f81",
-            "reference": "5faa0abbd371bebb76f2208c389e4d7e15c11f81",
+            "url": "https://api.github.com/repos/zendframework/Component_ZendDb/zipball/2c0515b3d8e9d152165ff8081beb5adcbf380857",
+            "reference": "2c0515b3d8e9d152165ff8081beb5adcbf380857",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.2.11"
+            "php": ">=5.3.23"
         },
         "require-dev": {
-            "phpunit/dbunit": "1.3.*",
-            "phpunit/phpunit": "3.7.*"
+            "zendframework/zend-eventmanager": "self.version",
+            "zendframework/zend-servicemanager": "self.version",
+            "zendframework/zend-stdlib": "self.version"
         },
-        "time": "2014-09-16 20:47:34",
+        "suggest": {
+            "zendframework/zend-eventmanager": "Zend\\EventManager component",
+            "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
+            "zendframework/zend-stdlib": "Zend\\Stdlib component"
+        },
+        "time": "2014-09-16 22:58:11",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.12.x-dev"
+                "dev-master": "2.3-dev",
+                "dev-develop": "2.4-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
-                "Zend_": "library/"
+                "Zend\\Db\\": ""
             }
         },
         "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "library/"
-        ],
         "license": [
             "BSD-3-Clause"
         ],
-        "description": "Zend Framework 1",
-        "homepage": "http://framework.zend.com/",
+        "homepage": "https://github.com/zendframework/zf2",
         "keywords": [
-            "ZF1",
-            "framework"
+            "db",
+            "zf2"
         ]
     }
 ]
