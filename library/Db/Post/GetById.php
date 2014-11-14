@@ -18,6 +18,7 @@ class GetById extends Query
 				user_id,
 				visibility,
 				content,
+				image_file_id,
 				created,
 				modified
 			FROM

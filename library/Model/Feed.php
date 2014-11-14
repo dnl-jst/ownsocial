@@ -13,6 +13,7 @@ class Feed extends Model
 	protected $groupId;
 	protected $visiblity;
 	protected $content;
+	protected $imageFileId;
 	protected $created;
 	protected $modified;
 	protected $firstName;
@@ -244,6 +245,22 @@ class Feed extends Model
 	public function setGroupId($groupId)
 	{
 		$this->groupId = $groupId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getImageFileId()
+	{
+		return $this->imageFileId;
+	}
+
+	/**
+	 * @param mixed $imageFileId
+	 */
+	public function setImageFileId($imageFileId)
+	{
+		$this->imageFileId = $imageFileId;
 	}
 
 }

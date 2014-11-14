@@ -12,6 +12,7 @@ class Store extends Query
 	protected $userId;
 	protected $visibility;
 	protected $content;
+	protected $imageFileId;
 	protected $created;
 	protected $modified;
 
@@ -26,11 +27,13 @@ class Store extends Query
 					user_id,
 					visibility,
 					content,
+					image_file_id,
 					created,
 					modified
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -44,6 +47,7 @@ class Store extends Query
 				user_id = VALUES(user_id),
 				visibility = VALUES(visibility),
 				content = VALUES(content),
+				image_file_id = VALUES(image_file_id),
 				created = VALUES(created),
 				modified = VALUES(modified)';
 
@@ -52,6 +56,7 @@ class Store extends Query
 		$this->addBind($this->userId);
 		$this->addBind($this->visibility);
 		$this->addBind($this->content);
+		$this->addBind($this->imageFileId);
 		$this->addBind($this->created);
 		$this->addBind($this->modified);
 
@@ -112,6 +117,14 @@ class Store extends Query
 	public function setModified($modified)
 	{
 		$this->modified = $modified;
+	}
+
+	/**
+	 * @param mixed $imageFileId
+	 */
+	public function setImageFileId($imageFileId)
+	{
+		$this->imageFileId = $imageFileId;
 	}
 
 }

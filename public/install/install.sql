@@ -54,15 +54,16 @@ CREATE TABLE `posts` (
   `group_id` bigint(20) unsigned DEFAULT NULL,
   `visibility` enum('public','contacts','me','group') NOT NULL DEFAULT 'public',
   `content` mediumtext NOT NULL,
+  `image_file_id` bigint(20) unsigned DEFAULT NULL,
   `created` bigint(20) NOT NULL,
   `modified` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_post_id` (`parent_post_id`),
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`),
-  CONSTRAINT `posts_ibfk_4` FOREIGN KEY (`parent_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `posts_ibfk_4` FOREIGN KEY (`parent_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Create syntax for TABLE 'relations'

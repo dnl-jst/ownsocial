@@ -20,6 +20,7 @@ class GetByPostId extends Query
 				p.group_id,
 				p.visibility,
 				p.content,
+				p.image_file_id,
 				p.created,
 				p.modified,
 				u.first_name,

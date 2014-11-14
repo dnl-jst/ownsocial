@@ -21,6 +21,10 @@ function getPost(post) {
     $('<div class="clear"></p>').appendTo(element);
     $('<hr><p class="content">' + post.content + '</p>').appendTo(element);
 
+    if (post.imageFileId) {
+        $('<p class="image"><img class="img-responsive" src="/file/?file=' + post.imageFileId + '" /></p>').appendTo(element);
+    }
+
     var interactionLine = '<hr><p class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
 
     if (post.liked == 0) {
@@ -75,6 +79,44 @@ $(function() {
         }
     });
 
+    $('#post_select_image').click(function(event) {
+
+        event.preventDefault();
+
+        if ($('#post_image_id').val()) {
+
+            $('#post_image_id').val('');
+            $('#image_area').html('');
+
+            $('#post_select_image').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-image-o">');
+
+        } else {
+
+            $('#image_upload').click();
+
+        }
+
+    });
+
+    $('#image_upload').change(function(event) {
+
+        var file = $(this)[0].files[0];
+
+        $.ajax({
+            type: 'post',
+            url: '/file/add/',
+            data: file,
+            processData: false,
+            dataType: 'json',
+            success: function(result) {
+                $('#post_image_id').val(result.file_id);
+                $('#post_select_image').removeClass('btn-default').addClass('btn-danger').html('<i class="fa fa-times"></i> <i class="fa fa-file-image-o">');
+                $('#image_area').html('<img class="img-responsive" src="/file/?file=' + result.file_id + '" />')
+            }
+        })
+
+    });
+
     $('#create_post_form').submit(function(event) {
 
         event.preventDefault();
@@ -85,12 +127,14 @@ $(function() {
                 method: 'post',
                 url: '/post/add/',
                 data: {
-                    content: $('#post_content').val()
+                    content: $('#post_content').val(),
+                    image: $('#post_image_id').val()
                 },
                 dataType: 'json',
                 success: function(result) {
                     $(getPost(result)).prependTo('.posts');
                     $('#post_content').val('');
+                    $('#image_area').html('');
                 }
             });
 

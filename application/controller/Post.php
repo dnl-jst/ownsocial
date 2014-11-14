@@ -19,11 +19,13 @@ class Post extends Controller
 	{
 		$userId = $this->_currentUser->getId();
 		$content = $this->getRequest()->getPost('content');
+		$imageFileId = $this->getRequest()->getPost('image');
 
 		$post = new PostModel();
 		$post->setParentPostId(null);
 		$post->setUserId($userId);
 		$post->setContent($content);
+		$post->setImageFileId($imageFileId);
 		$post->setCreated(time());
 		$post->setModified(time());
 		$post->setVisibility('public');

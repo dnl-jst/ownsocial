@@ -11,6 +11,7 @@ class Post extends Model
 	protected $userId;
 	protected $visibility;
 	protected $content;
+	protected $imageFileId;
 	protected $created;
 	protected $modified;
 
@@ -124,6 +125,22 @@ class Post extends Model
 	public function getVisibility()
 	{
 		return $this->visibility;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getImageFileId()
+	{
+		return $this->imageFileId;
+	}
+
+	/**
+	 * @param mixed $imageFileId
+	 */
+	public function setImageFileId($imageFileId)
+	{
+		$this->imageFileId = $imageFileId;
 	}
 
 }

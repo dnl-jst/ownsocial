@@ -23,6 +23,7 @@ class Post extends Service
 		$query->setUserId($post->getUserId());
 		$query->setVisibility($post->getVisibility());
 		$query->setContent($post->getContent());
+		$query->setImageFileId($post->getImageFileId());
 		$query->setCreated($post->getCreated());
 		$query->setModified($post->getModified());
 
