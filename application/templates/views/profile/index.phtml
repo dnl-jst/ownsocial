@@ -34,6 +34,10 @@
 			<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-primary accept_request">Accept</button>
 			<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-default decline_request">Decline</button>
 		</div>
+		<?php else: ?>
+		<button class="btn btn-default">
+			<i class="fa fa-thumbs-o-up"></i> Confirmed
+		</button>
 		<?php endif; ?>
 	<?php endif; ?>
 
