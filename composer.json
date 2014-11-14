@@ -1,5 +1,6 @@
 {
     "require": {
-        "zendframework/zend-db" : "*"
+        "zendframework/zend-db" : "*",
+        "zendframework/zend-loader" : "*"
     }
 }

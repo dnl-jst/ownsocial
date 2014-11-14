@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader'),
     'Zend\\Db\\' => array($vendorDir . '/zendframework/zend-db'),
 );
