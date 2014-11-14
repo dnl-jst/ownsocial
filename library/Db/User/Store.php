@@ -13,6 +13,15 @@ class Store extends Query
 	/** @var string */
 	protected $email;
 
+	/** @var integer */
+	protected $emailConfirmed;
+
+	/** @var string */
+	protected $emailConfirmationHash;
+
+	/** @var integer */
+	protected $accountConfirmed;
+
 	/** @var string */
 	protected $password;
 
@@ -36,6 +45,9 @@ class Store extends Query
 				(
 					id,
 					email,
+					email_confirmed,
+					email_confirmation_hash,
+					account_confirmed,
 					password,
 					first_name,
 					last_name,
@@ -50,10 +62,16 @@ class Store extends Query
 					?,
 					?,
 					?,
+					?,
+					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
 				email = VALUES(email),
+				email_confirmed = VALUES(email_confirmed),
+				email_confirmation_hash = VALUES(email_confirmation_hash),
+				account_confirmed = VALUES(account_confirmed),
 				password = VALUES(password),
 				first_name = VALUES(first_name),
 				last_name = VALUES(last_name),
@@ -61,6 +79,9 @@ class Store extends Query
 
 		$this->addBind($this->id);
 		$this->addBind($this->email);
+		$this->addBind($this->emailConfirmed);
+		$this->addBind($this->emailConfirmationHash);
+		$this->addBind($this->accountConfirmed);
 		$this->addBind($this->password);
 		$this->addBind($this->firstName);
 		$this->addBind($this->lastName);
@@ -124,6 +145,30 @@ class Store extends Query
 	public function setPortraitFileId($portraitFileId)
 	{
 		$this->portraitFileId = $portraitFileId;
+	}
+
+	/**
+	 * @param int $accountConfirmed
+	 */
+	public function setAccountConfirmed($accountConfirmed)
+	{
+		$this->accountConfirmed = $accountConfirmed;
+	}
+
+	/**
+	 * @param string $emailConfirmationHash
+	 */
+	public function setEmailConfirmationHash($emailConfirmationHash)
+	{
+		$this->emailConfirmationHash = $emailConfirmationHash;
+	}
+
+	/**
+	 * @param int $emailConfirmed
+	 */
+	public function setEmailConfirmed($emailConfirmed)
+	{
+		$this->emailConfirmed = $emailConfirmed;
 	}
 
 }

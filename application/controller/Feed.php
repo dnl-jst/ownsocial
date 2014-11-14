@@ -44,7 +44,8 @@ class Feed extends Controller
 		$posts = $this->getRequest()->getPost('posts');
 
 		if (!$lastUpdate || !is_array($posts)) {
-			return $this->json(array());
+			$this->json(array());
+			return;
 		}
 
 		$feed = FeedService::getUserFeedUpdates($lastUpdate, $user->getId(), $posts);

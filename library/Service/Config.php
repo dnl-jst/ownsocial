@@ -8,10 +8,29 @@ use Db\Config\GetAll;
 class Config extends Service
 {
 
+	protected static $configs = null;
+
 	public static function getAll()
 	{
-		$query = new GetAll();
-		return $query->fetchAssoc();
+		if (self::$configs === null) {
+
+			$query = new GetAll();
+
+			self::$configs = $query->fetchAssoc();
+		}
+
+		return self::$configs;
+	}
+
+	public static function getByKey($key, $default = null)
+	{
+		$configs = self::getAll();
+
+		if (isset($configs[$key])) {
+			return $configs[$key]['value'];
+		}
+
+		return $default;
 	}
 
 }

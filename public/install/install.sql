@@ -93,6 +93,9 @@ CREATE TABLE `user_groups` (
 CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL DEFAULT '',
+  `email_confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `email_confirmation_hash` varchar(32) DEFAULT NULL,
+  `account_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `password` varchar(255) NOT NULL DEFAULT '',
   `first_name` varchar(255) NOT NULL DEFAULT '',
   `last_name` varchar(255) NOT NULL DEFAULT '',

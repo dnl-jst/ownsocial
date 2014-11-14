@@ -64,10 +64,10 @@ class Application
 		$controller = (isset($parts[0]) && $parts[0]) ? $parts[0] : 'index';
 		$controller = $this->sanitizeName($controller);
 
-		$action = (isset($parts[1]) && $parts[1]) ? $parts[1] : 'index';
-		$action = $this->sanitizeName($action);
+		$origAction = (isset($parts[1]) && $parts[1]) ? $parts[1] : 'index';
+		$action = $this->sanitizeName($origAction);
 
-		$view = new View(APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $action . '.phtml');
+		$view = new View(APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $origAction . '.phtml');
 
 		$controllerClass = 'Application\Controller\\' . ucfirst($controller);
 		$controllerInstance = new $controllerClass($request, $response, $view);

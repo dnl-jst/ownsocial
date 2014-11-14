@@ -54,7 +54,8 @@ class Controller
 
 	public function dispatch($method)
 	{
-		if (!$this->_currentUser && $this->_request->getController() !== 'index' && $this->_request->getAction() !== 'login') {
+		if (!$this->_currentUser && $this->_request->getController() !== 'index' && $this->_request->getAction() !== 'login' && $this->_request->getController() !== 'register') {
+
 			$this->redirect('/index/login/');
 			return;
 		}

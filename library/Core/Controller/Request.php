@@ -85,4 +85,9 @@ class Request
 		return (strtolower($_SERVER['REQUEST_METHOD']) === 'post');
 	}
 
+	public function getHost()
+	{
+		return $_SERVER['HTTP_HOST'];
+	}
+
 }

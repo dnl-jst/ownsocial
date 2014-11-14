@@ -15,6 +15,15 @@ class User extends Model
 	/** @var string */
 	protected $email;
 
+	/** @var integer */
+	protected $emailConfirmed;
+
+	/** @var string */
+	protected $emailConfirmationHash;
+
+	/** @var integer */
+	protected $accountConfirmed;
+
 	/** @var string */
 	protected $password;
 
@@ -140,6 +149,54 @@ class User extends Model
 	public function setPassword($password)
 	{
 		$this->password = $password;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getAccountConfirmed()
+	{
+		return $this->accountConfirmed;
+	}
+
+	/**
+	 * @param int $accountConfirmed
+	 */
+	public function setAccountConfirmed($accountConfirmed)
+	{
+		$this->accountConfirmed = $accountConfirmed;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEmailConfirmationHash()
+	{
+		return $this->emailConfirmationHash;
+	}
+
+	/**
+	 * @param string $emailConfirmationHash
+	 */
+	public function setEmailConfirmationHash($emailConfirmationHash)
+	{
+		$this->emailConfirmationHash = $emailConfirmationHash;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getEmailConfirmed()
+	{
+		return $this->emailConfirmed;
+	}
+
+	/**
+	 * @param int $emailConfirmed
+	 */
+	public function setEmailConfirmed($emailConfirmed)
+	{
+		$this->emailConfirmed = $emailConfirmed;
 	}
 
 	/**

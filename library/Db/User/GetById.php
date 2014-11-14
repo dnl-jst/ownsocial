@@ -15,6 +15,9 @@ class GetById extends Query
 			SELECT
 				u.id,
 				u.email,
+				u.email_confirmed,
+				u.email_confirmation_hash,
+				u.account_confirmed,
 				u.password,
 				u.first_name,
 				u.last_name,

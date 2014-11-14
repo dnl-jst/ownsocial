@@ -2,6 +2,8 @@
 
 namespace Service;
 
+use Core\Controller\Request;
+use Zend\Mail;
 use Core\Service;
 use Core\Query\NoResultException;
 use Model\User as UserModel;
@@ -122,6 +124,9 @@ class User extends Service
 		$query = new Store();
 		$query->setId($user->getId());
 		$query->setEmail($user->getEmail());
+		$query->setEmailConfirmed($user->getEmailConfirmed());
+		$query->setEmailConfirmationHash($user->getEmailConfirmationHash());
+		$query->setAccountConfirmed($user->getAccountConfirmed());
 		$query->setPassword($user->getPassword());
 		$query->setFirstName($user->getFirstName());
 		$query->setLastName($user->getLastName());
@@ -132,8 +137,38 @@ class User extends Service
 			$query->query();
 			return $user->getId();
 		} else {
-			return $query->insert();
+			$user->setId($query->insert());
+			return $user->getId();
 		}
+	}
+
+	public static function sendConfirmationMail(Request $request, UserModel $user)
+	{
+		$confirmationLink = sprintf(
+			'%s://%s/register/confirm/?user=%u&hash=%s',
+			($request->isSecure()) ? 'https' : 'http',
+			$request->getHost(),
+			$user->getId(),
+			$user->getEmailConfirmationHash()
+		);
+
+		$mail = new Mail\Message();
+		$mail->setFrom('no-reply@' . $request->getHost());
+		$mail->addTo($user->getEmail());
+		$mail->setSubject('Your registration at "' . Config::getByKey('site_title') . '"');
+
+		$body = array();
+		$body[] = 'You registered at "' . Config::getByKey('site_title') . '".';
+		$body[] = '';
+		$body[] = 'To confirm and use your account, click the following link:';
+		$body[] = '';
+		$body[] = $confirmationLink;
+
+		$mail->setBody(join(chr(10), $body));
+
+		$transport = new Mail\Transport\Sendmail();
+		$transport->send($mail);
+
 	}
 
 }

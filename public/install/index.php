@@ -53,6 +53,9 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 			users
 			(
 				email,
+				email_confirmed,
+				email_confirmation_hash,
+				account_confirmed,
 				password,
 				first_name,
 				last_name,
@@ -61,6 +64,9 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 			VALUES
 			(
 				:email,
+				1,
+				NULL,
+				1,
 				:password,
 				:first_name,
 				:last_name,

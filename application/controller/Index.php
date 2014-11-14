@@ -19,6 +19,8 @@ class Index extends Controller
 
 	public function loginAction()
 	{
+		$messages = array();
+
 		if ($this->getRequest()->isPost()) {
 
 			$email = $this->getRequest()->getPost('email');
@@ -27,15 +29,38 @@ class Index extends Controller
 			try {
 				$user = User::getByEmail($email);
 
-				if (password_verify($password, $user->getPassword())) {
+				if (!$user->getEmailConfirmed()) {
+
+					$messages[] = array(
+						'class' => 'warning',
+						'message' => 'Your e-mail-address isn\'t confirmed yet.'
+					);
+
+				} else if (!$user->getAccountConfirmed()) {
+
+					$messages[] = array(
+						'class' => 'warning',
+						'message' => 'This is a private network. Your account isn\'t confirmed yet.'
+					);
+
+				} else if (password_verify($password, $user->getPassword())) {
+
 					$_SESSION['user.id'] = $user->getId();
 
 					$this->redirect('/');
 				}
+
 			} catch (NoResultException $e) {
-				# todo
+
+				$messages[] = array(
+					'class' => 'warning',
+					'message' => 'Login failed.'
+				);
+
 			}
 		}
+
+		$this->_view->messages = $messages;
 	}
 
 	public function logoutAction()
