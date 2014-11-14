@@ -22,9 +22,9 @@ class ProfileController extends Core_Controller
 
 	public function savePicAction()
 	{
-		$aAllowedExtensions = array('gif', 'jpeg', 'jpg', 'png');
-		$aAllowedExtensions = array_map('preg_quote', $aAllowedExtensions);
-		$sRegex = '/\.('.implode('|', $aAllowedExtensions).')$/i';
+		$allowedExtensions = array('gif', 'jpeg', 'jpg', 'png');
+		$allowedExtensions = array_map('preg_quote', $allowedExtensions);
+		$regex = '/\.('.implode('|', $allowedExtensions).')$/i';
 
 		if (!isset($_FILES['img']['tmp_name'])) {
 
@@ -35,9 +35,9 @@ class ProfileController extends Core_Controller
 
 		}
 
-		$aFile =& $_FILES['img'];
+		$file =& $_FILES['img'];
 
-		if (!preg_match($sRegex, $aFile['name'])) {
+		if (!preg_match($regex, $file['name'])) {
 
 			return $this->json(array(
 				'status' => 'error',
@@ -46,35 +46,35 @@ class ProfileController extends Core_Controller
 
 		}
 
-		if ($aFile['error'] > 0)
+		if ($file['error'] > 0)
 		{
 			return $this->json(array(
 				'status' => 'error',
-				'message' => 'ERROR Return Code: '. $aFile['error']
+				'message' => 'ERROR Return Code: '. $file['error']
 			));
 		}
 
-		$sFileName = $aFile['tmp_name'];
+		$fileName = $file['tmp_name'];
 
-		$aData = getimagesize($sFileName);
+		$data = getimagesize($fileName);
 
-		$iWidth = $aData[0];
-		$iHeight = $aData[1];
-		$sMime = $aData['mime'];
+		$width = $data[0];
+		$height = $data[1];
+		$mime = $data['mime'];
 
-		$oFile = new Model_File();
-		$oFile->setUserId($this->_currentUser->getId());
-		$oFile->setContent(file_get_contents($sFileName));
-		$oFile->setType($sMime);
-		$oFile->setCreated(time());
+		$dbFile = new Model_File();
+		$dbFile->setUserId($this->_currentUser->getId());
+		$dbFile->setContent(file_get_contents($fileName));
+		$dbFile->setType($mime);
+		$dbFile->setCreated(time());
 
-		$iNewFileId = Service_File::store($oFile);
+		$newFileId = Service_File::store($dbFile);
 
 		return $this->json(array(
 			'status' => 'success',
-			'url' => '/file/?file=' . $iNewFileId,
-			'width' => $iWidth,
-			'height' => $iHeight
+			'url' => '/file/?file=' . $newFileId,
+			'width' => $width,
+			'height' => $height
 		));
 	}
 
@@ -108,8 +108,6 @@ class ProfileController extends Core_Controller
 			));
 		}
 
-		$image = getimagesizefromstring($file->getContent());
-		$rImage = imagecreatefromstring($file->getContent());
 		$rSourceImage = imagecreatefromstring($file->getContent());
 		$rResizedImage = imagecreatetruecolor($imgW, $imgH);
 

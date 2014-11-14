@@ -13,7 +13,7 @@ class Db_Post_Store extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			INSERT INTO
 				posts
 				(
@@ -51,7 +51,7 @@ class Db_Post_Store extends Core_Query
 		$this->addBind($this->created);
 		$this->addBind($this->modified);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

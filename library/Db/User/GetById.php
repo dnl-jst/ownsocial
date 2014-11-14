@@ -7,7 +7,7 @@ class Db_User_GetById extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			SELECT
 				u.id,
 				u.email,
@@ -24,7 +24,7 @@ class Db_User_GetById extends Core_Query
 
 		$this->addBind($this->id);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

@@ -20,7 +20,7 @@ class Db_File_Store extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			INSERT INTO
 				files
 				(
@@ -48,7 +48,7 @@ class Db_File_Store extends Core_Query
 		$this->addBind($this->type);
 		$this->addBind($this->created);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

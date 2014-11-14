@@ -8,7 +8,7 @@ class Db_Feed_GetByUserId extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			SELECT
 				p.id,
 				p.parent_post_id,
@@ -49,24 +49,24 @@ class Db_Feed_GetByUserId extends Core_Query
 		$this->addBind($this->userId);
 
 		if ($this->parentPostId) {
-			$sQuery .= '
+			$query .= '
 				AND p.parent_post_id = ?';
 
 			$this->addBind($this->parentPostId);
 		} else {
-			$sQuery .= '
+			$query .= '
 				AND
 					p.parent_post_id IS NULL';
 		}
 
-		$sQuery .= '
+		$query .= '
 			GROUP BY
 				p.id
 			ORDER BY
 				p.created DESC
 			LIMIT 10';
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

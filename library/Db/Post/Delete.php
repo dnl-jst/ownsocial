@@ -7,7 +7,7 @@ class Db_Post_Delete extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			DELETE FROM
 				posts
 			WHERE
@@ -15,7 +15,7 @@ class Db_Post_Delete extends Core_Query
 
 		$this->addBind($this->id);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

@@ -8,7 +8,7 @@ class Db_Feed_GetByPostId extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			SELECT
 				p.id,
 				p.parent_post_id,
@@ -42,7 +42,7 @@ class Db_Feed_GetByPostId extends Core_Query
 		$this->addBind($this->userId);
 		$this->addBind($this->postId);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

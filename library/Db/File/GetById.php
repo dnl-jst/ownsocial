@@ -7,7 +7,7 @@ class Db_File_GetById extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			SELECT
 				id,
 				user_id,
@@ -21,7 +21,7 @@ class Db_File_GetById extends Core_Query
 
 		$this->addBind($this->id);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**

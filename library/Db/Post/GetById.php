@@ -7,7 +7,7 @@ class Db_Post_GetById extends Core_Query
 
 	protected function build()
 	{
-		$sQuery = '
+		$query = '
 			SELECT
 				id,
 				parent_post_id,
@@ -23,7 +23,7 @@ class Db_Post_GetById extends Core_Query
 
 		$this->addBind($this->id);
 
-		return $sQuery;
+		return $query;
 	}
 
 	/**
