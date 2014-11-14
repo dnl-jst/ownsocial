@@ -51,7 +51,7 @@ abstract class Core_Query
 	{
 		$result = $this->query();
 
-		if ($result === false)
+		if ($result->count() === 0)
 		{
 			throw new Core_Query_NoResultException();
 		}
