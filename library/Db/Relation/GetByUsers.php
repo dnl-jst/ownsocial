@@ -1,6 +1,10 @@
 <?php
 
-class Db_Relation_GetByUsers extends Core_Query
+namespace Db\Relation;
+
+use Core\Query;
+
+class GetByUsers extends Query
 {
 
 	protected $userId;

@@ -1,6 +1,10 @@
 <?php
 
-class Model_Group extends Core_Model
+namespace Model;
+
+use Core\Model;
+
+class Group extends Model
 {
 
 	protected $id;

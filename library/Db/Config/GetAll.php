@@ -1,6 +1,10 @@
 <?php
 
-class Db_Config_GetAll extends Core_Query
+namespace Db\Config;
+
+use Core\Query;
+
+class GetAll extends Query
 {
 
 	protected function build()

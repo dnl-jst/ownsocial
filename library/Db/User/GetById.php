@@ -1,6 +1,10 @@
 <?php
 
-class Db_User_GetById extends Core_Query
+namespace Db\User;
+
+use Core\Query;
+
+class GetById extends Query
 {
 
 	protected $id;

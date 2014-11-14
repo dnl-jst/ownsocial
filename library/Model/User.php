@@ -1,6 +1,12 @@
 <?php
 
-class Model_User extends Core_Model
+namespace Model;
+
+use Core\Model;
+use Service\User as UserService;
+use Service\Group;
+
+class User extends Model
 {
 
 	/** @var int */
@@ -137,24 +143,24 @@ class Model_User extends Core_Model
 	}
 
 	/**
-	 * @return Model_User[]
+	 * @return User[]
 	 */
 	public function getUnconfirmedContacts()
 	{
-		return Service_User::getUnconfirmedContacts($this->getId());
+		return UserService::getUnconfirmedContacts($this->getId());
 	}
 
 	/**
-	 * @return Model_Group[]
+	 * @return \Model\Group[]
 	 */
 	public function getGroups()
 	{
-		return Service_Group::getByUserId($this->getId());
+		return Group::getByUserId($this->getId());
 	}
 
-	public function getRelationTo(Model_User $user)
+	public function getRelationTo(User $user)
 	{
-		return Service_User::getRelation($this, $user);
+		return UserService::getRelation($this, $user);
 	}
 
 }

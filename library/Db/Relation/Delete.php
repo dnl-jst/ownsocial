@@ -1,6 +1,10 @@
 <?php
 
-class Db_Relation_Delete extends Core_Query
+namespace Db\Relation;
+
+use Core\Query;
+
+class Delete extends Query
 {
 
 	protected $userId;

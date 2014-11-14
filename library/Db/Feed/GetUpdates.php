@@ -1,6 +1,10 @@
 <?php
 
-class Db_Feed_GetUpdates extends Core_Query
+namespace Db\Feed;
+
+use Core\Query;
+
+class GetUpdates extends Query
 {
 
 	protected $userId;

@@ -1,6 +1,13 @@
 <?php
 
-class RelationController extends Core_Controller
+namespace Application\Controller;
+
+use Core\Controller;
+use Service\Relation as RelationService;
+use Service\User;
+use Model\Relation as RelationModel;
+
+class Relation extends Controller
 {
 
 	public function createRequestAction()
@@ -8,36 +15,36 @@ class RelationController extends Core_Controller
 		$user = $this->_currentUser;
 		$relUserId = $this->getRequest()->getPost('user');
 
-		$relation = new Model_Relation();
+		$relation = new RelationModel();
 		$relation->setUserId($user->getId());
 		$relation->setUserId2($relUserId);
 		$relation->setCreated(time());
 		$relation->setConfirmed(null);
 
-		Service_Relation::store($relation);
+		RelationService::store($relation);
 
 		$this->json(true);
 	}
 
 	public function acceptRequestAction()
 	{
-		$user = Service_User::getCurrent();
+		$user = User::getCurrent();
 		$relUserId = $this->getRequest()->getPost('user');
 
-		$relation = Service_Relation::getByUsers($relUserId, $user->getId());
+		$relation = RelationService::getByUsers($relUserId, $user->getId());
 		$relation->setConfirmed(time());
-		Service_Relation::store($relation);
+		RelationService::store($relation);
 
 		$this->json(true);
 	}
 
 	public function declineRequestAction()
 	{
-		$user = Service_User::getCurrent();
+		$user = User::getCurrent();
 		$relUserId = $this->getRequest()->getPost('user');
 
-		$relation = Service_Relation::getByUsers($relUserId, $user->getId());
-		Service_Relation::delete($relation);
+		$relation = RelationService::getByUsers($relUserId, $user->getId());
+		RelationService::delete($relation);
 
 		$this->json(true);
 	}

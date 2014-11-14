@@ -1,6 +1,8 @@
 <?php
 
-class Core_Helper_DateSince
+namespace Core\Helper;
+
+class DateSince
 {
 
 	public static function format($timespam)

@@ -1,11 +1,16 @@
 <?php
 
-class Service_Config extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Db\Config\GetAll;
+
+class Config extends Service
 {
 
 	public static function getAll()
 	{
-		$query = new Db_Config_GetAll();
+		$query = new GetAll();
 		return $query->fetchAssoc();
 	}
 

@@ -1,6 +1,10 @@
 <?php
 
-class Db_Like_Store extends Core_Query
+namespace Db\Like;
+
+use Core\Query;
+
+class Store extends Query
 {
 
 	protected $userId;

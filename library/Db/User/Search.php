@@ -1,12 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danieljost
- * Date: 02.11.14
- * Time: 19:09
- */
 
-class Db_User_Search extends Core_Query
+namespace Db\User;
+
+use Core\Query;
+
+class Search extends Query
 {
 
 	protected $search;

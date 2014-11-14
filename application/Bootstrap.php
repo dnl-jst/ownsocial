@@ -1,5 +1,7 @@
 <?php
 
+use Core\Query;
+
 class Bootstrap
 {
 
@@ -14,7 +16,7 @@ class Bootstrap
 			'charset'  => 'utf8mb4'
 		));
 
-		Core_Query::configureDb($db);
+		Query::configureDb($db);
 	}
 
 	public static function initSession()

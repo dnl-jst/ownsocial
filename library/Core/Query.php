@@ -1,9 +1,15 @@
 <?php
 
-abstract class Core_Query
+namespace Core;
+
+use Zend\Db\Adapter\Adapter;
+
+use Core\Query\NoResultException;
+
+abstract class Query
 {
 	/**
-	 * @var Zend\Db\Adapter\Adapter
+	 * @var Adapter
 	 */
 	protected static $db;
 
@@ -12,7 +18,7 @@ abstract class Core_Query
 	 */
 	protected $binds = array();
 
-	public static function configureDb(Zend\Db\Adapter\Adapter $db)
+	public static function configureDb(Adapter $db)
 	{
 		self::$db = $db;
 	}
@@ -53,7 +59,7 @@ abstract class Core_Query
 
 		if ($result->count() === 0)
 		{
-			throw new Core_Query_NoResultException();
+			throw new NoResultException();
 		}
 
 		return $result->current();
@@ -64,7 +70,7 @@ abstract class Core_Query
 		$result = $this->query();
 
 		if ($result === false) {
-			throw new Core_Query_NoResultException();
+			throw new NoResultException();
 		}
 
 		return $result;
@@ -75,7 +81,7 @@ abstract class Core_Query
 		$result = $this->query();
 
 		if ($result === false) {
-			throw new Core_Query_NoResultException();
+			throw new NoResultException();
 		}
 
 		$row = $result->current();
@@ -88,7 +94,7 @@ abstract class Core_Query
 		$result = $this->query();
 
 		if ($result === false) {
-			throw new Core_Query_NoResultException();
+			throw new NoResultException();
 		}
 
 		$return = array();

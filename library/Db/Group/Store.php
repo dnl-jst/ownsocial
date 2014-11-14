@@ -1,6 +1,10 @@
 <?php
 
-class Db_Group_Store extends Core_Query
+namespace Db\Group;
+
+use Core\Query;
+
+class Store extends Query
 {
 
 	protected $id;

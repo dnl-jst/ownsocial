@@ -1,6 +1,10 @@
 <?php
 
-class Db_File_GetById extends Core_Query
+namespace Db\File;
+
+use Core\Query;
+
+class GetById extends Query
 {
 
 	protected $id;

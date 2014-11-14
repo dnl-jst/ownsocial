@@ -1,6 +1,10 @@
 <?php
 
-class Db_Like_Delete extends Core_Query
+namespace Db\Like;
+
+use Core\Query;
+
+class Delete extends Query
 {
 
 	protected $userId;

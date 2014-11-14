@@ -1,6 +1,10 @@
 <?php
 
-class Model_Like extends Core_Model
+namespace Model;
+
+use Core\Model;
+
+class Like extends Model
 {
 
 	protected $userId;

@@ -1,6 +1,10 @@
 <?php
 
-class Db_Post_Delete extends Core_Query
+namespace Db\Post;
+
+use Core\Query;
+
+class Delete extends Query
 {
 
 	protected $id;

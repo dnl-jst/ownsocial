@@ -1,21 +1,29 @@
 <?php
 
-class Service_Feed extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Db\Feed\GetByUserId;
+use Db\Feed\GetUpdates;
+use Db\Feed\GetByPostId;
+use Model\Feed as FeedModel;
+
+class Feed extends Service
 {
 
 	/**
 	 * @param $parentPostId
 	 * @param $userId
-	 * @return Model_Feed[]
-	 * @throws Core_Query_NoResultException
+	 * @return FeedModel[]
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getUserFeed($parentPostId, $userId)
 	{
-		$query = new Db_Feed_GetByUserId();
+		$query = new GetByUserId();
 		$query->setParentPostId($parentPostId);
 		$query->setUserId($userId);
 
-		$model = new Model_Feed();
+		$model = new FeedModel();
 		$aPosts = self::fillCollection($model, $query->fetchAll());
 
 		return $aPosts;
@@ -25,17 +33,17 @@ class Service_Feed extends Core_Service
 	 * @param $lastUpdate
 	 * @param $userId
 	 * @param $posts
-	 * @return Model_Feed[]
-	 * @throws Core_Query_NoResultException
+	 * @return FeedModel[]
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getUserFeedUpdates($lastUpdate, $userId, $posts)
 	{
-		$query = new Db_Feed_GetUpdates();
+		$query = new GetUpdates();
 		$query->setUserId($userId);
 		$query->setPosts($posts);
 		$query->setLastUpdate($lastUpdate);
 
-		$model = new Model_Feed();
+		$model = new FeedModel();
 		$aPosts = self::fillCollection($model, $query->fetchAll());
 
 		return $aPosts;
@@ -44,16 +52,16 @@ class Service_Feed extends Core_Service
 	/**
 	 * @param $userId
 	 * @param $postId
-	 * @return Model_Feed
-	 * @throws Core_Query_NoResultException
+	 * @return FeedModel
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getUserFeedPost($userId, $postId)
 	{
-		$query = new Db_Feed_GetByPostId();
+		$query = new GetByPostId();
 		$query->setUserId($userId);
 		$query->setPostId($postId);
 
-		return self::fillModel(new Model_Feed(), $query->fetchRow());
+		return self::fillModel(new FeedModel(), $query->fetchRow());
 	}
 
 }

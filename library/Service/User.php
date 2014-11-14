@@ -1,10 +1,22 @@
 <?php
 
-class Service_User extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Core\Query\NoResultException;
+use Model\User as UserModel;
+use Db\User\GetById;
+use Db\User\GetByEmail;
+use Db\User\GetUnconfirmedContacts;
+use Db\User\Search;
+use Db\User\Store;
+use Service\Relation;
+
+class User extends Service
 {
 
 	/**
-	 * @return bool|Model_User
+	 * @return bool|UserModel
 	 */
 	public static function getCurrent()
 	{
@@ -15,8 +27,8 @@ class Service_User extends Core_Service
 		}
 
 		try {
-			$user = Service_User::getById($userId);
-		} catch (Core_Query_NoResultException $e) {
+			$user = self::getById($userId);
+		} catch (NoResultException $e) {
 			$user = false;
 		}
 
@@ -26,84 +38,88 @@ class Service_User extends Core_Service
 
 	/**
 	 * @param $id
-	 * @return Model_User
-	 * @throws Core_Query_NoResultException
+	 * @return UserModel
+	 * @throws NoResultException
 	 */
 	public static function getById($id)
 	{
-		$query = new Db_User_GetById();
+		$query = new GetById();
 		$query->setId($id);
 
-		$user = self::fillModel(new Model_User(), $query->fetchRow());
+		$user = self::fillModel(new UserModel(), $query->fetchRow());
 
 		return $user;
 	}
 
 	/**
 	 * @param $email
-	 * @return Model_User
-	 * @throws Core_Query_NoResultException
+	 * @return UserModel
+	 * @throws NoResultException
 	 */
 	public static function getByEmail($email)
 	{
-		$query = new Db_User_GetByEmail();
+		$query = new GetByEmail();
 		$query->setEmail($email);
 
-		$user = self::fillModel(new Model_User(), $query->fetchRow());
+		$user = self::fillModel(new UserModel(), $query->fetchRow());
 
 		return $user;
 	}
 
 	/**
 	 * @param $userId
-	 * @return Model_User[]
-	 * @throws Core_Query_NoResultException
+	 * @return UserModel[]
+	 * @throws NoResultException
 	 */
 	public static function getUnconfirmedContacts($userId)
 	{
-		$query = new Db_User_GetUnconfirmedContacts();
+		$query = new GetUnconfirmedContacts();
 		$query->setId($userId);
 
-		return self::fillCollection(new Model_User(), $query->fetchAll());
+		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
 
 	/**
 	 * @param $search
-	 * @return Model_User[]
-	 * @throws Core_Query_NoResultException
+	 * @return UserModel[]
+	 * @throws NoResultException
 	 */
 	public static function search($search)
 	{
-		$query = new Db_User_Search();
+		$query = new Search();
 		$query->setSearch($search);
 
-		return self::fillCollection(new Model_User(), $query->fetchAll());
+		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
 
-	public static function getRelation($user1, $user2)
+	public static function getRelation(UserModel $user1, UserModel $user2)
 	{
 		$relation = null;
 
 		try {
-			$relation = Service_Relation::getByUsers($user1->getId(), $user2->getId());
+			$relation = Relation::getByUsers($user1->getId(), $user2->getId());
 		}
-		catch (Core_Query_NoResultException $e)
+		catch (NoResultException $e)
 		{}
 
 		if (!$relation) {
 			try {
-				$relation = Service_Relation::getByUsers($user2->getId(), $user1->getId());
+				$relation = Relation::getByUsers($user2->getId(), $user1->getId());
 			}
-			catch (Core_Query_NoResultException $e)
+			catch (NoResultException $e)
 			{}
 		}
 
 		return $relation;
 	}
 
-	public static function store(Model_User $user)
+	/**
+	 * @param UserModel $user
+	 * @return integer
+	 */
+	public static function store(UserModel $user)
 	{
-		$query = new Db_User_Store();
+		$query = new Store();
 		$query->setId($user->getId());
 		$query->setEmail($user->getEmail());
 		$query->setPassword($user->getPassword());

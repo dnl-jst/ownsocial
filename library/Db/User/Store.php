@@ -1,6 +1,10 @@
 <?php
 
-class Db_User_Store extends Core_Query
+namespace Db\User;
+
+use Core\Query;
+
+class Store extends Query
 {
 
 	/** @var null|integer */

@@ -1,6 +1,10 @@
 <?php
 
-class Db_Post_Store extends Core_Query
+namespace Db\Post;
+
+use Core\Query;
+
+class Store extends Query
 {
 
 	protected $id;

@@ -1,4 +1,6 @@
 <?php
 
-class Core_Exception extends Exception
+namespace Core;
+
+class Exception extends \Exception
 {}

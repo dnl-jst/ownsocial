@@ -1,6 +1,10 @@
 <?php
 
-class Model_File extends Core_Model
+namespace Model;
+
+use Core\Model;
+
+class File extends Model
 {
 
 	/** @var integer */

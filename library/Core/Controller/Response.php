@@ -1,6 +1,8 @@
 <?php
 
-class Core_Controller_Response
+namespace Core\Controller;
+
+class Response
 {
 	protected $_output;
 

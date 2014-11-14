@@ -1,6 +1,10 @@
 <?php
 
-class Db_Feed_GetByPostId extends Core_Query
+namespace Db\Feed;
+
+use Core\Query;
+
+class GetByPostId extends Query
 {
 
 	protected $userId;

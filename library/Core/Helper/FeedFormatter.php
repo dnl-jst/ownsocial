@@ -1,6 +1,8 @@
 <?php
 
-class Core_Helper_FeedFormatter
+namespace Core\Helper;
+
+class FeedFormatter
 {
 
 	public static function format($content)

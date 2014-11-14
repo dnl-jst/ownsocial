@@ -1,11 +1,46 @@
 <?php
 
-class Core_Controller_Request
+namespace Core\Controller;
+
+class Request
 {
 
-	public function __construct()
+	/** @var string */
+	protected $controller;
+
+	/** @var string */
+	protected $action;
+
+	/**
+	 * @return string
+	 */
+	public function getAction()
 	{
-		#
+		return $this->action;
+	}
+
+	/**
+	 * @param string $action
+	 */
+	public function setAction($action)
+	{
+		$this->action = $action;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getController()
+	{
+		return $this->controller;
+	}
+
+	/**
+	 * @param string $controller
+	 */
+	public function setController($controller)
+	{
+		$this->controller = $controller;
 	}
 
 	/**

@@ -1,11 +1,23 @@
 <?php
 
-class Service_Post extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Model\Post as PostModel;
+use Db\Post\Store;
+use Db\Post\GetById;
+use Db\Post\Delete;
+
+class Post extends Service
 {
 
-	public static function store(Model_Post $post)
+	/**
+	 * @param PostModel $post
+	 * @return integer
+	 */
+	public static function store(PostModel $post)
 	{
-		$query = new Db_Post_Store();
+		$query = new Store();
 		$query->setId($post->getId());
 		$query->setParentPostId($post->getParentPostId());
 		$query->setUserId($post->getUserId());
@@ -24,20 +36,24 @@ class Service_Post extends Core_Service
 
 	/**
 	 * @param $id
-	 * @return Model_Post
-	 * @throws Core_Query_NoResultException
+	 * @return PostModel
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getById($id)
 	{
-		$query = new Db_Post_GetById();
+		$query = new GetById();
 		$query->setId($id);
 
-		return self::fillModel(new Model_Post(), $query->fetchRow());
+		return self::fillModel(new PostModel(), $query->fetchRow());
 	}
 
+	/**
+	 * @param integer $id
+	 * @return void
+	 */
 	public static function delete($id)
 	{
-		$query = new Db_Post_Delete();
+		$query = new Delete();
 		$query->setId($id);
 		$query->query();
 	}

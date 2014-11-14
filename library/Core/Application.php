@@ -1,6 +1,15 @@
 <?php
 
-class Core_Application
+namespace Core;
+
+use Core\Controller;
+use Core\Controller\Request;
+use Core\Controller\Response;
+use Core\Exception;
+use Core\View;
+use Zend\Loader\AutoloaderFactory;
+
+class Application
 {
 	protected $config;
 
@@ -22,11 +31,18 @@ class Core_Application
 
 	public function run()
 	{
-		$request = new Core_Controller_Request();
-		$response = new Core_Controller_Response();
+		$request = new Request();
+		$response = new Response();
 
-		$autoLoader = Core_AutoLoader::getInstance();
-		$autoLoader->addPath(APPLICATION_ROOT . '/application/controller/');
+		$autoloaderConfig = array(
+			'Zend\Loader\StandardAutoloader' => array(
+				'namespaces' => array(
+					'Application\\Controller' => APPLICATION_ROOT . '/application/controller/'
+				)
+			)
+		);
+
+		AutoloaderFactory::factory($autoloaderConfig);
 
 		$this->callController($request, $response);
 
@@ -34,12 +50,12 @@ class Core_Application
 	}
 
 	/**
-	 * @param Core_Controller_Request $request
-	 * @param Core_Controller_Response $response
-	 * @throws Core_Exception
+	 * @param Request $request
+	 * @param Response $response
+	 * @throws Exception
 	 * @return void
 	 */
-	protected function callController(Core_Controller_Request $request, Core_Controller_Response $response)
+	protected function callController(Request $request, Response $response)
 	{
 		$path = $request->getPath();
 		$path = trim($path, '/');
@@ -51,20 +67,23 @@ class Core_Application
 		$action = (isset($parts[1]) && $parts[1]) ? $parts[1] : 'index';
 		$action = $this->sanitizeName($action);
 
-		$view = new Core_View(APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $action . '.phtml');
+		$view = new View(APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $action . '.phtml');
 
-		$controllerClass = ucfirst($controller) . 'Controller';
+		$controllerClass = 'Application\Controller\\' . ucfirst($controller);
 		$controllerInstance = new $controllerClass($request, $response, $view);
 
-		if (!$controllerInstance instanceof Core_Controller) {
-			throw new Core_Exception('controller ' . $controllerClass . ' not instance of Core_Controller');
+		if (!$controllerInstance instanceof Controller) {
+			throw new Exception('controller ' . $controllerClass . ' not instance of Core_Controller');
 		}
 
 		$actionMethod = $action . 'Action';
 
 		if (!method_exists($controllerInstance, $actionMethod)) {
-			throw new Core_Exception('action ' . $actionMethod . ' not found in controller ' . $controllerClass);
+			throw new Exception('action ' . $actionMethod . ' not found in controller ' . $controllerClass);
 		}
+
+		$request->setController($controller);
+		$request->setAction($action);
 
 		$controllerInstance->dispatch($actionMethod);
 	}

@@ -1,6 +1,13 @@
 <?php
 
-class ProfileController extends Core_Controller
+namespace Application\Controller;
+
+use Core\Controller;
+use Service\User;
+use Service\File;
+use Model\File as FileModel;
+
+class Profile extends Controller
 {
 
 	public function indexAction()
@@ -11,12 +18,12 @@ class ProfileController extends Core_Controller
 			$this->redirect('/');
 		}
 
-		$this->_view->user = Service_User::getById($userId);
+		$this->_view->user = User::getById($userId);
 	}
 
 	public function meAction()
 	{
-		$this->_view->user = Service_User::getCurrent();
+		$this->_view->user = User::getCurrent();
 		$this->_view->render('profile/index.phtml');
 	}
 
@@ -28,10 +35,11 @@ class ProfileController extends Core_Controller
 
 		if (!isset($_FILES['img']['tmp_name'])) {
 
-			return $this->json(array(
+			$this->json(array(
 				'status' => 'error',
 				'message' => 'something went wrong1'
 			));
+			return;
 
 		}
 
@@ -39,19 +47,21 @@ class ProfileController extends Core_Controller
 
 		if (!preg_match($regex, $file['name'])) {
 
-			return $this->json(array(
+			$this->json(array(
 				'status' => 'error',
 				'message' => 'something went wrong2'
 			));
+			return;
 
 		}
 
 		if ($file['error'] > 0)
 		{
-			return $this->json(array(
+			$this->json(array(
 				'status' => 'error',
 				'message' => 'ERROR Return Code: '. $file['error']
 			));
+			return;
 		}
 
 		$fileName = $file['tmp_name'];
@@ -62,15 +72,15 @@ class ProfileController extends Core_Controller
 		$height = $data[1];
 		$mime = $data['mime'];
 
-		$dbFile = new Model_File();
+		$dbFile = new FileModel();
 		$dbFile->setUserId($this->_currentUser->getId());
 		$dbFile->setContent(file_get_contents($fileName));
 		$dbFile->setType($mime);
 		$dbFile->setCreated(time());
 
-		$newFileId = Service_File::store($dbFile);
+		$newFileId = File::store($dbFile);
 
-		return $this->json(array(
+		$this->json(array(
 			'status' => 'success',
 			'url' => '/file/?file=' . $newFileId,
 			'width' => $width,
@@ -98,14 +108,15 @@ class ProfileController extends Core_Controller
 		$cropH = $request->getPost('cropH');
 		$jpegQuality = 100;
 
-		$file = Service_File::getById($fileId);
+		$file = File::getById($fileId);
 
 		if ($file->getUserId() != $this->_currentUser->getId())
 		{
-			return $this->json(array(
+			$this->json(array(
 				'status' => 'error',
 				'message' => 'permission denied'
 			));
+			return;
 		}
 
 		$rSourceImage = imagecreatefromstring($file->getContent());
@@ -146,11 +157,11 @@ class ProfileController extends Core_Controller
 
 		$file->setContent(ob_get_clean());
 
-		Service_File::store($file);
+		File::store($file);
 
 		$this->_currentUser->setPortraitFileId($fileId);
 
-		Service_User::store($this->_currentUser);
+		User::store($this->_currentUser);
 
 		$aResponse = array(
 			'status' => 'success',

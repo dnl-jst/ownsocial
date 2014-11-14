@@ -1,6 +1,10 @@
 <?php
 
-class Db_File_Store extends Core_Query
+namespace Db\File;
+
+use Core\Query;
+
+class Store extends Query
 {
 
 	/** @var null|integer */

@@ -1,12 +1,19 @@
 <?php
 
-class IndexController extends Core_Controller
+namespace Application\Controller;
+
+use Core\Controller;
+use Core\Query\NoResultException;
+use Service\User;
+
+class Index extends Controller
 {
 
 	public function indexAction()
 	{
-		if (!Service_User::getCurrent()) {
-			return $this->redirect('/index/login/');
+		if (!User::getCurrent()) {
+			$this->redirect('/index/login/');
+			return;
 		}
 	}
 
@@ -18,14 +25,14 @@ class IndexController extends Core_Controller
 			$password = $this->getRequest()->getPost('password');
 
 			try {
-				$user = Service_User::getByEmail($email);
+				$user = User::getByEmail($email);
 
 				if (password_verify($password, $user->getPassword())) {
 					$_SESSION['user.id'] = $user->getId();
 
 					$this->redirect('/');
 				}
-			} catch (Core_Query_NoResultException $e) {
+			} catch (NoResultException $e) {
 				# todo
 			}
 		}

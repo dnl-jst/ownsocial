@@ -1,19 +1,26 @@
 <?php
 
-class Service_Like extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Model\Like as LikeModel;
+use Db\Like\Store;
+use Db\Like\Delete;
+
+class Like extends Service
 {
-	public static function store(Model_Like $like)
+	public static function store(LikeModel $like)
 	{
-		$query = new Db_Like_Store();
+		$query = new Store();
 		$query->setUserId($like->getUserId());
 		$query->setPostId($like->getPostId());
 		$query->setCreated($like->getCreated());
 		$query->query();
 	}
 
-	public static function delete(Model_Like $like)
+	public static function delete(LikeModel $like)
 	{
-		$query = new Db_Like_Delete();
+		$query = new Delete();
 		$query->setUserId($like->getUserId());
 		$query->setPostId($like->getPostId());
 		$query->query();

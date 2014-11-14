@@ -1,41 +1,49 @@
 <?php
 
-class Service_Group extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Model\Group as GroupModel;
+use Db\Group\GetByUserId;
+use Db\Group\GetById;
+use Db\Group\Store;
+
+class Group extends Service
 {
 
 	/**
 	 * @param $userId
-	 * @return Model_Group[]
-	 * @throws Core_Query_NoResultException
+	 * @return GroupModel[]
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getByUserId($userId)
 	{
-		$query = new Db_Group_GetByUserId();
+		$query = new GetByUserId();
 		$query->setUserId($userId);
 
-		return self::fillCollection(new Model_Group(), $query->fetchAll());
+		return self::fillCollection(new GroupModel(), $query->fetchAll());
 	}
 
 	/**
 	 * @param $id
-	 * @return Model_Group
-	 * @throws Core_Query_NoResultException
+	 * @return GroupModel
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getById($id)
 	{
-		$query = new Db_Group_GetById();
+		$query = new GetById();
 		$query->setId($id);
 
-		return self::fillModel(new Model_Group(), $query->fetchRow());
+		return self::fillModel(new GroupModel(), $query->fetchRow());
 	}
 
 	/**
-	 * @param Model_Group $group
+	 * @param GroupModel $group
 	 * @return int
 	 */
-	public static function store(Model_Group $group)
+	public static function store(GroupModel $group)
 	{
-		$query = new Db_Group_Store();
+		$query = new Store();
 		$query->setId($group->getId());
 		$query->setName($group->getName());
 		$query->setCreated($group->getCreated());

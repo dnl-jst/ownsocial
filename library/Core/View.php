@@ -1,6 +1,11 @@
 <?php
 
-class Core_View
+namespace Core;
+
+use Service\Config;
+use Service\User;
+
+class View
 {
 
 	protected $_config = array();
@@ -14,8 +19,8 @@ class Core_View
 
 	public function __construct($templatePath, $templateFile)
 	{
-		$this->_config = Service_Config::getAll();
-		$this->_currentUser = Service_User::getCurrent();
+		$this->_config = Config::getAll();
+		$this->_currentUser = User::getCurrent();
 		$this->_templatePath = $templatePath;
 		$this->_templateFile = $templateFile;
 		$this->_layout = APPLICATION_ROOT . '/application/templates/layouts/default.phtml';

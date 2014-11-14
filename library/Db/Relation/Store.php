@@ -1,6 +1,10 @@
 <?php
 
-class Db_Relation_Store extends Core_Query
+namespace Db\Relation;
+
+use Core\Query;
+
+class Store extends Query
 {
 
 	protected $userId;

@@ -1,15 +1,24 @@
 <?php
 
-class Core_Controller
+namespace Core;
+
+use Core\Controller\Request;
+use Core\Controller\Response;
+use Core\View;
+use Model\User as UserModel;
+use Service\User;
+use Service\Config;
+
+class Controller
 {
 
-	/** @var Core_Controller_Request */
+	/** @var Request */
 	protected $_request;
 
-	/** @var Core_Controller_Response */
+	/** @var Response */
 	protected $_response;
 
-	/** @var Core_View */
+	/** @var View */
 	protected $_view;
 
 	/** @var bool */
@@ -18,19 +27,19 @@ class Core_Controller
 	/** @var bool */
 	protected $_disableRender = false;
 
-	/** @var Model_User */
+	/** @var UserModel */
 	protected $_currentUser;
 
 	/** @var array */
 	protected $_config;
 
-	public function __construct(Core_Controller_Request $request, Core_Controller_Response $response, Core_View $view)
+	public function __construct(Request $request, Response $response, View $view)
 	{
 		$this->_request = $request;
 		$this->_response = $response;
 		$this->_view = $view;
-		$this->_currentUser = Service_User::getCurrent();
-		$this->_config = Service_Config::getAll();
+		$this->_currentUser = User::getCurrent();
+		$this->_config = Config::getAll();
 	}
 
 	protected function getRequest()
@@ -45,6 +54,11 @@ class Core_Controller
 
 	public function dispatch($method)
 	{
+		if (!$this->_currentUser && $this->_request->getController() !== 'index' && $this->_request->getAction() !== 'login') {
+			$this->redirect('/index/login/');
+			return;
+		}
+
 		$this->$method();
 
 		if (!$this->_disableRender) {
@@ -69,8 +83,6 @@ class Core_Controller
 	{
 		header('Location: ' . $url);
 		exit();
-
-		return null;
 	}
 
 }

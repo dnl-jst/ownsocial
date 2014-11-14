@@ -1,6 +1,10 @@
 <?php
 
-class Db_Post_GetById extends Core_Query
+namespace Db\Post;
+
+use Core\Query;
+
+class GetById extends Query
 {
 
 	protected $id;

@@ -1,24 +1,31 @@
 <?php
 
-class Service_File extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Model\File as FileModel;
+use Db\File\GetById;
+use Db\File\Store;
+
+class File extends Service
 {
 
 	/**
 	 * @param $id
-	 * @return Model_File
-	 * @throws Core_Query_NoResultException
+	 * @return FileModel
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getById($id)
 	{
-		$query = new Db_File_GetById();
+		$query = new GetById();
 		$query->setId($id);
 
-		return self::fillModel(new Model_File(), $query->fetchRow());
+		return self::fillModel(new FileModel(), $query->fetchRow());
 	}
 
-	public static function store(Model_File $file)
+	public static function store(FileModel $file)
 	{
-		$query = new Db_File_Store();
+		$query = new Store();
 		$query->setId($file->getId());
 		$query->setUserId($file->getUserId());
 		$query->setContent($file->getContent());

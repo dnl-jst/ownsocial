@@ -1,6 +1,10 @@
 <?php
 
-class Model_Feed extends Core_Model
+namespace Model;
+
+use Core\Model;
+
+class Feed extends Model
 {
 
 	protected $id;

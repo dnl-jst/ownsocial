@@ -1,6 +1,8 @@
 <?php
 
-abstract class Core_Model
+namespace Core;
+
+abstract class Model
 {
 
 	public function toArray()

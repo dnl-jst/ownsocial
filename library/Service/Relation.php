@@ -1,26 +1,38 @@
 <?php
 
-class Service_Relation extends Core_Service
+namespace Service;
+
+use Core\Service;
+use Model\Relation as RelationModel;
+use Db\Relation\GetByUsers;
+use Db\Relation\Store;
+use Db\Relation\Delete;
+
+class Relation extends Service
 {
 
 	/**
 	 * @param $userId
 	 * @param $userId2
-	 * @return Model_Relation
-	 * @throws Core_Query_NoResultException
+	 * @return RelationModel
+	 * @throws \Core\Query\NoResultException
 	 */
 	public static function getByUsers($userId, $userId2)
 	{
-		$query = new Db_Relation_GetByUsers();
+		$query = new GetByUsers();
 		$query->setUserId($userId);
 		$query->setUserId2($userId2);
 
-		return self::fillModel(new Model_Relation(), $query->fetchRow());
+		return self::fillModel(new RelationModel(), $query->fetchRow());
 	}
 
-	public static function store(Model_Relation $relation)
+	/**
+	 * @param RelationModel $relation
+	 * @return void
+	 */
+	public static function store(RelationModel $relation)
 	{
-		$query = new Db_Relation_Store();
+		$query = new Store();
 		$query->setUserId($relation->getUserId());
 		$query->setUserId2($relation->getUserId2());
 		$query->setCreated($relation->getCreated());
@@ -28,9 +40,13 @@ class Service_Relation extends Core_Service
 		$query->query();
 	}
 
-	public static function delete(Model_Relation $relation)
+	/**
+	 * @param RelationModel $relation
+	 * @return void
+	 */
+	public static function delete(RelationModel $relation)
 	{
-		$query = new Db_Relation_Delete();
+		$query = new Delete();
 		$query->setUserId($relation->getUserId());
 		$query->setUserId2($relation->getUserId2());
 		$query->query();

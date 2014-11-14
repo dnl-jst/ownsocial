@@ -1,6 +1,10 @@
 <?php
 
-class Db_User_GetUnconfirmedContacts extends Core_Query
+namespace Db\User;
+
+use Core\Query;
+
+class GetUnconfirmedContacts extends Query
 {
 
 	protected $id;

@@ -1,6 +1,10 @@
 <?php
 
-class Model_Post extends Core_Model
+namespace Model;
+
+use Core\Model;
+
+class Post extends Model
 {
 	protected $id;
 	protected $parentPostId;
@@ -109,9 +113,9 @@ class Model_Post extends Core_Model
 	/**
 	 * @param mixed $visiblity
 	 */
-	public function setVisibility($visiblity)
+	public function setVisibility($visibility)
 	{
-		$this->visiblity = $visiblity;
+		$this->visibility = $visibility;
 	}
 
 	/**
@@ -119,7 +123,7 @@ class Model_Post extends Core_Model
 	 */
 	public function getVisibility()
 	{
-		return $this->visiblity;
+		return $this->visibility;
 	}
 
 }

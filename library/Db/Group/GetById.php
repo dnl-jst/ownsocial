@@ -1,6 +1,10 @@
 <?php
 
-class Db_Group_GetById extends Core_Query
+namespace Db\Group;
+
+use Core\Query;
+
+class GetById extends Query
 {
 
 	protected $id;

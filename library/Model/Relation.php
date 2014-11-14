@@ -1,6 +1,10 @@
 <?php
 
-class Model_Relation extends Core_Model
+namespace Model;
+
+use Core\Model;
+
+class Relation extends Model
 {
 
 	protected $userId;

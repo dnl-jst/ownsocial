@@ -1,14 +1,10 @@
 <?php
-/**
- *
- *
- * @author djost
- * @since 08.02.2013
- * @category
- * @package
- * @subpackage
- */
-abstract class Core_Service
+
+namespace Core;
+
+use Zend\Db\Adapter\Driver\Pdo\Result;
+
+abstract class Service
 {
 
 	protected static function fillModel($model, array $data)
@@ -28,7 +24,7 @@ abstract class Core_Service
 		return $model;
 	}
 
-	protected static function fillCollection($model, \Zend\Db\Adapter\Driver\Pdo\Result $elements)
+	protected static function fillCollection($model, Result $elements)
 	{
 		$collection = array();
 
