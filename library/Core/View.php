@@ -70,4 +70,12 @@ class View
 		return htmlspecialchars($var, ENT_COMPAT, $this->_encoding);
 	}
 
+	protected function displayMessage($aMessage) {
+
+		if (is_array($aMessage)) {
+			return '<div class="alert alert-' . @$aMessage['class'] . '"><p>' . $this->escape(@$aMessage['message']) . '</p></div>';
+		}
+
+	}
+
 }

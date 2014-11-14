@@ -3,22 +3,27 @@
 	<legend>Registration</legend>
 
 	<div class="form-group">
+		<?= $this->displayMessage(@$this->errors['email']); ?>
 		<input type="email" class="form-control" name="email" value="<?= $this->escape($this->email); ?>" placeholder="E-mail-address">
 	</div>
 
 	<div class="form-group">
+		<?= $this->displayMessage(@$this->errors['first_name']); ?>
 		<input type="text" class="form-control" name="first_name" value="<?= $this->escape($this->firstName); ?>" placeholder="First name">
 	</div>
 
 	<div class="form-group">
+		<?= $this->displayMessage(@$this->errors['last_name']); ?>
 		<input type="text" class="form-control" name="last_name" value="<?= $this->escape($this->lastName); ?>" placeholder="Last name">
 	</div>
 
 	<div class="form-group">
+		<?= $this->displayMessage(@$this->errors['password']); ?>
 		<input type="password" class="form-control" name="password" value="" placeholder="Choose a password">
 	</div>
 
 	<div class="form-group">
+		<?= $this->displayMessage(@$this->errors['password2']); ?>
 		<input type="password" class="form-control" name="password2" value="" placeholder="Repeat the password">
 	</div>
 

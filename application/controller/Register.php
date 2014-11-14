@@ -22,30 +22,58 @@ class Register extends Controller
 
 		if ($this->getRequest()->isPost())
 		{
-			$email = $this->getRequest()->getPost('email');
-			$firstName = $this->getRequest()->getPost('first_name');
-			$lastName = $this->getRequest()->getPost('last_name');
+			$email = trim($this->getRequest()->getPost('email'));
+			$firstName = trim($this->getRequest()->getPost('first_name'));
+			$lastName = trim($this->getRequest()->getPost('last_name'));
 			$password = $this->getRequest()->getPost('password');
 			$password2 = $this->getRequest()->getPost('password2');
 
 			if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match('~@[^.]+\.[^.]+~', $email)) {
-				$errors['email'] = 'Please enter a valid e-mail-address.';
+
+				$errors['email'] = array(
+					'class' => 'danger',
+					'message' => 'Please enter a valid e-mail-address.'
+				);
+
+			} else {
+
+				try {
+					UserService::getByEmail($email);
+
+					$errors['email'] = array(
+						'class' => 'danger',
+						'message' => 'This e-mail-address is already used.'
+					);
+
+				} catch (NoResultException $e) {}
 			}
 
 			if (!$firstName) {
-				$errors['first_name'] = 'Please enter your first name.';
+				$errors['first_name'] = array(
+					'class' => 'danger',
+					'message' => 'Please enter your first name.'
+				);
 			}
 
 			if (!$lastName) {
-				$errors['last_name'] = 'Please enter your first name.';
+				$errors['last_name'] = array(
+					'class' => 'danger',
+					'message' => 'Please enter your last name.'
+				);
 			}
 
 			if (!$password) {
-				$errors['password'] = 'Please enter a password.';
+				$errors['password'] = array(
+					'class' => 'danger',
+					'message' => 'Please enter a password.'
+				);
 			}
 
 			if ($password !== $password2) {
-				$errors['password2'] = 'Passwords entered do not match.';
+				$errors['password2'] = array(
+					'class' => 'danger',
+					'message' => 'Passwords entered do not match.'
+				);
 			}
 
 			if (!$errors) {
