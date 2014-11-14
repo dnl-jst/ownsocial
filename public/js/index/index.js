@@ -190,7 +190,7 @@ $(function() {
             dataType: 'json',
             success: function(result) {
 
-                // todo!
+                $(aTag).removeClass('add_request').html('<i class="fa fa-clock-o"></i> Request pending...');
 
             }
         });

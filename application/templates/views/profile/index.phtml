@@ -12,34 +12,35 @@
 		</div>
 		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
 			<h2><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></h2>
+
+			<?php if ($this->_currentUser->getId() !== $this->user->getId()): ?>
+				<p>
+				<?php
+
+				$relation = $this->_currentUser->getRelationTo($this->user);
+
+				if ($relation === null): ?>
+					<a href="#" class="btn btn-primary add_request" data-id="<?= $this->user->getId(); ?>">
+						<i class="fa fa-user"></i> Send contact request
+					</a>
+				<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->user->getId()): ?>
+					<a href="#" class="btn btn-primary">
+						<i class="fa fa-clock-o"></i> Request pending...
+					</a>
+				<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->_currentUser->getId()): ?>
+					<div class="btn-group">
+						<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-primary accept_request"><i class="fa fa-check"></i> Accept</button>
+						<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-default decline_request"><i class="fa fa-times"></i> Decline</button>
+					</div>
+				<?php else: ?>
+					<button class="btn btn-default">
+						<i class="fa fa-thumbs-o-up"></i> Confirmed
+					</button>
+				<?php endif; ?>
+				</p>
+			<?php endif; ?>
 		</div>
 	</div>
-
-	<?php if ($this->_currentUser->getId() !== $this->user->getId()): ?>
-		<?php
-
-		$relation = $this->_currentUser->getRelationTo($this->user);
-
-		if ($relation === null): ?>
-		<a href="#" class="btn btn-primary add_request" data-id="<?= $this->user->getId(); ?>">
-			<i class="fa fa-user"></i> Send contact request
-		</a>
-		<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->user->getId()): ?>
-		<a href="#" class="btn btn-primary" data-id="<?= $this->user->getId(); ?>">
-			<i class="fa fa-clock-o"></i> Request pending...
-		</a>
-		<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->_currentUser->getId()): ?>
-		<p>Contact request:</p>
-		<div class="btn-group">
-			<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-primary accept_request">Accept</button>
-			<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-default decline_request">Decline</button>
-		</div>
-		<?php else: ?>
-		<button class="btn btn-default">
-			<i class="fa fa-thumbs-o-up"></i> Confirmed
-		</button>
-		<?php endif; ?>
-	<?php endif; ?>
 
 </div>
 
