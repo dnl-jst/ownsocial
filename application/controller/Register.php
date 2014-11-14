@@ -81,6 +81,7 @@ class Register extends Controller
 				$confirmationHash = md5(uniqid(time(), true));
 
 				$user = new UserModel();
+				$user->setType('user');
 				$user->setEmail($email);
 				$user->setEmailConfirmed(0);
 				$user->setEmailConfirmationHash($confirmationHash);

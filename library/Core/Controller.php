@@ -42,6 +42,8 @@ class Controller
 		$this->_config = Config::getAll();
 	}
 
+	public function init() {}
+
 	protected function getRequest()
 	{
 		return $this->_request;
@@ -59,6 +61,8 @@ class Controller
 			$this->redirect('/index/login/');
 			return;
 		}
+
+		$this->init();
 
 		$this->$method();
 

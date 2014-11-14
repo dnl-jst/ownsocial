@@ -14,6 +14,7 @@ class GetByEmail extends Query
 		$query = '
 			SELECT
 				u.id,
+				u.type,
 				u.email,
 				u.email_confirmed,
 				u.email_confirmation_hash,

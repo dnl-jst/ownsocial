@@ -11,6 +11,9 @@ class Store extends Query
 	protected $id;
 
 	/** @var string */
+	protected $type;
+
+	/** @var string */
 	protected $email;
 
 	/** @var integer */
@@ -44,6 +47,7 @@ class Store extends Query
 				users
 				(
 					id,
+					type,
 					email,
 					email_confirmed,
 					email_confirmation_hash,
@@ -65,9 +69,11 @@ class Store extends Query
 					?,
 					?,
 					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
+				type = VALUES(type),
 				email = VALUES(email),
 				email_confirmed = VALUES(email_confirmed),
 				email_confirmation_hash = VALUES(email_confirmation_hash),
@@ -78,6 +84,7 @@ class Store extends Query
 				portrait_file_id = VALUES(portrait_file_id)';
 
 		$this->addBind($this->id);
+		$this->addBind($this->type);
 		$this->addBind($this->email);
 		$this->addBind($this->emailConfirmed);
 		$this->addBind($this->emailConfirmationHash);
@@ -169,6 +176,14 @@ class Store extends Query
 	public function setEmailConfirmed($emailConfirmed)
 	{
 		$this->emailConfirmed = $emailConfirmed;
+	}
+
+	/**
+	 * @param string $type
+	 */
+	public function setType($type)
+	{
+		$this->type = $type;
 	}
 
 }

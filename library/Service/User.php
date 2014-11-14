@@ -3,6 +3,8 @@
 namespace Service;
 
 use Core\Controller\Request;
+use Db\User\Delete;
+use Db\User\GetUnconfirmedUsers;
 use Zend\Mail;
 use Core\Service;
 use Core\Query\NoResultException;
@@ -123,6 +125,7 @@ class User extends Service
 	{
 		$query = new Store();
 		$query->setId($user->getId());
+		$query->setType($user->getType());
 		$query->setEmail($user->getEmail());
 		$query->setEmailConfirmed($user->getEmailConfirmed());
 		$query->setEmailConfirmationHash($user->getEmailConfirmationHash());
@@ -169,6 +172,26 @@ class User extends Service
 		$transport = new Mail\Transport\Sendmail();
 		$transport->send($mail);
 
+	}
+
+	public static function getUnconfirmedUsers()
+	{
+		$query = new GetUnconfirmedUsers();
+
+		try {
+			$users = self::fillCollection(new UserModel(), $query->fetchAll());
+		} catch (NoResultException $e) {
+			$users = array();
+		}
+
+		return $users;
+	}
+
+	public static function delete($id)
+	{
+		$query = new Delete();
+		$query->setId($id);
+		$query->query();
 	}
 
 }

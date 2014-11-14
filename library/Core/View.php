@@ -10,6 +10,7 @@ class View
 
 	protected $_config = array();
 	protected $_currentUser = null;
+	protected $_unconfirmedUsers = array();
 	protected $_templatePath;
 	protected $_templateFile;
 	protected $_templateVars = array();
@@ -24,6 +25,10 @@ class View
 		$this->_templatePath = $templatePath;
 		$this->_templateFile = $templateFile;
 		$this->_layout = APPLICATION_ROOT . '/application/templates/layouts/default.phtml';
+
+		if ($this->_currentUser && $this->_currentUser->getType() === 'admin') {
+			$this->_unconfirmedUsers = User::getUnconfirmedUsers();
+		}
 	}
 
 	public function __set($name, $value)

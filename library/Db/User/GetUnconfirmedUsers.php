@@ -4,7 +4,7 @@ namespace Db\User;
 
 use Core\Query;
 
-class GetById extends Query
+class GetUnconfirmedUsers extends Query
 {
 
 	protected $id;
@@ -28,19 +28,10 @@ class GetById extends Query
 				users u
 			JOIN configs cnfg ON cnfg.key = \'default_portrait_id\'
 			WHERE
-				u.id = ?';
-
-		$this->addBind($this->id);
+				u.email_confirmed = 1
+			AND 	u.account_confirmed = 0';
 
 		return $query;
-	}
-
-	/**
-	 * @param mixed $id
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
 	}
 
 }

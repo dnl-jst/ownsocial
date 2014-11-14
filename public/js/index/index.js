@@ -225,6 +225,64 @@ $(function() {
 
     });
 
+    $('body').on('click', '.accept_user', function(event) {
+
+        event.preventDefault();
+
+        var aTag = $(this);
+        var relUserId = $(this).data('id');
+
+        $.ajax({
+            method: 'post',
+            url: '/admin/accept-user/',
+            data: {
+                id: relUserId
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $(aTag).closest('.unconfirmed_user').fadeOut(function() {
+                    var unconfirmedUsers = $('.unconfirmed_users .unconfirmed_user');
+
+                    if (unconfirmedUsers.length == 0) {
+                        $('.unconfirmed_users').fadeOut();
+                    }
+                });
+
+            }
+        });
+
+    });
+
+    $('body').on('click', '.decline_user', function(event) {
+
+        event.preventDefault();
+
+        var aTag = $(this);
+        var relUserId = $(this).data('id');
+
+        $.ajax({
+            method: 'post',
+            url: '/admin/decline-user/',
+            data: {
+                id: relUserId
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $(aTag).closest('.unconfirmed_user').fadeOut(function() {
+                    var unconfirmedUsers = $('.unconfirmed_users .unconfirmed_user');
+
+                    if (unconfirmedUsers.length == 0) {
+                        $('.unconfirmed_users').fadeOut();
+                    }
+                });
+
+            }
+        });
+
+    });
+
     $('body').on('click', '.decline_request', function(event) {
 
         event.preventDefault();

@@ -100,24 +100,43 @@
 		<div class="col-md-3 col-lg-3">
 			<?php if ($this->_currentUser): ?>
 			<div class="well">
-				<div id="right_box">
-					<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
-						<div class="unconfirmed_contacts">
-							<p class="headline">CONTACT REQUESTS</p>
-							<?php foreach ($contacts as $contact): ?>
-								<div class="unconfirmed_contact">
-									<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
-									<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
-									<br />
-									<div class="btn-group">
-										<a href="#" class="btn btn-primary btn-sm accept_request" data-id="<?= $contact->getId(); ?>">Accept</a>
-										<a href="#" class="btn btn-default btn-sm decline_request" data-id="<?= $contact->getId(); ?>">Decline</a>
-									</div>
+				<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
+					<div class="unconfirmed_contacts">
+						<p class="headline">CONTACT REQUESTS</p>
+						<?php foreach ($contacts as $contact): ?>
+							<div class="unconfirmed_contact">
+								<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
+								<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
+								<br />
+								<div class="btn-group">
+									<a href="#" class="btn btn-primary btn-sm accept_request" data-id="<?= $contact->getId(); ?>">Accept</a>
+									<a href="#" class="btn btn-default btn-sm decline_request" data-id="<?= $contact->getId(); ?>">Decline</a>
 								</div>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-				</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+				<?php if ($this->_currentUser->getType() === 'admin' && $this->_unconfirmedUsers): ?>
+					<div class="unconfirmed_users">
+						<p class="headline">REGISTRATION REQUESTS</p>
+						<?php foreach ($this->_unconfirmedUsers as $user): ?>
+							<div class="unconfirmed_user">
+								<div class="col-sm-4">
+									<img class="img-responsive" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+								</div>
+								<div class="col-sm-6">
+									<?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?><br>
+									<small><?= $this->escape($user->getEmail()); ?></small>
+								</div>
+								<br />
+								<div class="btn-group">
+									<a href="#" class="btn btn-primary btn-sm accept_user" data-id="<?= $user->getId(); ?>">Accept</a>
+									<a href="#" class="btn btn-default btn-sm decline_user" data-id="<?= $user->getId(); ?>">Decline</a>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
 			</div>
 			<?php endif; ?>
 		</div>

@@ -13,6 +13,9 @@ class User extends Model
 	protected $id;
 
 	/** @var string */
+	protected $type;
+
+	/** @var string */
 	protected $email;
 
 	/** @var integer */
@@ -197,6 +200,22 @@ class User extends Model
 	public function setEmailConfirmed($emailConfirmed)
 	{
 		$this->emailConfirmed = $emailConfirmed;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * @param string $type
+	 */
+	public function setType($type)
+	{
+		$this->type = $type;
 	}
 
 	/**
