@@ -17,6 +17,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$password = trim($_POST['password']);
 	$password2 = trim($_POST['password2']);
 	$siteTitle = trim($_POST['site_title']);
+	$networkType = trim($_POST['network_type']);
 
 	if ($password !== $password2) {
 		die('passwords are not equal');
@@ -75,9 +76,16 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 		':created' => time()
 	));
 
-	$stmt = $db->prepare('INSERT INTO configs (`key`, `value`) VALUES (\'site_title\', :site_title)');
+	$stmt = $db->prepare('INSERT INTO configs (`key`, `value`) VALUES (:key, :value)');
+
 	$stmt->execute(array(
-		':site_title' => $siteTitle
+		':key' => 'site_title',
+		':value' => $siteTitle
+	));
+
+	$stmt->execute(array(
+		':key' => 'network_type',
+		':value' => $networkType
 	));
 
 	$db->exec('set foreign_key_checks=1');
@@ -134,6 +142,16 @@ return ' . var_export($config, true) . ';';
 							<input type="text" class="form-control" name="site_title" placeholder="Title of the network">
 						</div>
 					</div>
+
+					<div>
+						<div class="form-group">
+							<select class="form-control" name="network_type">
+								<option value="private">Private network</option>
+								<option value="public">Public network</option>
+							</select>
+						</div>
+					</div>
+
 				</fieldset>
 
 				<fieldset>
