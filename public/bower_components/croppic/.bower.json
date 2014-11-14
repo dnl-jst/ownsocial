@@ -9,6 +9,5 @@
   },
   "_source": "git://github.com/styoe/croppic.git",
   "_target": "*",
-  "_originalSource": "croppic",
-  "_direct": true
+  "_originalSource": "croppic"
 }
