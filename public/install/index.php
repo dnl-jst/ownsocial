@@ -52,6 +52,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 		INSERT INTO
 			users
 			(
+				type,
 				email,
 				email_confirmed,
 				email_confirmation_hash,
@@ -63,6 +64,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 			)
 			VALUES
 			(
+				\'admin\',
 				:email,
 				1,
 				NULL,

@@ -92,6 +92,7 @@ CREATE TABLE `user_groups` (
 -- Create syntax for TABLE 'users'
 CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `type` enum('user','admin') NOT NULL DEFAULT 'user',
   `email` varchar(100) NOT NULL DEFAULT '',
   `email_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `email_confirmation_hash` varchar(32) DEFAULT NULL,
