@@ -6,6 +6,11 @@
 	* PHP 5.5.9 (FastCGI)
 	* MySQL 5.5.40
 
+## Prequisites
+
+	* Vagrant (https://www.vagrantup.com)
+	* VirtualBox (https://www.virtualbox.org)
+
 ## Installation:
 
 Clone from git:
@@ -15,14 +20,6 @@ Clone from git:
 Go to project folder:
 
 	cd ownsocial/
-
-Get composer dependencies:
-
-	composer install
-
-Get bower dependencies:
-
-	bower install
 
 If not installed, install vagrant-hostsupdater plugin:
 
@@ -40,8 +37,10 @@ and you will be redirected to the installer.
 
 Credentials for the local database server are:
 
+	Hostname: localhost
 	Username: root
 	Password: rootpass
+	Database: (choose one, for example "ownsocial")
 
 Chosen database is created automatically if it doesn't exist.
 
