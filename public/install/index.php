@@ -125,11 +125,11 @@ return ' . var_export($config, true) . ';';
 		<meta http-equiv="Content-Type" content="charset=utf-8" />
 		<title>OwnSocial Installation</title>
 
-		<link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/css/style.css" rel="stylesheet">
 
-		<script src="/components/jquery/dist/jquery.min.js"></script>
-		<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
