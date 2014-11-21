@@ -34,6 +34,10 @@ class Feed extends Controller
 			$data[] = $post_array;
 		}
 
+		if ($parentPostId) {
+			$data = array_reverse($data);
+		}
+
 		$this->json(array('last_update' => time(), 'posts' => $data));
 	}
 
