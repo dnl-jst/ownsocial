@@ -356,6 +356,31 @@ $(function() {
 
     });
 
+    $('body').on('click', '#action_add_group', function(event) {
+
+        event.preventDefault();
+
+        var groupName = $('#group_name').val();
+        var groupType = $('#group_type').val();
+
+        $.ajax({
+            method: 'post',
+            url: '/group/add/',
+            data: {
+                name: groupName,
+                type: groupType
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                if (result.status == 'success') {
+                    window.location = result.redirect;
+                }
+            }
+        })
+
+    });
+
     var updatePosts = function() {
 
         if (postsLoaded) {

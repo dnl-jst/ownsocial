@@ -31,6 +31,7 @@ VALUES
 CREATE TABLE `groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
+  `type` enum('public','protected','hidden') NOT NULL DEFAULT 'hidden',
   `created` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -82,12 +83,12 @@ CREATE TABLE `relations` (
 CREATE TABLE `user_groups` (
   `user_id` bigint(20) unsigned NOT NULL,
   `group_id` bigint(20) unsigned NOT NULL,
-  `confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `confirmed` bigint(20) DEFAULT NULL,
   `role` enum('member','admin') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'member',
   PRIMARY KEY (`user_id`,`group_id`),
   KEY `group_id` (`group_id`),
-  CONSTRAINT `user_groups_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `user_groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_groups_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Create syntax for TABLE 'users'

@@ -80,7 +80,7 @@
 
 					<div class="groups">
 						<ul>
-							<li><a href="#" class="add-group-dialog">Neue Gruppe</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#group_add_modal">Add group</a></li>
 							<?php if ($groups = $this->_currentUser->getGroups()): ?>
 								<?php foreach ($groups as $group): ?>
 									<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
@@ -143,6 +143,35 @@
 	</div>
 </div>
 
+<div class="modal fade" id="group_add_modal" role="dialog" aria-labelledby="group_modal_title" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="group_modal_title">Create new group</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+						<input type="text" class="form-control" id="group_name" value="" />
+					</div>
+
+					<div class="form-group">
+						<select id="group_type" class="form-control">
+							<option value="hidden">Hidden group</option>
+							<option value="protected">Protected group</option>
+							<option value="public">Public group</option>
+						</select>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="action_add_group">Save changes</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
 </html>

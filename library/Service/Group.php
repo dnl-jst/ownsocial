@@ -46,6 +46,7 @@ class Group extends Service
 		$query = new Store();
 		$query->setId($group->getId());
 		$query->setName($group->getName());
+		$query->setType($group->getType());
 		$query->setCreated($group->getCreated());
 
 		if ($group->getId()) {

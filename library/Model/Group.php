@@ -7,8 +7,15 @@ use Core\Model;
 class Group extends Model
 {
 
+	const TYPE_HIDDEN = 'hidden';
+	const TYPE_PROTECTED = 'protected';
+	const TYPE_PUBLIC = 'public';
+
+	public static $types = array(self::TYPE_HIDDEN, self::TYPE_PROTECTED, self::TYPE_PUBLIC);
+
 	protected $id;
 	protected $name;
+	protected $type;
 	protected $created;
 	protected $role;
 
@@ -74,6 +81,22 @@ class Group extends Model
 	public function setName($name)
 	{
 		$this->name = $name;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * @param mixed $type
+	 */
+	public function setType($type)
+	{
+		$this->type = $type;
 	}
 
 }

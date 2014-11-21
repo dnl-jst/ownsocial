@@ -9,6 +9,7 @@ class Store extends Query
 
 	protected $id;
 	protected $name;
+	protected $type;
 	protected $created;
 
 	protected function build()
@@ -19,19 +20,23 @@ class Store extends Query
 				(
 					id,
 					name,
+					type,
 					created
 				)
 			VALUES
 				(
 					?,
 					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
-				name = VALUES(name)';
+				name = VALUES(name),
+				type = VALUES(type)';
 
 		$this->addBind($this->id);
 		$this->addBind($this->name);
+		$this->addBind($this->type);
 		$this->addBind($this->created);
 
 		return $query;
@@ -59,6 +64,14 @@ class Store extends Query
 	public function setCreated($created)
 	{
 		$this->created = $created;
+	}
+
+	/**
+	 * @param mixed $type
+	 */
+	public function setType($type)
+	{
+		$this->type = $type;
 	}
 
 }

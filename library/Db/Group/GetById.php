@@ -15,6 +15,7 @@ class GetById extends Query
 			SELECT
 				id,
 				name,
+				type,
 				created
 			FROM
 				groups

@@ -15,11 +15,12 @@ class GetByUserId extends Query
 			SELECT
 				g.id,
 				g.name,
+				g.type,
 				g.created,
 				ug.role
 			FROM
 				user_groups ug
-			JOIN groups g ON g.id = ug.group_id AND ug.confirmed = 1
+			JOIN groups g ON g.id = ug.group_id AND ug.confirmed IS NOT NULL
 			WHERE
 				ug.user_id = ?';
 
