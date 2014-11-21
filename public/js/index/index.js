@@ -47,9 +47,9 @@ function getPost(post) {
 
     $(interactionLine).appendTo(element);
 
-    var comments = $('<div class="comments" style="display: none;"><hr></div>');
+    var comments = $('<div class="comments" style="display: none;"><hr><div class="comments_inner"></div></div>');
 
-    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-10"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><button type="submit" class="col-xs-2 btn btn-primary">Send</button></form></div>').appendTo(comments);
+    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-10"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><button type="submit" class="action_add_comment" data-post-id="' + post.id + '" class="col-xs-2 btn btn-primary">Send</button></form></div>').appendTo(comments);
 
     $(comments).appendTo(element);
     $('<div class="clearfix"></div>').appendTo(comments);
@@ -181,8 +181,6 @@ $(function() {
             dataType: 'json',
             success: function(result) {
 
-                console.log(result);
-
                 for (var i = 0; i < result.posts.length; i++) {
 
                     var theComment = $('#post_' + postId + '>.comments #post_' + result.posts[i].id);
@@ -190,11 +188,33 @@ $(function() {
                     if ($(theComment).length > 0) {
                         $(theComment).replaceWith(getPost(result.posts[i]));
                     } else {
-                        $('#post_' + postId + '>.comments').append(getPost(result.posts[i]));
+                        $('#post_' + postId + '>.comments .comments_inner').append(getPost(result.posts[i]));
                     }
                 }
             }
         })
+
+    });
+
+    $('body').on('click', '.action_add_comment', function(event) {
+
+        event.preventDefault();
+
+        var postId = $(this).data('post-id');
+        var content = $('#new_comment_' + postId).val();
+
+        $.ajax({
+            method: 'post',
+            url: '/post/add-comment/',
+            data: {
+                post: postId,
+                content: content
+            },
+            dataType: 'json',
+            success: function(result) {
+
+            }
+        });
 
     });
 
@@ -214,7 +234,7 @@ $(function() {
             success: function(result) {
                 $('#post_' + postId).remove();
             }
-        })
+        });
 
     });
 

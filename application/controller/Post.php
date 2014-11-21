@@ -32,7 +32,47 @@ class Post extends Controller
 
 		$postId = PostService::store($post);
 
+		$post->setRootPostId($postId);
+
+		PostService::store($post);
+
 		$feed_array = Feed::getUserFeedPost($userId, $postId)->toArray();
+
+		$feed_array['content'] = FeedFormatter::format($feed_array['content']);
+		$feed_array['created'] = DateSince::format($feed_array['created']);
+
+		if ($feed_array['groupId']) {
+			$feed_array['group'] = Group::getById($feed_array['groupId'])->toArray();
+		}
+
+		$this->json($feed_array);
+	}
+
+	public function addCommentAction()
+	{
+		$postId = $this->getRequest()->getPost('post');
+		$post = PostService::getById($postId);
+
+		if (!$this->_currentUser->canSeePost($post->getRootPostId())) {
+			$this->json(array('status' => 'error', 'message' => 'permission denied'));
+			return;
+		}
+
+		$content = $this->getRequest()->getPost('content');
+
+		$comment = new PostModel();
+		$comment->setRootPostId($post->getRootPostId());
+		$comment->setParentPostId($post->getId());
+		$comment->setUserId($this->_currentUser->getId());
+		$comment->setVisibility('comment');
+		$comment->setContent($content);
+		$comment->setImageFileId(null);
+		$comment->setCreated(time());
+		$comment->setModified(time());
+
+		PostService::store($comment);
+
+		$feed_array = Feed::getUserFeedPost($this->_currentUser->getId(), $post->getRootPostId())->toArray();
 
 		$feed_array['content'] = FeedFormatter::format($feed_array['content']);
 		$feed_array['created'] = DateSince::format($feed_array['created']);

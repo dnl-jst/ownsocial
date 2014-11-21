@@ -8,6 +8,7 @@ class Store extends Query
 {
 
 	protected $id;
+	protected $rootPostId;
 	protected $parentPostId;
 	protected $userId;
 	protected $visibility;
@@ -23,6 +24,7 @@ class Store extends Query
 				posts
 				(
 					id,
+					root_post_id,
 					parent_post_id,
 					user_id,
 					visibility,
@@ -40,9 +42,11 @@ class Store extends Query
 					?,
 					?,
 					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
+				root_post_id = VALUES(root_post_id),
 				parent_post_id = VALUES(parent_post_id),
 				user_id = VALUES(user_id),
 				visibility = VALUES(visibility),
@@ -52,6 +56,7 @@ class Store extends Query
 				modified = VALUES(modified)';
 
 		$this->addBind($this->id);
+		$this->addBind($this->rootPostId);
 		$this->addBind($this->parentPostId);
 		$this->addBind($this->userId);
 		$this->addBind($this->visibility);
@@ -125,6 +130,14 @@ class Store extends Query
 	public function setImageFileId($imageFileId)
 	{
 		$this->imageFileId = $imageFileId;
+	}
+
+	/**
+	 * @param mixed $rootPostId
+	 */
+	public function setRootPostId($rootPostId)
+	{
+		$this->rootPostId = $rootPostId;
 	}
 
 }

@@ -15,6 +15,7 @@ class GetByUserId extends Query
 		$query = '
 			SELECT
 				p.id,
+				p.root_post_id,
 				p.parent_post_id,
 				p.user_id,
 				p.group_id,
@@ -41,7 +42,7 @@ class GetByUserId extends Query
 			LEFT JOIN user_groups ug ON ug.group_id = p.group_id AND ug.user_id = ? AND ug.confirmed = 1
 			WHERE
 				(
-					(p.visibility = \'public\')
+					(p.visibility = \'public\' OR p.visibility = \'comment\')
 				OR	(p.visibility = \'contacts\' AND (r1.user_id IS NOT NULL OR r2.user_id IS NOT NULL))
 				OR	(p.visibility = \'me\' AND p.user_id = ?)
 				OR 	(p.visibility = \'group\' AND ug.user_id IS NOT NULL)

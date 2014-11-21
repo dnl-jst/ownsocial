@@ -14,6 +14,7 @@ class GetById extends Query
 		$query = '
 			SELECT
 				id,
+				root_post_id,
 				parent_post_id,
 				user_id,
 				visibility,

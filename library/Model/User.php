@@ -3,6 +3,8 @@
 namespace Model;
 
 use Core\Model;
+use Core\Query\NoResultException;
+use Service\Feed;
 use Service\User as UserService;
 use Service\Group;
 
@@ -237,6 +239,16 @@ class User extends Model
 	public function getRelationTo(User $user)
 	{
 		return UserService::getRelation($this, $user);
+	}
+
+	public function canSeePost($postId)
+	{
+		try {
+			Feed::getUserFeedPost($this->getId(), $postId);
+			return true;
+		} catch (NoResultException $e) {
+			return false;
+		}
 	}
 
 }

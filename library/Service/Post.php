@@ -19,6 +19,7 @@ class Post extends Service
 	{
 		$query = new Store();
 		$query->setId($post->getId());
+		$query->setRootPostId($post->getRootPostId());
 		$query->setParentPostId($post->getParentPostId());
 		$query->setUserId($post->getUserId());
 		$query->setVisibility($post->getVisibility());

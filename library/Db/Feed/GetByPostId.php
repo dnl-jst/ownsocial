@@ -15,6 +15,7 @@ class GetByPostId extends Query
 		$query = '
 			SELECT
 				p.id,
+				p.root_post_id,
 				p.parent_post_id,
 				p.user_id,
 				p.group_id,

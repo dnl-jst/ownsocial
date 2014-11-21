@@ -7,6 +7,7 @@ use Core\Model;
 class Post extends Model
 {
 	protected $id;
+	protected $rootPostId;
 	protected $parentPostId;
 	protected $userId;
 	protected $visibility;
@@ -141,6 +142,22 @@ class Post extends Model
 	public function setImageFileId($imageFileId)
 	{
 		$this->imageFileId = $imageFileId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getRootPostId()
+	{
+		return $this->rootPostId;
+	}
+
+	/**
+	 * @param mixed $rootPostId
+	 */
+	public function setRootPostId($rootPostId)
+	{
+		$this->rootPostId = $rootPostId;
 	}
 
 }
