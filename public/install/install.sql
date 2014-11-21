@@ -58,11 +58,11 @@ CREATE TABLE `likes` (
 -- Create syntax for TABLE 'posts'
 CREATE TABLE `posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `root_post_id` bigint(20) unsigned NOT NULL,
+  `root_post_id` bigint(20) unsigned DEFAULT NULL,
   `parent_post_id` bigint(20) unsigned DEFAULT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
   `group_id` bigint(20) unsigned DEFAULT NULL,
-  `visibility` enum('public','contacts','me','group') NOT NULL DEFAULT 'public',
+  `visibility` enum('public','contacts','me','group','comment') NOT NULL DEFAULT 'public',
   `content` mediumtext NOT NULL,
   `image_file_id` bigint(20) unsigned DEFAULT NULL,
   `created` bigint(20) NOT NULL,
@@ -72,10 +72,10 @@ CREATE TABLE `posts` (
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`),
   KEY `root_post_id` (`root_post_id`),
-  CONSTRAINT `posts_ibfk_5` FOREIGN KEY (`root_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `posts_ibfk_4` FOREIGN KEY (`parent_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `posts_ibfk_4` FOREIGN KEY (`parent_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `posts_ibfk_5` FOREIGN KEY (`root_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Create syntax for TABLE 'relations'

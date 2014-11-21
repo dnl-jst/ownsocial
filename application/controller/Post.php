@@ -19,9 +19,14 @@ class Post extends Controller
 	{
 		$userId = $this->_currentUser->getId();
 		$content = $this->getRequest()->getPost('content');
-		$imageFileId = $this->getRequest()->getPost('image');
+		$imageFileId = $this->getRequest()->getPost('image', null);
+
+		if (!$imageFileId) {
+			$imageFileId = null;
+		}
 
 		$post = new PostModel();
+		$post->setRootPostId(null);
 		$post->setParentPostId(null);
 		$post->setUserId($userId);
 		$post->setContent($content);
@@ -32,6 +37,7 @@ class Post extends Controller
 
 		$postId = PostService::store($post);
 
+		$post->setId($postId);
 		$post->setRootPostId($postId);
 
 		PostService::store($post);
