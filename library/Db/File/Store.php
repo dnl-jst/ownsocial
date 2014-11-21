@@ -13,6 +13,9 @@ class Store extends Query
 	/** @var null|integer */
 	protected $userId;
 
+	/** @var null|integer */
+	protected $groupId;
+
 	/** @var string */
 	protected $content;
 
@@ -30,12 +33,14 @@ class Store extends Query
 				(
 					id,
 					user_id,
+					group_id,
 					content,
 					type,
 					created
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -48,6 +53,7 @@ class Store extends Query
 
 		$this->addBind($this->id);
 		$this->addBind($this->userId);
+		$this->addBind($this->groupId);
 		$this->addBind($this->content);
 		$this->addBind($this->type);
 		$this->addBind($this->created);
@@ -93,6 +99,14 @@ class Store extends Query
 	public function setUserId($userId)
 	{
 		$this->userId = $userId;
+	}
+
+	/**
+	 * @param int|null $groupId
+	 */
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
 	}
 
 }

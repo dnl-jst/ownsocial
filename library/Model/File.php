@@ -13,6 +13,9 @@ class File extends Model
 	/** @var integer */
 	protected $userId;
 
+	/** @var integer */
+	protected $groupId;
+
 	/** @var string */
 	protected $content;
 
@@ -100,6 +103,22 @@ class File extends Model
 	public function setUserId($userId)
 	{
 		$this->userId = $userId;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getGroupId()
+	{
+		return $this->groupId;
+	}
+
+	/**
+	 * @param int $groupId
+	 */
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
 	}
 
 }

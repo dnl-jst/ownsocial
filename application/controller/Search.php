@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Core\Controller;
+use Service\Group;
 use Service\User;
 
 class Search extends Controller
@@ -21,8 +22,10 @@ class Search extends Controller
 		}
 
 		$users = User::search($search);
+		$groups = Group::search($search);
 
 		$this->_view->users = $users;
+		$this->_view->groups = $groups;
 	}
 
 }

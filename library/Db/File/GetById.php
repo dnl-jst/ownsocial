@@ -15,6 +15,7 @@ class GetById extends Query
 			SELECT
 				id,
 				user_id,
+				group_id,
 				content,
 				type,
 				created

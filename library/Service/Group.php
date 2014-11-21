@@ -3,6 +3,7 @@
 namespace Service;
 
 use Core\Service;
+use Db\Group\Search;
 use Model\Group as GroupModel;
 use Db\Group\GetByUserId;
 use Db\Group\GetById;
@@ -47,6 +48,7 @@ class Group extends Service
 		$query->setId($group->getId());
 		$query->setName($group->getName());
 		$query->setType($group->getType());
+		$query->setPortraitFileId($group->getPortraitFileId());
 		$query->setCreated($group->getCreated());
 
 		if ($group->getId()) {
@@ -55,6 +57,14 @@ class Group extends Service
 		} else {
 			return (int)$query->insert();
 		}
+	}
+
+	public static function search($search)
+	{
+		$query = new Search();
+		$query->setSearch($search);
+
+		return self::fillCollection(new GroupModel(), $query->fetchAll());
 	}
 
 }

@@ -1,5 +1,36 @@
-<div class="group_index">
+<div class="profile_index">
 
-	<h2><?= $this->escape($this->group->getName()); ?></h2>
-
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+			<?php if ($this->isGroupAdmin): ?>
+			<div class="portait" id="croppic-area" style="width: 150px; height: 150px; position: relative;">
+			<?php endif; ?>
+				<img class="img-responsive" src="/file/?file=<?= $this->group->getPortraitFileId(); ?>" />
+			<?php if ($this->isGroupAdmin): ?>
+			</div>
+			<?php endif; ?>
+		</div>
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+			<h2><?= $this->escape($this->group->getName()); ?></h2>
+		</div>
+	</div>
 </div>
+
+<?php if ($this->isGroupAdmin): ?>
+	<script type="text/javascript">
+		$(function() {
+			var croppicContainerModalOptions = {
+				uploadUrl: '/group/save-pic/',
+				uploadData: {
+					group: <?= json_encode($this->group->getId()); ?>
+				},
+				cropUrl: '/group/crop-pic/',
+				modal: true,
+				imgEyecandyOpacity:0.4,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> '
+			};
+
+			var cropContainerModal = new Croppic('croppic-area', croppicContainerModalOptions);
+		});
+	</script>
+<?php endif; ?>

@@ -1,4 +1,7 @@
 <div class="block" id="search">
+
+	<div class="well">
+		<h3>Users:</h3>
 	<?php if ($this->users): ?>
 		<?php foreach ($this->users as $user): ?>
 		<div class="row list-group-item">
@@ -18,9 +21,38 @@
 		</div>
 		<?php endforeach; ?>
 	<?php else: ?>
-		<div class="well">
-			<h3>Sorry.</h3>
 			<p>No users matched your search criteria.</p>
-		</div>
 	<?php endif; ?>
+	</div>
+
+	<div class="well">
+		<h3>Groups:</h3>
+
+		<?php if ($this->groups): ?>
+
+		<?php foreach ($this->groups as $group): ?>
+			<div class="row list-group-item">
+				<div class="col-xs-3">
+					<a href="/group/?id=<?= $group->getId(); ?>">
+						<img style="width: 80px; height: 80px;" src="/file/?file=<?= $group->getPortraitFileId(); ?>" />
+					</a>
+				</div>
+				<div class="col-xs-9">
+					<a href="/group/?id=<?= $group->getId(); ?>">
+						<h4 class="list-group-item-heading"><?= $this->escape($group->getName()); ?></h4>
+						<p class="list-group-item-text">
+							Lorem ipsum dolor
+						</p>
+					</a>
+				</div>
+			</div>
+		<?php endforeach; ?>
+
+		<?php else: ?>
+
+		<p>No groups matched your search criteria.</p>
+
+		<?php endif; ?>
+
+	</div>
 </div>

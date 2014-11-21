@@ -4,10 +4,10 @@ namespace Db\Group;
 
 use Core\Query;
 
-class GetById extends Query
+class Search extends Query
 {
 
-	protected $id;
+	protected $search;
 
 	protected function build()
 	{
@@ -22,19 +22,23 @@ class GetById extends Query
 				groups g
 			JOIN configs cnfg ON cnfg.key = \'default_portrait_id\'
 			WHERE
-				g.id = ?';
+				g.name LIKE ?
+			AND 	(
+					g.type = \'protected\'
+				OR	g.type = \'public\'
+			)';
 
-		$this->addBind($this->id);
+		$this->addBind('%' . $this->search . '%');
 
 		return $query;
 	}
 
 	/**
-	 * @param mixed $id
+	 * @param mixed $search
 	 */
-	public function setId($id)
+	public function setSearch($search)
 	{
-		$this->id = $id;
+		$this->search = $search;
 	}
 
 }

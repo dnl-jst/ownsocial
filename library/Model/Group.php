@@ -16,6 +16,7 @@ class Group extends Model
 	protected $id;
 	protected $name;
 	protected $type;
+	protected $portraitFileId;
 	protected $created;
 	protected $role;
 
@@ -97,6 +98,22 @@ class Group extends Model
 	public function setType($type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPortraitFileId()
+	{
+		return $this->portraitFileId;
+	}
+
+	/**
+	 * @param mixed $portraitFileId
+	 */
+	public function setPortraitFileId($portraitFileId)
+	{
+		$this->portraitFileId = $portraitFileId;
 	}
 
 }

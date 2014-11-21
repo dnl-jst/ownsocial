@@ -28,6 +28,7 @@ class File extends Service
 		$query = new Store();
 		$query->setId($file->getId());
 		$query->setUserId($file->getUserId());
+		$query->setGroupId($file->getGroupId());
 		$query->setContent($file->getContent());
 		$query->setType($file->getType());
 		$query->setCreated($file->getCreated());
