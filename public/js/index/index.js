@@ -49,7 +49,7 @@ function getPost(post) {
 
     var comments = $('<div class="comments" style="display: none;"><hr><div class="comments_inner"></div></div>');
 
-    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-10"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><button type="submit" class="action_add_comment" data-post-id="' + post.id + '" class="col-xs-2 btn btn-primary">Send</button></form></div>').appendTo(comments);
+    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-9 form-group"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><div class="col-xs-3 form-group"><button type="submit" class="form-control action_add_comment" data-post-id="' + post.id + '" class="col-xs-2 btn btn-primary">Send</button></div></form></div>').appendTo(comments);
 
     $(comments).appendTo(element);
     $('<div class="clearfix"></div>').appendTo(comments);
@@ -192,7 +192,7 @@ $(function() {
                     }
                 }
             }
-        })
+        });
 
     });
 
@@ -203,6 +203,11 @@ $(function() {
         var postId = $(this).data('post-id');
         var content = $('#new_comment_' + postId).val();
 
+        if (content == '') {
+            $('#new_comment_' + postId).parent('.form-group').addClass('has-error');
+            return;
+        }
+
         $.ajax({
             method: 'post',
             url: '/post/add-comment/',
@@ -212,7 +217,8 @@ $(function() {
             },
             dataType: 'json',
             success: function(result) {
-
+                $('#new_comment_' + postId).val('');
+                $('#post_' + postId + '>.comments .comments_inner').append(getPost(result));
             }
         });
 

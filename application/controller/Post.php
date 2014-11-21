@@ -70,9 +70,9 @@ class Post extends Controller
 		$comment->setCreated(time());
 		$comment->setModified(time());
 
-		PostService::store($comment);
+		$commentPostId = PostService::store($comment);
 
-		$feed_array = Feed::getUserFeedPost($this->_currentUser->getId(), $post->getRootPostId())->toArray();
+		$feed_array = Feed::getUserFeedPost($this->_currentUser->getId(), $commentPostId)->toArray();
 
 		$feed_array['content'] = FeedFormatter::format($feed_array['content']);
 		$feed_array['created'] = DateSince::format($feed_array['created']);
