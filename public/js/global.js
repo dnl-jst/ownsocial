@@ -105,14 +105,19 @@ $(function() {
 
         if ($('#post_content').val()) {
 
+            var data = {
+                content: $('#post_content').val(),
+                image: $('#post_image_id').val()
+            };
+
+            if (window.groupId != undefined) {
+                data.group = window.groupId;
+            }
+
             $.ajax({
                 method: 'post',
                 url: '/post/add/',
-                data: {
-                    group: (groupId !== undefined) ? groupId : null,
-                    content: $('#post_content').val(),
-                    image: $('#post_image_id').val()
-                },
+                data: data,
                 dataType: 'json',
                 success: function(result) {
                     $('#post_select_image').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-image-o">');

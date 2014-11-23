@@ -18,7 +18,12 @@ class Post extends Controller
 	public function addAction()
 	{
 		$userId = $this->_currentUser->getId();
-		$groupId = $this->getRequest()->getPost('group');
+		$groupId = $this->getRequest()->getPost('group', null);
+
+		if (!$groupId) {
+			$groupId = null;
+		}
+
 		$content = $this->getRequest()->getPost('content');
 		$imageFileId = $this->getRequest()->getPost('image', null);
 
