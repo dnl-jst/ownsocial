@@ -67,7 +67,7 @@ class Application
 		$origAction = (isset($parts[1]) && $parts[1]) ? $parts[1] : 'index';
 		$action = $this->sanitizeName($origAction);
 
-		$view = new View(APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $origAction . '.phtml');
+		$view = new View($controller, $origAction, APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $origAction . '.phtml');
 
 		$controllerClass = 'Application\Controller\\' . ucfirst($controller);
 		$controllerInstance = new $controllerClass($request, $response, $view);

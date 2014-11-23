@@ -14,10 +14,20 @@
 			<h2><?= $this->escape($this->group->getName()); ?></h2>
 		</div>
 	</div>
+
+	<div class="posts">
+
+		<!-- -->
+
+	</div>
+
 </div>
 
 <?php if ($this->isGroupAdmin): ?>
 	<script type="text/javascript">
+
+		var groupId = <?= json_encode($this->group->getId()); ?>;
+
 		$(function() {
 			var croppicContainerModalOptions = {
 				uploadUrl: '/group/save-pic/',

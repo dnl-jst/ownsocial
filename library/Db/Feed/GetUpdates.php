@@ -40,7 +40,7 @@ class GetUpdates extends Query
 			LEFT JOIN likes al ON al.post_id = p.id
 			LEFT JOIN relations r1 ON r1.user_id = p.user_id AND r1.user_id2 = ? AND r1.confirmed IS NOT NULL
 			LEFT JOIN relations r2 ON r2.user_id = ? AND r2.user_id2 = p.user_id AND r2.confirmed IS NOT NULL
-			LEFT JOIN user_groups ug ON ug.group_id = p.group_id AND ug.user_id = ? AND ug.confirmed = 1
+			LEFT JOIN user_groups ug ON ug.group_id = p.group_id AND ug.user_id = ? AND ug.confirmed IS NOT NULL
 			WHERE
 				(
 					(p.visibility = \'public\')

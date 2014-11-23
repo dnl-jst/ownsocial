@@ -11,6 +11,8 @@ class View
 	protected $_config = array();
 	protected $_currentUser = null;
 	protected $_unconfirmedUsers = array();
+	protected $_controller;
+	protected $_action;
 	protected $_templatePath;
 	protected $_templateFile;
 	protected $_templateVars = array();
@@ -18,8 +20,12 @@ class View
 	protected $_layout = null;
 	protected $_rendered = false;
 
-	public function __construct($templatePath, $templateFile)
+	public function __construct($controller, $action, $templatePath, $templateFile)
 	{
+		$this->_controller = $controller;
+		$this->_action = $action;
+		$this->_js = false;
+
 		$this->_config = Config::getAll();
 		$this->_currentUser = User::getCurrent();
 		$this->_templatePath = $templatePath;
@@ -28,6 +34,12 @@ class View
 
 		if ($this->_currentUser && $this->_currentUser->getType() === 'admin') {
 			$this->_unconfirmedUsers = User::getUnconfirmedUsers();
+		}
+
+		$jsPath = '/js/' . $controller . '/' . $action . '.js';
+
+		if (is_file(APPLICATION_ROOT . '/public' . $jsPath)) {
+			$this->_js = $jsPath;
 		}
 	}
 

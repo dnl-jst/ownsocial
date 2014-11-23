@@ -10,6 +10,9 @@ use Service\Group as GroupService;
 use Model\Group as GroupModel;
 use Service\File as File;
 use Model\File as FileModel;
+use Service\Feed as FeedService;
+use Core\Helper\FeedFormatter;
+use Core\Helper\DateSince;
 
 class Group extends Controller
 {
@@ -208,6 +211,35 @@ class Group extends Controller
 		);
 
 		$this->json($aResponse);
+	}
+
+	public function feedAction()
+	{
+		$groupId = $this->getRequest()->getGet('id');
+		$parentPostId = $this->getRequest()->getPost('parent_post', null);
+
+		$feed = FeedService::getGroupFeed($groupId, $parentPostId, $this->_currentUser->getId());
+		$data = array();
+
+		foreach ($feed as &$post)
+		{
+			$post_array = $post->toArray();
+
+			$post_array['content'] = FeedFormatter::format($post_array['content']);
+			$post_array['created'] = DateSince::format($post_array['created']);
+
+			if ($post_array['groupId']) {
+				$post_array['group'] = GroupService::getById($post_array['groupId'])->toArray();
+			}
+
+			$data[] = $post_array;
+		}
+
+		if ($parentPostId) {
+			$data = array_reverse($data);
+		}
+
+		$this->json(array('last_update' => time(), 'posts' => $data));
 	}
 
 }

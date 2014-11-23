@@ -6,10 +6,30 @@ use Core\Service;
 use Db\Feed\GetByUserId;
 use Db\Feed\GetUpdates;
 use Db\Feed\GetByPostId;
+use Db\Feed\GetByGroupId;
 use Model\Feed as FeedModel;
 
 class Feed extends Service
 {
+
+	/**
+	 * @param $parentPostId
+	 * @param $groupId
+	 * @return FeedModel[]
+	 * @throws \Core\Query\NoResultException
+	 */
+	public static function getGroupFeed($groupId, $parentPostId, $userId)
+	{
+		$query = new GetByGroupId();
+		$query->setGroupId($groupId);
+		$query->setUserId($userId);
+		$query->setParentPostId($parentPostId);
+
+		$model = new FeedModel();
+		$aPosts = self::fillCollection($model, $query->fetchAll());
+
+		return $aPosts;
+	}
 
 	/**
 	 * @param $parentPostId
