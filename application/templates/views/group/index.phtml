@@ -15,33 +15,79 @@
 		</div>
 	</div>
 
-	<div id="create_post" class="well">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-		<form id="create_post_form" role="form">
+			<ul class="nav nav-tabs" role="tablist" id="myTab">
+				<li role="presentation" class="active"><a href="#posts" aria-controls="home" role="tab" data-toggle="tab">Posts</a></li>
+				<li role="presentation"><a href="#members" aria-controls="profile" role="tab" data-toggle="tab">Members</a></li>
+			</ul>
 
-			<div class="form-group">
-				<textarea id="post_content" class="form-control" name="content" placeholder="Write post to group..."></textarea>
-				<input type="hidden" id="post_image_id" value="">
+			<div class="tab-content">
+
+				<div role="tabpanel" class="tab-pane active" id="posts">
+
+					<div id="create_post" class="well">
+
+						<form id="create_post_form" role="form">
+
+							<div class="form-group">
+								<textarea id="post_content" class="form-control" name="content" placeholder="Write post to group..."></textarea>
+								<input type="hidden" id="post_image_id" value="">
+							</div>
+
+							<div id="image_area"></div>
+
+							<div class="form-group" style="text-align: right;">
+
+								<button id="post_select_image" class="btn btn-default"><i class="fa fa-plus"></i> <i class="fa fa-file-image-o"></i></button>
+								<input type="file" id="image_upload" accept="image/*" style="display: none;" />
+
+								<input type="submit" class="btn btn-primary" value="Post" />
+							</div>
+
+						</form>
+
+					</div>
+
+					<div class="posts">
+
+						<!-- -->
+
+					</div>
+
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="members">
+
+					<?php if ($this->members): ?>
+						<?php foreach ($this->members as $user): ?>
+							<div class="well well-sm">
+								<div class="col-xs-3">
+									<a href="/profile/?user=<?= $user->getId(); ?>">
+										<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+									</a>
+								</div>
+								<div class="col-xs-9">
+									<a href="/profile/?user=<?= $user->getId(); ?>">
+										<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
+										<p class="list-group-item-text">
+											Lorem ipsum dolor
+										</p>
+									</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<p>No users are in this group.</p>
+					<?php endif; ?>
+
+				</div>
+
 			</div>
 
-			<div id="image_area"></div>
-
-			<div class="form-group" style="text-align: right;">
-
-				<button id="post_select_image" class="btn btn-default"><i class="fa fa-plus"></i> <i class="fa fa-file-image-o"></i></button>
-				<input type="file" id="image_upload" accept="image/*" style="display: none;" />
-
-				<input type="submit" class="btn btn-primary" value="Post" />
-			</div>
-
-		</form>
-
-	</div>
-
-	<div class="posts">
-
-		<!-- -->
-
+		</div>
 	</div>
 
 </div>

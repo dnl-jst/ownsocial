@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Core\Controller;
 use Core\Query\NoResultException;
+use Service\User;
 use Service\UserGroup as UserGroupService;
 use Model\UserGroup as UserGroupModel;
 use Service\Group as GroupService;
@@ -16,6 +17,11 @@ use Core\Helper\DateSince;
 
 class Group extends Controller
 {
+
+	public function init()
+	{
+		#
+	}
 
 	public function indexAction()
 	{
@@ -33,9 +39,12 @@ class Group extends Controller
 			return;
 		}
 
+		$members = User::getByGroupId($groupId);
+
 		$this->_view->group = $group;
 		$this->_view->userGroup = $userGroup;
 		$this->_view->isGroupAdmin = ($userGroup && $userGroup->getRole() === UserGroupModel::ROLE_ADMIN);
+		$this->_view->members = $members;
 	}
 
 	public function addAction()
