@@ -17,6 +17,7 @@ class GetById extends Query
 				root_post_id,
 				parent_post_id,
 				user_id,
+				group_id,
 				visibility,
 				content,
 				image_file_id,

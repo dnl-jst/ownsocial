@@ -10,6 +10,7 @@ class Post extends Model
 	protected $rootPostId;
 	protected $parentPostId;
 	protected $userId;
+	protected $groupId;
 	protected $visibility;
 	protected $content;
 	protected $imageFileId;
@@ -158,6 +159,22 @@ class Post extends Model
 	public function setRootPostId($rootPostId)
 	{
 		$this->rootPostId = $rootPostId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getGroupId()
+	{
+		return $this->groupId;
+	}
+
+	/**
+	 * @param mixed $groupId
+	 */
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
 	}
 
 }

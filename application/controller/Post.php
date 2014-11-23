@@ -18,6 +18,7 @@ class Post extends Controller
 	public function addAction()
 	{
 		$userId = $this->_currentUser->getId();
+		$groupId = $this->getRequest()->getPost('group');
 		$content = $this->getRequest()->getPost('content');
 		$imageFileId = $this->getRequest()->getPost('image', null);
 
@@ -29,11 +30,17 @@ class Post extends Controller
 		$post->setRootPostId(null);
 		$post->setParentPostId(null);
 		$post->setUserId($userId);
+		$post->setGroupId($groupId);
 		$post->setContent($content);
 		$post->setImageFileId($imageFileId);
 		$post->setCreated(time());
 		$post->setModified(time());
-		$post->setVisibility('public');
+
+		if ($groupId) {
+			$post->setVisibility('group');
+		} else {
+			$post->setVisibility('public');
+		}
 
 		$postId = PostService::store($post);
 

@@ -11,6 +11,7 @@ class Store extends Query
 	protected $rootPostId;
 	protected $parentPostId;
 	protected $userId;
+	protected $groupId;
 	protected $visibility;
 	protected $content;
 	protected $imageFileId;
@@ -27,6 +28,7 @@ class Store extends Query
 					root_post_id,
 					parent_post_id,
 					user_id,
+					group_id,
 					visibility,
 					content,
 					image_file_id,
@@ -43,12 +45,14 @@ class Store extends Query
 					?,
 					?,
 					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
 				root_post_id = VALUES(root_post_id),
 				parent_post_id = VALUES(parent_post_id),
 				user_id = VALUES(user_id),
+				group_id = VALUES(group_id),
 				visibility = VALUES(visibility),
 				content = VALUES(content),
 				image_file_id = VALUES(image_file_id),
@@ -59,6 +63,7 @@ class Store extends Query
 		$this->addBind($this->rootPostId);
 		$this->addBind($this->parentPostId);
 		$this->addBind($this->userId);
+		$this->addBind($this->groupId);
 		$this->addBind($this->visibility);
 		$this->addBind($this->content);
 		$this->addBind($this->imageFileId);
@@ -138,6 +143,14 @@ class Store extends Query
 	public function setRootPostId($rootPostId)
 	{
 		$this->rootPostId = $rootPostId;
+	}
+
+	/**
+	 * @param mixed $groupId
+	 */
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
 	}
 
 }

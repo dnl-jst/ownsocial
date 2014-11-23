@@ -22,6 +22,7 @@ class Post extends Service
 		$query->setRootPostId($post->getRootPostId());
 		$query->setParentPostId($post->getParentPostId());
 		$query->setUserId($post->getUserId());
+		$query->setGroupId($post->getGroupId());
 		$query->setVisibility($post->getVisibility());
 		$query->setContent($post->getContent());
 		$query->setImageFileId($post->getImageFileId());
