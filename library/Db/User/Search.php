@@ -28,8 +28,8 @@ class Search extends Query
 				users u
 			JOIN configs cnfg ON cnfg.key = \'default_portrait_id\'
 			WHERE
-				u.first_name LIKE ?
-			OR 	u.last_name LIKE ?';
+				u.account_confirmed = 1
+			AND	(u.first_name LIKE ? OR u.last_name LIKE ?)';
 
 		$this->addBind($this->search . '%');
 		$this->addBind($this->search . '%');
