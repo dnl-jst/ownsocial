@@ -14,6 +14,7 @@ use Model\File as FileModel;
 use Service\Feed as FeedService;
 use Core\Helper\FeedFormatter;
 use Core\Helper\DateSince;
+use Service\UserGroup;
 
 class Group extends Controller
 {
@@ -66,6 +67,7 @@ class Group extends Controller
 		$userGroup = new UserGroupModel();
 		$userGroup->setUserId($this->_currentUser->getId());
 		$userGroup->setGroupId($groupId);
+		$userGroup->setCreatedBy($this->_currentUser->getId());
 		$userGroup->setConfirmed(time());
 		$userGroup->setRole(UserGroupModel::ROLE_ADMIN);
 
@@ -249,6 +251,133 @@ class Group extends Controller
 		}
 
 		$this->json(array('last_update' => time(), 'posts' => $data));
+	}
+
+	public function suggestMembersAction()
+	{
+		$groupId = $this->getRequest()->getGet('id');
+		$search = $this->getRequest()->getPost('search');
+		$users = array();
+
+		try {
+
+			$userGroup = UserGroup::get($this->_currentUser->getId(), $groupId);
+
+			if ($userGroup->getRole() !== UserGroupModel::ROLE_ADMIN) {
+
+				$this->json($users);
+				return;
+			}
+
+		} catch (NoResultException $e) {
+
+			$this->json($users);
+			return;
+
+		}
+
+		if (!$search) {
+
+			$this->json($users);
+			return;
+
+		}
+
+		if ($this->_config['network_type']['value'] === 'public') {
+
+			try {
+				$resultUsers = User::searchContactsNotInGroup($search, $this->_currentUser->getId(), $groupId);
+
+				foreach($resultUsers as $user) {
+
+					try {
+						UserGroup::get($user->getId(), $groupId);
+						continue;
+					} catch (NoResultException $e) {}
+
+					$users[] = array(
+						'id' => $user->getId(),
+						'first_name' => $user->getFirstName(),
+						'last_name' => $user->getLastName(),
+						'portrait_file_id' => $user->getPortraitFileId()
+					);
+				}
+
+			} catch (NoResultException $e) {}
+
+		} else {
+
+			try {
+				$resultUsers = User::searchNotInGroup($search, $groupId);
+
+				foreach($resultUsers as $user) {
+
+					try {
+						UserGroup::get($user->getId(), $groupId);
+						continue;
+					} catch (NoResultException $e) {}
+
+					$users[] = array(
+						'id' => $user->getId(),
+						'first_name' => $user->getFirstName(),
+						'last_name' => $user->getLastName(),
+						'portrait_file_id' => $user->getPortraitFileId()
+					);
+				}
+			} catch (NoResultException $e) {}
+
+		}
+
+		$this->json($users);
+	}
+
+	public function addMembersAction()
+	{
+		$groupId = $this->getRequest()->getGet('id');
+		$newMembers = $this->getRequest()->getPost('new_members');
+
+		try {
+
+			$userGroup = UserGroup::get($this->_currentUser->getId(), $groupId);
+
+			if ($userGroup->getRole() !== UserGroupModel::ROLE_ADMIN) {
+
+				$this->json(array('success' => false));
+				return;
+			}
+
+		} catch (NoResultException $e) {
+
+			$this->json(array('success' => false));
+			return;
+
+		}
+
+		if (is_array($newMembers)) {
+
+			foreach ($newMembers as $newMember) {
+
+				# continue if connection already exists
+				try {
+					UserGroup::get($newMember, $groupId);
+					continue;
+				} catch (NoResultException $e) {}
+
+				$userGroup = new UserGroupModel();
+				$userGroup->setUserId($newMember);
+				$userGroup->setGroupId($groupId);
+				$userGroup->setCreatedBy($this->_currentUser->getId());
+				$userGroup->setConfirmed(null);
+				$userGroup->setRole(UserGroupModel::ROLE_MEMBER);
+
+				UserGroup::store($userGroup);
+			}
+
+		}
+
+		$this->json(array(
+			'success' => true
+		));
 	}
 
 }

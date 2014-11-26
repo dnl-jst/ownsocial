@@ -14,6 +14,7 @@ class UserGroup extends Model
 
 	protected $userId;
 	protected $groupId;
+	protected $createdBy;
 	protected $confirmed;
 	protected $role;
 
@@ -79,6 +80,22 @@ class UserGroup extends Model
 	public function setUserId($userId)
 	{
 		$this->userId = $userId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCreatedBy()
+	{
+		return $this->createdBy;
+	}
+
+	/**
+	 * @param mixed $createdBy
+	 */
+	public function setCreatedBy($createdBy)
+	{
+		$this->createdBy = $createdBy;
 	}
 
 }

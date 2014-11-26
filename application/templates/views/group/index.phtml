@@ -12,6 +12,9 @@
 		</div>
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 			<h2><?= $this->escape($this->group->getName()); ?></h2>
+			<?php if ($this->isGroupAdmin): ?>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group_user_add_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> Add member</button>
+			<?php endif; ?>
 		</div>
 	</div>
 
@@ -91,6 +94,41 @@
 	</div>
 
 </div>
+
+<?php if ($this->isGroupAdmin): ?>
+<div class="modal fade" id="group_user_add_modal" role="dialog" aria-labelledby="group_modal_title" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="group_user_modal_title">Add group member</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+						<input type="text" class="form-control" id="group_user_add_search" value="" placeholder="Search for user..." />
+					</div>
+
+					<div id="group_user_add_suggestions">
+						<!-- -->
+					</div>
+
+					<div id="group_user_add_selected">
+						<h3>Selected:</h3>
+						<div class="well well-sm">
+							No members selected yet. Search above!
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" id="action_add_group_members">Add member(s)</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<?php endif; ?>
 
 <?php if ($this->isGroupAdmin): ?>
 	<script type="text/javascript">

@@ -94,10 +94,13 @@ CREATE TABLE `relations` (
 CREATE TABLE `user_groups` (
   `user_id` bigint(20) unsigned NOT NULL,
   `group_id` bigint(20) unsigned NOT NULL,
+  `created_by` bigint(20) unsigned DEFAULT NULL,
   `confirmed` bigint(20) DEFAULT NULL,
   `role` enum('member','admin') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'member',
   PRIMARY KEY (`user_id`,`group_id`),
   KEY `group_id` (`group_id`),
+  KEY `created_by` (`created_by`),
+  CONSTRAINT `user_groups_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `user_groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_groups_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

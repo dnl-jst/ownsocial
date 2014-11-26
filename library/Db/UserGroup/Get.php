@@ -16,6 +16,7 @@ class Get extends Query
 			SELECT
 				user_id,
 				group_id,
+				created_by,
 				confirmed,
 				role
 			FROM

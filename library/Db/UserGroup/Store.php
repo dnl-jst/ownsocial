@@ -14,6 +14,9 @@ class Store extends Query
 	protected $groupId;
 
 	/** @var integer */
+	protected $createdBy;
+
+	/** @var integer */
 	protected $confirmed;
 
 	/** @var string */
@@ -27,11 +30,13 @@ class Store extends Query
 				(
 					user_id,
 					group_id,
+					created_by,
 					confirmed,
 					role
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -43,6 +48,7 @@ class Store extends Query
 
 		$this->addBind($this->userId);
 		$this->addBind($this->groupId);
+		$this->addBind($this->createdBy);
 		$this->addBind($this->confirmed);
 		$this->addBind($this->role);
 
@@ -79,6 +85,14 @@ class Store extends Query
 	public function setConfirmed($confirmed)
 	{
 		$this->confirmed = $confirmed;
+	}
+
+	/**
+	 * @param int $createdBy
+	 */
+	public function setCreatedBy($createdBy)
+	{
+		$this->createdBy = $createdBy;
 	}
 
 }

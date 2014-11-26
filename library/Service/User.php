@@ -6,6 +6,9 @@ use Core\Controller\Request;
 use Db\User\Delete;
 use Db\User\GetByGroupId;
 use Db\User\GetUnconfirmedUsers;
+use Db\User\SearchContacts;
+use Db\User\SearchContactsNotInGroup;
+use Db\User\SearchNotInGroup;
 use Zend\Mail;
 use Core\Service;
 use Core\Query\NoResultException;
@@ -93,6 +96,34 @@ class User extends Service
 	{
 		$query = new Search();
 		$query->setSearch($search);
+
+		return self::fillCollection(new UserModel(), $query->fetchAll());
+	}
+
+	public static function searchContacts($search, $userId)
+	{
+		$query = new SearchContacts();
+		$query->setSearch($search);
+		$query->setUserId($userId);
+
+		return self::fillCollection(new UserModel(), $query->fetchAll());
+	}
+
+	public static function searchNotInGroup($search, $groupId)
+	{
+		$query = new SearchNotInGroup();
+		$query->setSearch($search);
+		$query->setGroupId($groupId);
+
+		return self::fillCollection(new UserModel(), $query->fetchAll());
+	}
+
+	public static function searchContactsNotInGroup($search, $userId, $groupId)
+	{
+		$query = new SearchContactsNotInGroup();
+		$query->setSearch($search);
+		$query->setUserId($userId);
+		$query->setGroupId($groupId);
 
 		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
