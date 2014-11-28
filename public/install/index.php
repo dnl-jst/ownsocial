@@ -53,11 +53,10 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$stmt = $db->query('SHOW DATABASES LIKE ' . $db->quote($dbName));
 
-	if ($stmt->fetch() !== false) {
-		die('error: database already exists');
+	if ($stmt->fetch() === false) {
+		$db->query('CREATE DATABASE IF NOT EXISTS `' . $dbName . '` /*!40100 DEFAULT CHARACTER SET utf8mb4 */');
 	}
 
-	$db->query('CREATE DATABASE `' . $dbName . '` /*!40100 DEFAULT CHARACTER SET utf8mb4 */');
 	$db->query('USE ' . $dbName);
 
 	$db->exec('set foreign_key_checks=0');
