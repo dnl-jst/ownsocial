@@ -98,6 +98,12 @@
 
 </div>
 
+<script type="text/javascript">
+
+	var groupId = <?= json_encode($this->group->getId()); ?>;
+
+</script>
+
 <?php if ($this->isGroupAdmin): ?>
 <div class="modal fade" id="group_user_add_modal" role="dialog" aria-labelledby="group_modal_title" aria-hidden="true">
 	<div class="modal-dialog">
@@ -135,8 +141,6 @@
 
 <?php if ($this->isGroupAdmin): ?>
 	<script type="text/javascript">
-
-		var groupId = <?= json_encode($this->group->getId()); ?>;
 
 		$(function() {
 			var croppicContainerModalOptions = {
