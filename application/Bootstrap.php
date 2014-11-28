@@ -40,4 +40,16 @@ class Bootstrap
 		session_start();
 	}
 
+	public static function forceHttps($config)
+	{
+		$requestIsHttps = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) === 'on');
+
+		if ($config['https'] && !$requestIsHttps) {
+
+			header('Location: https://' . $_SERVER['HTTP_HOST'] . @$_SERVER['REQUEST_URI']);
+			exit();
+
+		}
+	}
+
 }
