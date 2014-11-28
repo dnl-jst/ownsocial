@@ -41,11 +41,13 @@ class Group extends Controller
 		}
 
 		$members = User::getByGroupId($groupId);
+		$requests = User::getGroupRequests($groupId);
 
 		$this->_view->group = $group;
 		$this->_view->userGroup = $userGroup;
 		$this->_view->isGroupAdmin = ($userGroup && $userGroup->getRole() === UserGroupModel::ROLE_ADMIN);
 		$this->_view->members = $members;
+		$this->_view->requests = $requests;
 	}
 
 	public function addAction()

@@ -5,6 +5,7 @@ namespace Service;
 use Core\Controller\Request;
 use Db\User\Delete;
 use Db\User\GetByGroupId;
+use Db\User\GetGroupRequests;
 use Db\User\GetUnconfirmedUsers;
 use Db\User\SearchContacts;
 use Db\User\SearchContactsNotInGroup;
@@ -230,6 +231,20 @@ class User extends Service
 	public static function getByGroupId($groupId)
 	{
 		$query = new GetByGroupId();
+		$query->setGroupId($groupId);
+
+		try {
+			$users = self::fillCollection(new UserModel(), $query->fetchAll());
+		} catch (NoResultException $e) {
+			$users = array();
+		}
+
+		return $users;
+	}
+
+	public static function getGroupRequests($groupId)
+	{
+		$query = new GetGroupRequests();
 		$query->setGroupId($groupId);
 
 		try {

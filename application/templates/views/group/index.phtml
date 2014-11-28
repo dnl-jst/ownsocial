@@ -25,8 +25,9 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 			<ul class="nav nav-tabs" role="tablist" id="myTab">
-				<li role="presentation" class="active"><a href="#posts" aria-controls="home" role="tab" data-toggle="tab">Posts</a></li>
-				<li role="presentation"><a href="#members" aria-controls="profile" role="tab" data-toggle="tab">Members</a></li>
+				<li role="presentation" class="active"><a href="#posts" aria-controls="" role="tab" data-toggle="tab">Posts</a></li>
+				<li role="presentation"><a href="#members" aria-controls="" role="tab" data-toggle="tab">Members</a></li>
+				<li role="presentation"><a href="#requests" aria-controls="" role="tab" data-toggle="tab">Requests<?= ($this->requests) ? ' <span class="badge">' . count($this->requests) . '</span>' : ''; ?></a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -87,6 +88,33 @@
 						<?php endforeach; ?>
 					<?php else: ?>
 						<p>No users are in this group.</p>
+					<?php endif; ?>
+
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="requests">
+
+					<?php if ($this->requests): ?>
+						<?php foreach ($this->requests as $user): ?>
+							<div class="well well-sm">
+								<div class="col-xs-3">
+									<a href="/profile/?user=<?= $user->getId(); ?>">
+										<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+									</a>
+								</div>
+								<div class="col-xs-9">
+									<a href="/profile/?user=<?= $user->getId(); ?>">
+										<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
+										<p class="list-group-item-text">
+											<?= $this->escape($user->getDepartment()); ?>
+										</p>
+									</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<p>There are currently no pending group requests.</p>
 					<?php endif; ?>
 
 				</div>

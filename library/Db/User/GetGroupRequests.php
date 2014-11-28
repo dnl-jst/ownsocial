@@ -4,7 +4,7 @@ namespace Db\User;
 
 use Core\Query;
 
-class GetByGroupId extends Query
+class GetGroupRequests extends Query
 {
 
 	protected $groupId;
@@ -31,7 +31,8 @@ class GetByGroupId extends Query
 			JOIN configs cnfg ON cnfg.key = \'default_portrait_id\'
 			WHERE
 				ug.group_id = ?
-			AND 	ug.confirmed IS NOT NULL';
+			AND 	ug.user_id = IFNULL(ug.created_by, 0)
+			AND 	ug.confirmed IS NULL';
 
 		$this->addBind($this->groupId);
 
