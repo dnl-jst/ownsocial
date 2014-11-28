@@ -60,6 +60,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 				password,
 				first_name,
 				last_name,
+				department,
 				created
 			)
 			VALUES
@@ -72,6 +73,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 				:password,
 				:first_name,
 				:last_name,
+				NULL,
 				:created
 			)'
 	);

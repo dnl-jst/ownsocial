@@ -15,6 +15,7 @@ class GetByUserId extends Query
 			SELECT
 				g.id,
 				g.name,
+				g.description,
 				g.type,
 				g.portrait_file_id,
 				g.created,

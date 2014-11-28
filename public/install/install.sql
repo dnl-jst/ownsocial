@@ -36,6 +36,7 @@ VALUES
 CREATE TABLE `groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(255) DEFAULT NULL,
   `type` enum('public','protected','hidden') NOT NULL DEFAULT 'hidden',
   `portrait_file_id` bigint(20) unsigned DEFAULT NULL,
   `created` bigint(20) NOT NULL,
@@ -116,6 +117,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL DEFAULT '',
   `first_name` varchar(255) NOT NULL DEFAULT '',
   `last_name` varchar(255) NOT NULL DEFAULT '',
+  `department` varchar(255) DEFAULT NULL,
   `portrait_file_id` bigint(20) unsigned DEFAULT NULL,
   `created` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),

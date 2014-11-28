@@ -12,6 +12,9 @@
 		</div>
 		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
 			<h2><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></h2>
+			<p>
+				<small>Department: <?= $this->escape($this->user->getDepartment()); ?></small>
+			</p>
 
 			<?php if ($this->_currentUser->getId() !== $this->user->getId()): ?>
 				<p>

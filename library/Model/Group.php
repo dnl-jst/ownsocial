@@ -15,6 +15,7 @@ class Group extends Model
 
 	protected $id;
 	protected $name;
+	protected $description;
 	protected $type;
 	protected $portraitFileId;
 	protected $created;
@@ -114,6 +115,22 @@ class Group extends Model
 	public function setPortraitFileId($portraitFileId)
 	{
 		$this->portraitFileId = $portraitFileId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
+
+	/**
+	 * @param mixed $description
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
 	}
 
 }

@@ -15,6 +15,7 @@ class GetById extends Query
 			SELECT
 				g.id,
 				g.name,
+				g.description,
 				g.type,
 				COALESCE(g.portrait_file_id, cnfg.value) AS portrait_file_id,
 				g.created

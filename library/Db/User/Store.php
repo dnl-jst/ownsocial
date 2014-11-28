@@ -34,6 +34,9 @@ class Store extends Query
 	/** @var string */
 	protected $lastName;
 
+	/** @var string */
+	protected $department;
+
 	/** @var integer */
 	protected $portraitFileId;
 
@@ -55,11 +58,13 @@ class Store extends Query
 					password,
 					first_name,
 					last_name,
+					department,
 					portrait_file_id,
 					created
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -81,6 +86,7 @@ class Store extends Query
 				password = VALUES(password),
 				first_name = VALUES(first_name),
 				last_name = VALUES(last_name),
+				department = VALUES(department),
 				portrait_file_id = VALUES(portrait_file_id)';
 
 		$this->addBind($this->id);
@@ -92,6 +98,7 @@ class Store extends Query
 		$this->addBind($this->password);
 		$this->addBind($this->firstName);
 		$this->addBind($this->lastName);
+		$this->addBind($this->department);
 		$this->addBind($this->portraitFileId);
 		$this->addBind($this->created);
 
@@ -184,6 +191,14 @@ class Store extends Query
 	public function setType($type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @param string $department
+	 */
+	public function setDepartment($department)
+	{
+		$this->department = $department;
 	}
 
 }

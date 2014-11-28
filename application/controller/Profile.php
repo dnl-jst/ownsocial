@@ -27,6 +27,34 @@ class Profile extends Controller
 		$this->_view->render('profile/index.phtml');
 	}
 
+	public function updateAction()
+	{
+		$user = $this->_currentUser;
+
+		$key = $this->getRequest()->getPost('key');
+		$value = $this->getRequest()->getPost('value');
+
+		$updateableKeys = array(
+			'department'
+		);
+
+		if (in_array($key, $updateableKeys)) {
+
+			$method = 'set' . ucfirst($key);
+			$user->$method($value);
+
+			User::store($user);
+
+			$success = true;
+
+		} else {
+			$success = false;
+		}
+
+		$this->json(array('success' => $success));
+
+	}
+
 	public function savePicAction()
 	{
 		$allowedExtensions = array('gif', 'jpeg', 'jpg', 'png');

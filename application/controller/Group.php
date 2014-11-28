@@ -51,6 +51,7 @@ class Group extends Controller
 	public function addAction()
 	{
 		$groupName = $this->getRequest()->getPost('name');
+		$groupDescription = $this->getRequest()->getPost('description');
 		$groupType = $this->getRequest()->getPost('type');
 
 		if (!in_array($groupType, GroupModel::$types)) {
@@ -59,6 +60,7 @@ class Group extends Controller
 
 		$group = new GroupModel();
 		$group->setName($groupName);
+		$group->setDescription($groupDescription);
 		$group->setType($groupType);
 		$group->setCreated(time());
 
@@ -299,6 +301,7 @@ class Group extends Controller
 						'id' => $user->getId(),
 						'first_name' => $user->getFirstName(),
 						'last_name' => $user->getLastName(),
+						'department' => $user->getDepartment(),
 						'portrait_file_id' => $user->getPortraitFileId()
 					);
 				}
@@ -321,6 +324,7 @@ class Group extends Controller
 						'id' => $user->getId(),
 						'first_name' => $user->getFirstName(),
 						'last_name' => $user->getLastName(),
+						'department' => $user->getDepartment(),
 						'portrait_file_id' => $user->getPortraitFileId()
 					);
 				}

@@ -38,6 +38,9 @@ class User extends Model
 	/** @var string */
 	protected $lastName;
 
+	/** @var string */
+	protected $department;
+
 	/** @var int */
 	protected $portraitFileId;
 
@@ -218,6 +221,22 @@ class User extends Model
 	public function setType($type)
 	{
 		$this->type = $type;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDepartment()
+	{
+		return $this->department;
+	}
+
+	/**
+	 * @param string $department
+	 */
+	public function setDepartment($department)
+	{
+		$this->department = $department;
 	}
 
 	/**

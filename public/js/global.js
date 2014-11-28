@@ -376,6 +376,7 @@ $(function() {
         event.preventDefault();
 
         var groupName = $('#group_name').val();
+        var groupDescription = $('#group_description').val();
         var groupType = $('#group_type').val();
 
         $.ajax({
@@ -383,6 +384,7 @@ $(function() {
             url: '/group/add/',
             data: {
                 name: groupName,
+                description: groupDescription,
                 type: groupType
             },
             dataType: 'json',

@@ -47,6 +47,7 @@ class Group extends Service
 		$query = new Store();
 		$query->setId($group->getId());
 		$query->setName($group->getName());
+		$query->setDescription($group->getDescription());
 		$query->setType($group->getType());
 		$query->setPortraitFileId($group->getPortraitFileId());
 		$query->setCreated($group->getCreated());

@@ -9,6 +9,7 @@ class Store extends Query
 
 	protected $id;
 	protected $name;
+	protected $description;
 	protected $type;
 	protected $portraitFileId;
 	protected $created;
@@ -21,6 +22,7 @@ class Store extends Query
 				(
 					id,
 					name,
+					description,
 					type,
 					portrait_file_id,
 					created
@@ -31,15 +33,18 @@ class Store extends Query
 					?,
 					?,
 					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
 				name = VALUES(name),
+				description = VALUES(description),
 				type = VALUES(type),
 				portrait_file_id = VALUES(portrait_file_id)';
 
 		$this->addBind($this->id);
 		$this->addBind($this->name);
+		$this->addBind($this->description);
 		$this->addBind($this->type);
 		$this->addBind($this->portraitFileId);
 		$this->addBind($this->created);
@@ -85,6 +90,14 @@ class Store extends Query
 	public function setPortraitFileId($portraitFileId)
 	{
 		$this->portraitFileId = $portraitFileId;
+	}
+
+	/**
+	 * @param mixed $description
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
 	}
 
 }

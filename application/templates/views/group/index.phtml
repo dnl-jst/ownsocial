@@ -12,6 +12,9 @@
 		</div>
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 			<h2><?= $this->escape($this->group->getName()); ?></h2>
+			<p>
+				<small><?= $this->escape($this->group->getDescription()); ?></small>
+			</p>
 			<?php if ($this->isGroupAdmin): ?>
 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group_user_add_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> Add member</button>
 			<?php endif; ?>
@@ -75,7 +78,7 @@
 									<a href="/profile/?user=<?= $user->getId(); ?>">
 										<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
 										<p class="list-group-item-text">
-											Lorem ipsum dolor
+											<?= $this->escape($user->getDepartment()); ?>
 										</p>
 									</a>
 								</div>

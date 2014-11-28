@@ -13,10 +13,10 @@
 			<div class="col-xs-9">
 				<a href="/profile/?user=<?= $user->getId(); ?>">
 					<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
-					<p class="list-group-item-text">
-						Lorem ipsum dolor
-					</p>
 				</a>
+				<p class="list-group-item-text">
+					<small>Department: <?= $this->escape($user->getDepartment()); ?></small>
+				</p>
 			</div>
 		</div>
 		<?php endforeach; ?>
@@ -40,10 +40,10 @@
 				<div class="col-xs-9">
 					<a href="/group/?id=<?= $group->getId(); ?>">
 						<h4 class="list-group-item-heading"><?= $this->escape($group->getName()); ?></h4>
-						<p class="list-group-item-text">
-							Lorem ipsum dolor
-						</p>
 					</a>
+					<p class="list-group-item-text">
+						<small><?= $this->escape($group->getDescription()); ?></small>
+					</p>
 				</div>
 			</div>
 		<?php endforeach; ?>

@@ -165,6 +165,7 @@ class User extends Service
 		$query->setPassword($user->getPassword());
 		$query->setFirstName($user->getFirstName());
 		$query->setLastName($user->getLastName());
+		$query->setDepartment($user->getDepartment());
 		$query->setPortraitFileId($user->getPortraitFileId());
 		$query->setCreated($user->getCreated());
 

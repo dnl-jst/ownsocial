@@ -24,6 +24,7 @@ class SearchContactsNotInGroup extends Query
 				u.password,
 				u.first_name,
 				u.last_name,
+				u.department,
 				IFNULL(u.portrait_file_id, cnfg.value) AS portrait_file_id,
 				u.created
 			FROM
