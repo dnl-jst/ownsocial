@@ -17,6 +17,22 @@ class Bootstrap
 		));
 
 		Query::configureDb($db);
+
+		$currentDbLayoutVersion = require(APPLICATION_ROOT . 'db_layout_version.php');
+		$installedDbLayoutVersion = \Service\Config::getByKey('db_layout_version');
+
+		if ($currentDbLayoutVersion != $installedDbLayoutVersion) {
+
+			$siteTitle = \Service\Config::getByKey('site_title');
+
+			$updateUrl = ((@$config['https']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/install/db_update.php';
+
+			echo '<h1>' . htmlspecialchars($siteTitle) . '</h1>';
+			echo '<p>This network is currently in maintenance mode. Pleasy try again later.</p>';
+			echo '<p>If you are an administrator of this network, visit <a href="' . htmlspecialchars($updateUrl) . '">' . htmlspecialchars($updateUrl) . '</a>';
+
+			die();
+		}
 	}
 
 	public static function initSession()

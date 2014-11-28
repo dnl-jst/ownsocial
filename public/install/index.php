@@ -4,12 +4,16 @@ if (is_file('../../config.php')) {
 	die('application already installed');
 }
 
+# current release db layout version
+$dbLayoutVersion = require('../../db_layout_version.php');
+
 if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$dbHost = $_POST['db_host'];
 	$dbName = $_POST['db_name'];
 	$dbUser = $_POST['db_user'];
 	$dbPass = $_POST['db_pass'];
+	$useHttps = (@$_POST['https'] === 'yes');
 
 	$firstName = trim($_POST['first_name']);
 	$lastName = trim($_POST['last_name']);
@@ -18,6 +22,19 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$password2 = trim($_POST['password2']);
 	$siteTitle = trim($_POST['site_title']);
 	$networkType = trim($_POST['network_type']);
+
+	# generate random update tool password
+	$aChars = array_merge(range('0', '9'), range('a', 'z'), range('A', 'Z'));
+
+	$aString = array();
+	for ($i = 0; $i < 16; $i++)
+	{
+		$aString[] = $aChars[mt_rand(0, count($aChars) - 1)];
+	}
+
+	$updateToolPassword = join('', $aString);
+
+	echo '<p>Your update tool password is: <strong>' . htmlspecialchars($updateToolPassword) . '<br />Copy this password, you will need it to update your OwnSocial installation.</strong></p>';
 
 	if ($password !== $password2) {
 		die('passwords are not equal');
@@ -89,6 +106,11 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$stmt = $db->prepare('INSERT INTO configs (`key`, `value`) VALUES (:key, :value)');
 
 	$stmt->execute(array(
+		':key' => 'db_layout_version',
+		':value' => $dbLayoutVersion
+	));
+
+	$stmt->execute(array(
 		':key' => 'site_title',
 		':value' => $siteTitle
 	));
@@ -104,7 +126,9 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 		'db_host' => $dbHost,
 		'db_name' => $dbName,
 		'db_user' => $dbUser,
-		'db_pass' => $dbPass
+		'db_pass' => $dbPass,
+		'https' => $useHttps,
+		'update_tool_password' => $updateToolPassword
 	);
 
 	$configFile = '<?php
@@ -159,6 +183,15 @@ return ' . var_export($config, true) . ';';
 								<option value="private">Private network</option>
 								<option value="public">Public network</option>
 							</select>
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<label>
+								<input class="form-control" type="checkbox" name="https" value="yes" />
+								Enable https for this network (warning: your server must be configured to allow https connections!)
+							</label>
 						</div>
 					</div>
 
