@@ -24,16 +24,23 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
+			<?php if ($this->group->getType() === \Model\Group::TYPE_PUBLIC || $this->userGroup): ?>
+
 			<ul class="nav nav-tabs" role="tablist" id="myTab">
 				<li role="presentation" class="active"><a href="#posts" aria-controls="" role="tab" data-toggle="tab">Posts</a></li>
+				<?php if ($this->group->getType() === \Model\Group::TYPE_PUBLIC || $this->userGroup): ?>
 				<li role="presentation"><a href="#members" aria-controls="" role="tab" data-toggle="tab">Members</a></li>
+				<?php endif; ?>
+				<?php if ($this->isGroupAdmin): ?>
 				<li role="presentation"><a href="#requests" aria-controls="" role="tab" data-toggle="tab">Requests<?= ($this->requests) ? ' <span class="badge">' . count($this->requests) . '</span>' : ''; ?></a></li>
+				<?php endif; ?>
 			</ul>
 
 			<div class="tab-content">
 
 				<div role="tabpanel" class="tab-pane active" id="posts">
 
+					<?php if ($this->userGroup): ?>
 					<div id="create_post" class="well">
 
 						<form id="create_post_form" role="form">
@@ -56,6 +63,7 @@
 						</form>
 
 					</div>
+					<?php endif; ?>
 
 					<div class="posts">
 
@@ -65,6 +73,7 @@
 
 				</div>
 
+				<?php if ($this->group->getType() === \Model\Group::TYPE_PUBLIC || $this->userGroup): ?>
 				<div role="tabpanel" class="tab-pane" id="members">
 
 					<?php if ($this->members): ?>
@@ -91,7 +100,9 @@
 					<?php endif; ?>
 
 				</div>
+				<?php endif; ?>
 
+				<?php if ($this->isGroupAdmin): ?>
 				<div role="tabpanel" class="tab-pane" id="requests">
 
 					<?php if ($this->requests): ?>
@@ -118,8 +129,11 @@
 					<?php endif; ?>
 
 				</div>
+				<?php endif; ?>
 
 			</div>
+
+			<?php endif; ?>
 
 		</div>
 	</div>
