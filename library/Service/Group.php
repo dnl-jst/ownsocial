@@ -3,6 +3,7 @@
 namespace Service;
 
 use Core\Service;
+use Db\Group\GetInvitations;
 use Db\Group\Search;
 use Model\Group as GroupModel;
 use Db\Group\GetByUserId;
@@ -60,10 +61,28 @@ class Group extends Service
 		}
 	}
 
+	/**
+	 * @param $search
+	 * @return GroupModel[]
+	 * @throws \Core\Query\NoResultException
+	 */
 	public static function search($search)
 	{
 		$query = new Search();
 		$query->setSearch($search);
+
+		return self::fillCollection(new GroupModel(), $query->fetchAll());
+	}
+
+	/**
+	 * @param $userId
+	 * @return GroupModel[]
+	 * @throws \Core\Query\NoResultException
+	 */
+	public static function getInvitations($userId)
+	{
+		$query = new GetInvitations();
+		$query->setUserId($userId);
 
 		return self::fillCollection(new GroupModel(), $query->fetchAll());
 	}

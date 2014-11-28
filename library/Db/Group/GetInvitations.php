@@ -4,7 +4,7 @@ namespace Db\Group;
 
 use Core\Query;
 
-class GetByUserId extends Query
+class GetInvitations extends Query
 {
 
 	protected $userId;
@@ -18,14 +18,15 @@ class GetByUserId extends Query
 				g.description,
 				g.type,
 				COALESCE(g.portrait_file_id, cnfg.value) AS portrait_file_id,
-				g.created,
-				ug.role
+				g.created
 			FROM
 				user_groups ug
-			JOIN groups g ON g.id = ug.group_id AND ug.confirmed IS NOT NULL
+			JOIN groups g ON g.id = ug.group_id
 			JOIN configs cnfg ON cnfg.key = \'default_portrait_id\'
 			WHERE
-				ug.user_id = ?';
+				ug.user_id = ?
+			AND 	ug.user_id != IFNULL(ug.created_by, 0)
+			AND	ug.confirmed IS NULL';
 
 		$this->addBind($this->userId);
 

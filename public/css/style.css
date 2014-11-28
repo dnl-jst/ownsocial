@@ -22,6 +22,11 @@ img.portrait {
     height: 40px;
 }
 
+.group_invitations .group_invitation img.portrait {
+    width: 40px;
+    height: 40px;
+}
+
 .form-signin {
     max-width: 330px;
     padding: 15px;

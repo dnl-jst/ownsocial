@@ -120,6 +120,22 @@
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
+				<?php if ($groupInvitations = $this->_currentUser->getGroupInvitations()): ?>
+					<div class="group_invitations">
+						<p class="headline">GROUP INVITATIONS</p>
+						<?php foreach ($groupInvitations as $group): ?>
+							<div class="group_invitation">
+								<img class="portrait" src="/file/?file=<?= $group->getPortraitFileId(); ?>" />
+								<?= $this->escape($group->getName()); ?>
+								<br />
+								<div class="btn-group">
+									<a href="#" class="btn btn-primary btn-sm accept_group_request" data-id="<?= $group->getId(); ?>">Accept</a>
+									<a href="#" class="btn btn-default btn-sm decline_group_request" data-id="<?= $group->getId(); ?>">Decline</a>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
 				<?php if ($this->_currentUser->getType() === 'admin' && $this->_unconfirmedUsers): ?>
 					<div class="unconfirmed_users">
 						<p class="headline">REGISTRATION REQUESTS</p>

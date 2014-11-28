@@ -284,6 +284,93 @@ $(function() {
 
     });
 
+    $(body).on('click', '.decline_request', function(event) {
+
+        event.preventDefault();
+
+        var aTag = $(this);
+        var relUserId = $(this).data('id');
+
+        $.ajax({
+            method: 'post',
+            url: '/relation/decline-request/',
+            data: {
+                user: relUserId
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $(aTag).closest('.unconfirmed_contact').fadeOut(function() {
+                    var unconfirmedContacts = $('.unconfirmed_contacts .unconfirmed_contact');
+
+                    if (unconfirmedContacts.length == 0) {
+                        $('.unconfirmed_contacts').fadeOut();
+                    }
+                });
+
+            }
+        });
+
+    });
+
+    $(body).on('click', '.accept_group_request', function(event) {
+
+        event.preventDefault();
+
+        var aTag = $(this);
+        var groupId = $(this).data('id');
+
+        $.ajax({
+            method: 'post',
+            url: '/group/accept-invitation/',
+            data: {
+                group: groupId
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $(aTag).closest('.group_invitation').fadeOut(function() {
+                    var groupInvitations = $('.group_invitations .group_invitation');
+
+                    if (groupInvitations.length == 0) {
+                        $('.group_invitations').fadeOut();
+                    }
+                });
+
+            }
+        });
+
+    });
+
+    $(body).on('click', '.decline_group_request', function(event) {
+
+        event.preventDefault();
+
+        var aTag = $(this);
+        var groupId = $(this).data('id');
+
+        $.ajax({
+            method: 'post',
+            url: '/group/decline-invitation/',
+            data: {
+                group: groupId
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $(aTag).closest('.group_invitation').fadeOut(function() {
+                    var groupInvitations = $('.group_invitations .group_invitation');
+
+                    if (groupInvitations.length == 0) {
+                        $('.group_invitations').fadeOut();
+                    }
+                });
+
+            }
+        });
+
+    });
+
     $(body).on('click', '.accept_user', function(event) {
 
         event.preventDefault();
@@ -334,35 +421,6 @@ $(function() {
 
                     if (unconfirmedUsers.length == 0) {
                         $('.unconfirmed_users').fadeOut();
-                    }
-                });
-
-            }
-        });
-
-    });
-
-    $(body).on('click', '.decline_request', function(event) {
-
-        event.preventDefault();
-
-        var aTag = $(this);
-        var relUserId = $(this).data('id');
-
-        $.ajax({
-            method: 'post',
-            url: '/relation/decline-request/',
-            data: {
-                user: relUserId
-            },
-            dataType: 'json',
-            success: function(result) {
-
-                $(aTag).closest('.unconfirmed_contact').fadeOut(function() {
-                    var unconfirmedContacts = $('.unconfirmed_contacts .unconfirmed_contact');
-
-                    if (unconfirmedContacts.length == 0) {
-                        $('.unconfirmed_contacts').fadeOut();
                     }
                 });
 

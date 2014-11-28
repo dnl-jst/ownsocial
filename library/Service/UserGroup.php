@@ -3,6 +3,7 @@
 namespace Service;
 
 use Core\Service;
+use Db\UserGroup\Delete;
 use Db\UserGroup\Get;
 use Db\UserGroup\Store;
 use Model\UserGroup as UserGroupModel;
@@ -33,6 +34,14 @@ class UserGroup extends Service
 		$query->setCreatedBy($userGroup->getCreatedBy());
 		$query->setConfirmed($userGroup->getConfirmed());
 		$query->setRole($userGroup->getRole());
+		$query->query();
+	}
+
+	public static function delete($userId, $groupId)
+	{
+		$query = new Delete();
+		$query->setUserId($userId);
+		$query->setGroupId($groupId);
 		$query->query();
 	}
 

@@ -255,11 +255,19 @@ class User extends Model
 		return Group::getByUserId($this->getId());
 	}
 
+	/**
+	 * @param User $user
+	 * @return Relation|null
+	 */
 	public function getRelationTo(User $user)
 	{
 		return UserService::getRelation($this, $user);
 	}
 
+	/**
+	 * @param $postId
+	 * @return bool
+	 */
 	public function canSeePost($postId)
 	{
 		try {
@@ -268,6 +276,14 @@ class User extends Model
 		} catch (NoResultException $e) {
 			return false;
 		}
+	}
+
+	/**
+	 * @return Group[]
+	 */
+	public function getGroupInvitations()
+	{
+		return Group::getInvitations($this->getId());
 	}
 
 }

@@ -384,4 +384,31 @@ class Group extends Controller
 		));
 	}
 
+	public function acceptInvitationAction()
+	{
+		$groupId = $this->getRequest()->getPost('group');
+		$success = false;
+
+		$userGroup = UserGroup::get($this->_currentUser->getId(), $groupId);
+
+		if ($userGroup->getUserId() != $userGroup->getCreatedBy()) {
+
+			$userGroup->setConfirmed(time());
+			UserGroup::store($userGroup);
+			$success = true;
+
+		}
+
+		$this->json(array('success' => $success));
+	}
+
+	public function declineInvitationAction()
+	{
+		$groupId = $this->getRequest()->getPost('group');
+
+		UserGroup::delete($this->_currentUser->getId(), $groupId);
+
+		$this->json(array('success' => true));
+	}
+
 }
