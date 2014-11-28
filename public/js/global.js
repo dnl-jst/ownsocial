@@ -84,6 +84,8 @@ $(function() {
 
         var file = $(this)[0].files[0];
 
+        $('#post_select_image').html('<i class="fa fa-spinner fa-spin"></i>');
+
         $.ajax({
             type: 'post',
             url: '/file/add/',
