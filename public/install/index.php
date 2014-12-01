@@ -1,5 +1,11 @@
 <?php
 
+ini_set('display_errors', false);
+
+date_default_timezone_set('Europe/Berlin');
+
+require_once('../../vendor/autoload.php');
+
 if (is_file('../../config.php')) {
 	die('application already installed');
 }
