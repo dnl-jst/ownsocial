@@ -46,7 +46,9 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			if (is_file($sqlPath)) {
 
-				$db->query(file_get_contents($sqlPath));
+				$db->exec('set foreign_key_checks=0');
+				$db->exec(file_get_contents($sqlPath));
+				$db->exec('set foreign_key_checks=1');
 
 				echo '<p>Executed sql for db layout version: ' . $i . '</p>';
 			} else {
@@ -57,7 +59,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		}
 
-		$db->query('UPDATE configs SET `value` = ' . $db->quote($dbLayoutVersion) . ' WHERE `key` = \'db_layout_version\'');
+		$db->exec('UPDATE configs SET `value` = ' . $db->quote($dbLayoutVersion) . ' WHERE `key` = \'db_layout_version\'');
 
 		die('<p>Your database layout was successfully updated to version: ' . $dbLayoutVersion . '</p>');
 

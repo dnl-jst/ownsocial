@@ -1,0 +1,16 @@
+<div class="conversation_index">
+	<div class="row">
+
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="border: 1px solid red;">
+			<ul>
+			<?php foreach ($this->conversations as $conversation): ?>
+				<li><?= $this->escape($conversation->getTitle()); ?></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+
+		<div class="col-xm-8 col-sm-8 col-md-8 col-lg-8" style="border: 1px solid green;">
+			Hallo Welt!
+		</div>
+	</div>
+</div>
