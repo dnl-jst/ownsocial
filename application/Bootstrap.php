@@ -21,7 +21,7 @@ class Bootstrap
 		$currentDbLayoutVersion = require(APPLICATION_ROOT . 'db_layout_version.php');
 		$installedDbLayoutVersion = \Service\Config::getByKey('db_layout_version');
 
-		if ($currentDbLayoutVersion != $installedDbLayoutVersion) {
+		if ($currentDbLayoutVersion > $installedDbLayoutVersion) {
 
 			$siteTitle = \Service\Config::getByKey('site_title');
 
