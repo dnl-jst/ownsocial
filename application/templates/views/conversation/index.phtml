@@ -1,16 +1,128 @@
 <div class="conversation_index">
 	<div class="row">
 
-		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="border: 1px solid red;">
-			<ul>
-			<?php foreach ($this->conversations as $conversation): ?>
-				<li><?= $this->escape($conversation->getTitle()); ?></li>
-			<?php endforeach; ?>
-			</ul>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			<div class="">
+				<ul class="nav nav-pills nav-stacked">
+				<?php foreach ($this->conversations as $i => $conversation): ?>
+					<li role="presentation" class="conversation <?= ($i === 0) ? ' active' : ''; ?>" data-conversation-id="<?= $conversation->getId(); ?>">
+						<a href="#">
+							<?= $this->escape($conversation->getTitle()); ?><br />
+							<small>Lorem ipsum dolor ami sit...</small>
+						</a>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			</div>
 		</div>
 
-		<div class="col-xm-8 col-sm-8 col-md-8 col-lg-8" style="border: 1px solid green;">
-			Hallo Welt!
+		<div class="col-xm-8 col-sm-8 col-md-8 col-lg-8">
+			<div class="well well-sm">
+
+				<div id="message_box" style="height: 350px; padding: 20px; overflow-y: auto;">
+					<hr>
+				</div>
+
+			</div>
+
+			<div class="well well-sm">
+
+				<div id="add_message_box" style="height: 80px;">
+
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+$(function() {
+
+	var currentConversation = <?= json_encode(reset($this->conversations)->getId()); ?>;
+
+	var loadPosts = function(offset, callback) {
+
+		if (typeof offset == 'undefined') {
+			offset = 0;
+		}
+
+		$.ajax({
+			method: 'post',
+			url: '/conversation/get-messages/',
+			data: {
+				conversation_id: currentConversation,
+				offset: offset
+			},
+			dataType: 'json',
+			success: function(result) {
+
+				for (var i = 0; i < result.length; i++) {
+
+					var post = result[i];
+
+					if ($('#message_' + post.id).length === 0) {
+
+						var message = $('<div class="row message" id="message_' + post.id + '"></div>');
+
+						$(message).append('<div class="col-xs-2"><a href="/profile/?user=' + post.user.id + '"><img class="img-responsive" src="/file/?file=' + post.user.portrait_file_id + '" /></a></div>');
+
+						var rightCol = $('<div class="col-xs-10"><a href="/profile/?user=' + post.user.id + '">' + post.user.first_name + ' ' + post.user.last_name + '</a></div>');
+
+						$(rightCol).appendTo(message);
+
+						$(rightCol).append('<p>' + result[i].message + '</p>');
+						$(message).prependTo('#message_box');
+						$('<hr>').prependTo('#message_box');
+
+					}
+				}
+
+				if (typeof callback !== 'undefined') {
+					callback(result.length);
+				}
+			}
+		});
+	};
+
+	loadPosts();
+
+	$('#message_box').scroll(function(event) {
+
+		var scrollTop = $(this).scrollTop();
+
+		if (scrollTop === 0) {
+
+			var heightBefore = $(this).height();
+
+			loadPosts($('.message').length, function(loadedPosts) {
+
+				if (loadedPosts > 0) {
+					$('#message_box').animate({scrollTop: $(this).height() - heightBefore }, 'fast');
+				}
+
+			});
+
+		}
+
+	});
+
+	$('.conversation').click(function(event) {
+
+		event.preventDefault();
+
+		currentConversation = $(this).data('conversation-id');
+
+		$('.conversation').removeClass('active');
+		$(this).addClass('active');
+
+		$('#message_box').html('');
+		loadPosts();
+
+		$('#message_box').animate({scrollTop: 9999999});
+	});
+
+});
+
+</script>
