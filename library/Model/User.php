@@ -33,6 +33,9 @@ class User extends Model
 	protected $password;
 
 	/** @var string */
+	protected $language;
+
+	/** @var string */
 	protected $firstName;
 
 	/** @var string */
@@ -237,6 +240,22 @@ class User extends Model
 	public function setDepartment($department)
 	{
 		$this->department = $department;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+
+	/**
+	 * @param string $language
+	 */
+	public function setLanguage($language)
+	{
+		$this->language = $language;
 	}
 
 	/**

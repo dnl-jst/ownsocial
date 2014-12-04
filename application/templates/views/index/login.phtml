@@ -3,21 +3,19 @@
 		<form class="form-signin" role="form" method="post">
 
 			<h2 class="form-signin-heading"><?= $this->escape($this->_config['site_title']['value']); ?></h2>
-			<h3 class="form-signin-subheading">Please sign in</h3>
+			<h3 class="form-signin-subheading"><?= $this->_('login_subheadline'); ?></h3>
 
 			<?php foreach ($this->messages as $message): ?>
-				<div class="alert alert-<?= $message['class']; ?>">
-					<p><?= $this->escape($message['message']); ?></p>
-				</div>
+				<?= $this->displayMessage($message); ?>
 			<?php endforeach; ?>
 
-			<input name="email" type="email" class="form-control" placeholder="Email address" required autofocus>
+			<input name="email" type="email" class="form-control" placeholder="<?= $this->_('login_email'); ?>" required autofocus>
 
-			<input name="password" type="password" class="form-control" placeholder="Password" required>
+			<input name="password" type="password" class="form-control" placeholder="<?= $this->_('login_password'); ?>" required>
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><?= $this->_('login_btn_login'); ?></button>
 
-			<p>or <a href="/register/">create an account</a>.</p>
+			<a class="btn btn-lg btn-default btn-block" href="/register/"><?= $this->_('login_btn_create_account'); ?></a>
 
 		</form>
 

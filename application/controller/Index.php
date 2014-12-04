@@ -33,14 +33,14 @@ class Index extends Controller
 
 					$messages[] = array(
 						'class' => 'warning',
-						'message' => 'Your e-mail-address isn\'t confirmed yet.'
+						'message' => 'login_email_not_confirmed'
 					);
 
 				} else if (!$user->getAccountConfirmed()) {
 
 					$messages[] = array(
 						'class' => 'warning',
-						'message' => 'This is a private network. Your account isn\'t confirmed yet.'
+						'message' => 'login_account_not_confirmed'
 					);
 
 				} else if (password_verify($password, $user->getPassword())) {
@@ -54,7 +54,7 @@ class Index extends Controller
 
 				$messages[] = array(
 					'class' => 'warning',
-					'message' => 'Login failed.'
+					'message' => 'login_failed'
 				);
 
 			}

@@ -115,6 +115,7 @@ CREATE TABLE `users` (
   `email_confirmation_hash` varchar(32) DEFAULT NULL,
   `account_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `password` varchar(255) NOT NULL DEFAULT '',
+  `language` varchar(2) NOT NULL DEFAULT 'en',
   `first_name` varchar(255) NOT NULL DEFAULT '',
   `last_name` varchar(255) NOT NULL DEFAULT '',
   `department` varchar(255) DEFAULT NULL,

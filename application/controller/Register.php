@@ -18,11 +18,14 @@ class Register extends Controller
 		$email = '';
 		$firstName = '';
 		$lastName = '';
+		$language = '';
+		$defaultLanguage = Config::getByKey('default_language', 'en');
 		$errors = array();
 
 		if ($this->getRequest()->isPost())
 		{
 			$email = trim($this->getRequest()->getPost('email'));
+			$language = trim($this->getRequest()->getPost('language'));
 			$firstName = trim($this->getRequest()->getPost('first_name'));
 			$lastName = trim($this->getRequest()->getPost('last_name'));
 			$password = $this->getRequest()->getPost('password');
@@ -32,7 +35,7 @@ class Register extends Controller
 
 				$errors['email'] = array(
 					'class' => 'danger',
-					'message' => 'Please enter a valid e-mail-address.'
+					'message' => 'register_msg_err_email_invalid'
 				);
 
 			} else {
@@ -42,7 +45,7 @@ class Register extends Controller
 
 					$errors['email'] = array(
 						'class' => 'danger',
-						'message' => 'This e-mail-address is already used.'
+						'message' => 'register_msg_err_email_already_used'
 					);
 
 				} catch (NoResultException $e) {}
@@ -51,28 +54,35 @@ class Register extends Controller
 			if (!$firstName) {
 				$errors['first_name'] = array(
 					'class' => 'danger',
-					'message' => 'Please enter your first name.'
+					'message' => 'register_msg_err_first_name'
 				);
 			}
 
 			if (!$lastName) {
 				$errors['last_name'] = array(
 					'class' => 'danger',
-					'message' => 'Please enter your last name.'
+					'message' => 'register_msg_err_last_name'
 				);
 			}
 
 			if (!$password) {
 				$errors['password'] = array(
 					'class' => 'danger',
-					'message' => 'Please enter a password.'
+					'message' => 'register_msg_err_password'
 				);
 			}
 
 			if ($password !== $password2) {
 				$errors['password2'] = array(
 					'class' => 'danger',
-					'message' => 'Passwords entered do not match.'
+					'message' => 'register_msg_err_password_mismatch'
+				);
+			}
+
+			if (!$language || !in_array($language, array('en', 'de'))) {
+				$errors['language'] = array(
+					'class' => 'danger',
+					'message' => 'register_msg_err_language'
 				);
 			}
 
@@ -88,6 +98,7 @@ class Register extends Controller
 				$user->setAccountConfirmed(0);
 				$user->setFirstName($firstName);
 				$user->setLastName($lastName);
+				$user->setLanguage($language);
 				$user->setPassword(password_hash($password, PASSWORD_DEFAULT));
 				$user->setCreated(time());
 				$user->setPortraitFileId(ConfigService::getByKey('default_portrait_id'));
@@ -103,6 +114,9 @@ class Register extends Controller
 		$this->_view->email = $email;
 		$this->_view->firstName = $firstName;
 		$this->_view->lastName = $lastName;
+		$this->_view->language = $language;
+		$this->_view->defaultLanguage = $defaultLanguage;
+
 		$this->_view->errors = $errors;
 
 	}
@@ -131,7 +145,7 @@ class Register extends Controller
 
 				$messages[] = array(
 					'class' => 'warning',
-					'message' => 'You already confirmed your account.'
+					'message' => 'registration_confirm_already_confirmed'
 				);
 
 			} else if ($user->getEmailConfirmationHash() === $confirmationHash) {
@@ -147,14 +161,14 @@ class Register extends Controller
 
 				$messages[] = array(
 					'class' => 'success',
-					'message' => 'You successfully confirmed your account!'
+					'message' => 'registration_confirm_success'
 				);
 
 				if (Config::getByKey('network_type') === 'private') {
 
 					$messages[] = array(
 						'class' => 'warning',
-						'message' => 'This is a private network. You are notified when your account is confirmed by an administrator.'
+						'message' => 'registration_confirm_private_network'
 					);
 
 				}
@@ -165,7 +179,7 @@ class Register extends Controller
 
 			$messages[] = array(
 				'class' => 'danger',
-				'message' => 'an error occurred'
+				'message' => 'error'
 			);
 		}
 

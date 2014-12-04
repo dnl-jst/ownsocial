@@ -1,7 +1,7 @@
 <div class="block" id="search">
 
 	<div class="well">
-		<h3>Users:</h3>
+		<h3><?= $this->_('search_users_title'); ?></h3>
 	<?php if ($this->users): ?>
 		<?php foreach ($this->users as $user): ?>
 		<div class="row list-group-item">
@@ -14,19 +14,21 @@
 				<a href="/profile/?user=<?= $user->getId(); ?>">
 					<h4 class="list-group-item-heading"><?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?></h4>
 				</a>
+				<?php if ($user->getDepartment()): ?>
 				<p class="list-group-item-text">
-					<small>Department: <?= $this->escape($user->getDepartment()); ?></small>
+					<small><?= $this->_('user_department'); ?>: <?= $this->escape($user->getDepartment()); ?></small>
 				</p>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php endforeach; ?>
 	<?php else: ?>
-			<p>No users matched your search criteria.</p>
+		<p><?= $this->_('search_users_msg_no_result'); ?></p>
 	<?php endif; ?>
 	</div>
 
 	<div class="well">
-		<h3>Groups:</h3>
+		<h3><?= $this->_('search_groups_title'); ?></h3>
 
 		<?php if ($this->groups): ?>
 
@@ -50,7 +52,7 @@
 
 		<?php else: ?>
 
-		<p>No groups matched your search criteria.</p>
+		<p><?= $this->_('search_groups_msg_no_result'); ?></p>
 
 		<?php endif; ?>
 
