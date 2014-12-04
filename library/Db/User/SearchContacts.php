@@ -21,6 +21,7 @@ class SearchContacts extends Query
 				u.email_confirmation_hash,
 				u.account_confirmed,
 				u.password,
+				u.language,
 				u.first_name,
 				u.last_name,
 				u.department,

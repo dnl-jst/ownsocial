@@ -35,36 +35,36 @@
 
 		<form class="navbar-form navbar-left" role="search" action="/search/" method="post">
 			<div class="form-group">
-				<input type="text" class="form-control" name="search" placeholder="Search">
+				<input type="text" class="form-control" name="search" placeholder="<?= $this->_('search_placeholder_search'); ?>">
 			</div>
-			<button type="submit" class="btn btn-default"><i class="fa fa-search"></i> Search</button>
+			<button type="submit" class="btn btn-default"><i class="fa fa-search"></i> <?= $this->_('search_btn_search'); ?></button>
 		</form>
 
 		<ul class="nav navbar-nav navbar-right">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="/profile/me/">My profile</a></li>
+					<li><a href="/profile/me/"><?= $this->_('top_navigation_my_profile'); ?></a></li>
 					<li class="divider"></li>
-					<li><a href="/index/logout/">Logout</a></li>
+					<li><a href="/index/logout/"><?= $this->_('top_navigation_logout'); ?></a></li>
 				</ul>
 			</li>
 		</ul>
 
-		<p class="navbar-text navbar-right">Signed in as <a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></p>
+		<p class="navbar-text navbar-right"><?= $this->_('top_navigation_logged_in_as'); ?> <a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></p>
 
 		<?php else: ?>
 
 		<form class="navbar-form form-inline pull-right" role="form" method="post" action="/index/login">
 			<div class="form-group">
-				<label class="sr-only" for="email">Email address</label>
-				<input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
+				<label class="sr-only" for="email"><?= $this->_('top_navigation_login_email'); ?></label>
+				<input name="email" type="email" class="form-control" id="email" placeholder="<?= $this->_('top_navigation_login_email'); ?>">
 			</div>
 			<div class="form-group">
-				<label class="sr-only" for="password">Password</label>
-				<input name="password" type="password" class="form-control" id="password" placeholder="Password">
+				<label class="sr-only" for="password"><?= $this->_('top_navigation_login_password'); ?></label>
+				<input name="password" type="password" class="form-control" id="password" placeholder="<?= $this->_('top_navigation_login_password'); ?>">
 			</div>
-			<button type="submit" class="btn btn-default">Sign in</button>
+			<button type="submit" class="btn btn-default"><?= $this->_('top_navigation_login_btn_login'); ?></button>
 		</form>
 
 		<?php endif; ?>
@@ -84,7 +84,7 @@
 
 					<div class="groups">
 						<ul>
-							<li><a href="#" data-toggle="modal" data-target="#group_add_modal">Add group</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#group_add_modal"><?= $this->_('navigation_add_group'); ?></a></li>
 							<?php if ($groups = $this->_currentUser->getGroups()): ?>
 								<?php foreach ($groups as $group): ?>
 									<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
@@ -106,15 +106,15 @@
 			<div class="well">
 				<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
 					<div class="unconfirmed_contacts">
-						<p class="headline">CONTACT REQUESTS</p>
+						<p class="headline"><?= $this->_('contact_requests_title'); ?></p>
 						<?php foreach ($contacts as $contact): ?>
 							<div class="unconfirmed_contact">
 								<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
 								<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
 								<br />
 								<div class="btn-group">
-									<a href="#" class="btn btn-primary btn-sm accept_request" data-id="<?= $contact->getId(); ?>">Accept</a>
-									<a href="#" class="btn btn-default btn-sm decline_request" data-id="<?= $contact->getId(); ?>">Decline</a>
+									<a href="#" class="btn btn-primary btn-sm accept_request" data-id="<?= $contact->getId(); ?>"><?= $this->_('btn_accept'); ?></a>
+									<a href="#" class="btn btn-default btn-sm decline_request" data-id="<?= $contact->getId(); ?>"><?= $this->_('btn_decline'); ?></a>
 								</div>
 							</div>
 						<?php endforeach; ?>
@@ -122,15 +122,15 @@
 				<?php endif; ?>
 				<?php if ($groupInvitations = $this->_currentUser->getGroupInvitations()): ?>
 					<div class="group_invitations">
-						<p class="headline">GROUP INVITATIONS</p>
+						<p class="headline"><?= $this->_('group_requests_title'); ?></p>
 						<?php foreach ($groupInvitations as $group): ?>
 							<div class="group_invitation">
 								<img class="portrait" src="/file/?file=<?= $group->getPortraitFileId(); ?>" />
 								<?= $this->escape($group->getName()); ?>
 								<br />
 								<div class="btn-group">
-									<a href="#" class="btn btn-primary btn-sm accept_group_request" data-id="<?= $group->getId(); ?>">Accept</a>
-									<a href="#" class="btn btn-default btn-sm decline_group_request" data-id="<?= $group->getId(); ?>">Decline</a>
+									<a href="#" class="btn btn-primary btn-sm accept_group_request" data-id="<?= $group->getId(); ?>"><?= $this->_('btn_accept'); ?></a>
+									<a href="#" class="btn btn-default btn-sm decline_group_request" data-id="<?= $group->getId(); ?>"><?= $this->_('btn_decline'); ?></a>
 								</div>
 							</div>
 						<?php endforeach; ?>
@@ -138,7 +138,7 @@
 				<?php endif; ?>
 				<?php if ($this->_currentUser->getType() === 'admin' && $this->_unconfirmedUsers): ?>
 					<div class="unconfirmed_users">
-						<p class="headline">REGISTRATION REQUESTS</p>
+						<p class="headline"><?= $this->_('registration_requests_title'); ?></p>
 						<?php foreach ($this->_unconfirmedUsers as $user): ?>
 							<div class="unconfirmed_user">
 								<div class="col-sm-4">
@@ -150,8 +150,8 @@
 								</div>
 								<br />
 								<div class="btn-group">
-									<a href="#" class="btn btn-primary btn-sm accept_user" data-id="<?= $user->getId(); ?>">Accept</a>
-									<a href="#" class="btn btn-default btn-sm decline_user" data-id="<?= $user->getId(); ?>">Decline</a>
+									<a href="#" class="btn btn-primary btn-sm accept_user" data-id="<?= $user->getId(); ?>"><?= $this->_('btn_accept'); ?></a>
+									<a href="#" class="btn btn-default btn-sm decline_user" data-id="<?= $user->getId(); ?>"><?= $this->_('btn_decline'); ?></a>
 								</div>
 							</div>
 						<?php endforeach; ?>
@@ -167,33 +167,33 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="group_modal_title">Create new group</h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?= $this->_('btn_close'); ?></span></button>
+				<h4 class="modal-title" id="group_modal_title"><?= $this->_('group_add_popup_title'); ?></h4>
 			</div>
 			<div class="modal-body">
 				<form role="form">
 
 					<div class="form-group">
-						<input type="text" class="form-control" id="group_name" value="" placeholder="Choose a group name..." />
+						<input type="text" class="form-control" id="group_name" value="" placeholder="<?= $this->_('group_add_input_name_placeholder'); ?>" />
 					</div>
 
 					<div class="form-group">
-						<textarea class="form-control" id="group_description" placeholder="Optional description text for your new group..."></textarea>
+						<textarea class="form-control" id="group_description" placeholder="<?= $this->_('group_add_input_description_placeholder'); ?>"></textarea>
 					</div>
 
 					<div class="form-group">
 						<select id="group_type" class="form-control">
-							<option value="hidden">Hidden group</option>
-							<option value="protected">Protected group</option>
-							<option value="public">Public group</option>
+							<option value="hidden"><?= $this->_('group_type_hidden'); ?></option>
+							<option value="protected"><?= $this->_('group_type_protected'); ?></option>
+							<option value="public"><?= $this->_('group_type_public'); ?></option>
 						</select>
 					</div>
 
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary" id="action_add_group">Add group</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><?= $this->_('btn_cancel'); ?></button>
+				<button type="button" class="btn btn-primary" id="action_add_group"><?= $this->translator->_('group_add_btn_add'); ?></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

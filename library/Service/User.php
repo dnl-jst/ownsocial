@@ -164,6 +164,7 @@ class User extends Service
 		$query->setEmailConfirmationHash($user->getEmailConfirmationHash());
 		$query->setAccountConfirmed($user->getAccountConfirmed());
 		$query->setPassword($user->getPassword());
+		$query->setLanguage($user->getLanguage());
 		$query->setFirstName($user->getFirstName());
 		$query->setLastName($user->getLastName());
 		$query->setDepartment($user->getDepartment());

@@ -29,6 +29,9 @@ class Store extends Query
 	protected $password;
 
 	/** @var string */
+	protected $language;
+
+	/** @var string */
 	protected $firstName;
 
 	/** @var string */
@@ -56,6 +59,7 @@ class Store extends Query
 					email_confirmation_hash,
 					account_confirmed,
 					password,
+					language,
 					first_name,
 					last_name,
 					department,
@@ -64,6 +68,7 @@ class Store extends Query
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -84,6 +89,7 @@ class Store extends Query
 				email_confirmation_hash = VALUES(email_confirmation_hash),
 				account_confirmed = VALUES(account_confirmed),
 				password = VALUES(password),
+				language = VALUES(language),
 				first_name = VALUES(first_name),
 				last_name = VALUES(last_name),
 				department = VALUES(department),
@@ -96,6 +102,7 @@ class Store extends Query
 		$this->addBind($this->emailConfirmationHash);
 		$this->addBind($this->accountConfirmed);
 		$this->addBind($this->password);
+		$this->addBind($this->language);
 		$this->addBind($this->firstName);
 		$this->addBind($this->lastName);
 		$this->addBind($this->department);
@@ -199,6 +206,14 @@ class Store extends Query
 	public function setDepartment($department)
 	{
 		$this->department = $department;
+	}
+
+	/**
+	 * @param string $language
+	 */
+	public function setLanguage($language)
+	{
+		$this->language = $language;
 	}
 
 }

@@ -28,6 +28,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$password2 = trim($_POST['password2']);
 	$siteTitle = trim($_POST['site_title']);
 	$networkType = trim($_POST['network_type']);
+	$defaultLanguage = trim($_POST['default_language']);
 
 	# generate random update tool password
 	$aChars = array_merge(range('0', '9'), range('a', 'z'), range('A', 'Z'));
@@ -80,6 +81,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 				email_confirmation_hash,
 				account_confirmed,
 				password,
+				language,
 				first_name,
 				last_name,
 				department,
@@ -93,6 +95,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 				NULL,
 				1,
 				:password,
+				:language,
 				:first_name,
 				:last_name,
 				NULL,
@@ -103,6 +106,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$stmt->execute(array(
 		':email' => $email,
 		':password' => password_hash($password, PASSWORD_DEFAULT),
+		':language' => $defaultLanguage,
 		':first_name' => $firstName,
 		':last_name' => $lastName,
 		':created' => time()
@@ -123,6 +127,11 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$stmt->execute(array(
 		':key' => 'network_type',
 		':value' => $networkType
+	));
+
+	$stmt->execute(array(
+		':key' => 'default_language',
+		':value' => $defaultLanguage
 	));
 
 	$db->exec('set foreign_key_checks=1');
@@ -187,6 +196,15 @@ return ' . var_export($config, true) . ';';
 							<select class="form-control" name="network_type">
 								<option value="private">Private network</option>
 								<option value="public">Public network</option>
+							</select>
+						</div>
+					</div>
+
+					<div>
+						<div class="form-group">
+							<select class="form-control" name="default_language">
+								<option value="en">Englisch</option>
+								<option value="de">Deutsch</option>
 							</select>
 						</div>
 					</div>

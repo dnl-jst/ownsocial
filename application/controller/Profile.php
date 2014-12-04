@@ -55,6 +55,24 @@ class Profile extends Controller
 
 	}
 
+	public function changeLanguageAction()
+	{
+		$user = $this->_currentUser;
+
+		$language = $this->getRequest()->getPost('language');
+
+		if (!in_array($language, array('en', 'de'))) {
+
+			$this->json(array('success' => false));
+			return;
+		}
+
+		$user->setLanguage($language);
+		User::store($user);
+
+		$this->json(array('success' => true));
+	}
+
 	public function savePicAction()
 	{
 		$allowedExtensions = array('gif', 'jpeg', 'jpg', 'png');

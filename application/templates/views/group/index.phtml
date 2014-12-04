@@ -27,12 +27,12 @@
 			<?php if ($this->group->getType() === \Model\Group::TYPE_PUBLIC || $this->userGroup): ?>
 
 			<ul class="nav nav-tabs" role="tablist" id="myTab">
-				<li role="presentation" class="active"><a href="#posts" aria-controls="" role="tab" data-toggle="tab">Posts</a></li>
+				<li role="presentation" class="active"><a href="#posts" aria-controls="" role="tab" data-toggle="tab"><?= $this->_('group_tab_posts'); ?></a></li>
 				<?php if ($this->group->getType() === \Model\Group::TYPE_PUBLIC || $this->userGroup): ?>
-				<li role="presentation"><a href="#members" aria-controls="" role="tab" data-toggle="tab">Members</a></li>
+				<li role="presentation"><a href="#members" aria-controls="" role="tab" data-toggle="tab"><?= $this->_('group_tab_members'); ?></a></li>
 				<?php endif; ?>
 				<?php if ($this->isGroupAdmin): ?>
-				<li role="presentation"><a href="#requests" aria-controls="" role="tab" data-toggle="tab">Requests<?= ($this->requests) ? ' <span class="badge">' . count($this->requests) . '</span>' : ''; ?></a></li>
+				<li role="presentation"><a href="#requests" aria-controls="" role="tab" data-toggle="tab"><?= $this->_('group_tab_requests'); ?><?= ($this->requests) ? ' <span class="badge">' . count($this->requests) . '</span>' : ''; ?></a></li>
 				<?php endif; ?>
 			</ul>
 
@@ -46,7 +46,7 @@
 						<form id="create_post_form" role="form">
 
 							<div class="form-group">
-								<textarea id="post_content" class="form-control" name="content" placeholder="Write post to group..."></textarea>
+								<textarea id="post_content" class="form-control" name="content" placeholder="<?= $this->_('group_post_placeholder_text'); ?>"></textarea>
 								<input type="hidden" id="post_image_id" value="">
 							</div>
 
@@ -57,7 +57,7 @@
 								<button id="post_select_image" class="btn btn-default"><i class="fa fa-plus"></i> <i class="fa fa-file-image-o"></i></button>
 								<input type="file" id="image_upload" accept="image/*" style="display: none;" />
 
-								<input type="submit" class="btn btn-primary" value="Post" />
+								<input type="submit" class="btn btn-primary" value="<?= $this->_('group_post_btn_post'); ?>" />
 							</div>
 
 						</form>
@@ -96,7 +96,7 @@
 							</div>
 						<?php endforeach; ?>
 					<?php else: ?>
-						<p>No users are in this group.</p>
+						<p><?= $this->_('group_members_no_members'); ?></p>
 					<?php endif; ?>
 
 				</div>
@@ -125,7 +125,7 @@
 							</div>
 						<?php endforeach; ?>
 					<?php else: ?>
-						<p>There are currently no pending group requests.</p>
+						<p><?= $this->_('group_requests_no_requests'); ?></p>
 					<?php endif; ?>
 
 				</div>

@@ -19,6 +19,7 @@ class View
 	protected $_encoding = 'utf-8';
 	protected $_layout = null;
 	protected $_rendered = false;
+	protected $translator;
 
 	public function __construct($controller, $action, $templatePath, $templateFile)
 	{
@@ -31,6 +32,7 @@ class View
 		$this->_templatePath = $templatePath;
 		$this->_templateFile = $templateFile;
 		$this->_layout = APPLICATION_ROOT . '/application/templates/layouts/default.phtml';
+		$this->translator = new Translator(APPLICATION_ROOT . '/languages/');
 
 		if ($this->_currentUser && $this->_currentUser->getType() === 'admin') {
 			$this->_unconfirmedUsers = User::getUnconfirmedUsers();
@@ -90,9 +92,14 @@ class View
 	protected function displayMessage($aMessage) {
 
 		if (is_array($aMessage)) {
-			return '<div class="alert alert-' . @$aMessage['class'] . '"><p>' . $this->escape(@$aMessage['message']) . '</p></div>';
+			return '<div class="alert alert-' . @$aMessage['class'] . '"><p>' . $this->_(@$aMessage['message']) . '</p></div>';
 		}
 
+	}
+
+	protected function _($key)
+	{
+		return $this->escape($this->translator->translate($key));
 	}
 
 }
