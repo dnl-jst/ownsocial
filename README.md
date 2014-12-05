@@ -11,7 +11,25 @@
 	* Vagrant (https://www.vagrantup.com)
 	* VirtualBox (https://www.virtualbox.org)
 
+## Minimum requirements
+
+	* PHP 5.4 (PHP 5.5 recommended)
+	* MySQL 5.5 (due to the lack of utf8mb4 support in prior versions)
+
 ## Installation:
+
+Download latest version:
+
+	as .zip: https://github.com/dnl-jst/ownsocial/archive/0.1.6.zip
+	as .tar.gz: https://github.com/dnl-jst/ownsocial/archive/0.1.6.tar.gz
+
+Extract the file and upload the contents to your webspace.
+
+You need to set the root-folder of your webspace to the public-subfolder.
+
+Open the site and you will be guided through the installation process.
+
+## Development:
 
 Clone from git:
 
