@@ -46,8 +46,15 @@ class Index extends Controller
 				} else if (password_verify($password, $user->getPassword())) {
 
 					$_SESSION['user.id'] = $user->getId();
-
 					$this->redirect('/');
+
+				} else {
+
+					$messages[] = array(
+						'class' => 'warning',
+						'message' => 'login_failed'
+					);
+
 				}
 
 			} catch (NoResultException $e) {

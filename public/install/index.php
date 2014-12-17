@@ -61,7 +61,7 @@ if (@$_SERVER['REQUEST_METHOD'] === 'POST') {
 	$stmt = $db->query('SHOW DATABASES LIKE ' . $db->quote($dbName));
 
 	if ($stmt->fetch() === false) {
-		$db->query('CREATE DATABASE IF NOT EXISTS `' . $dbName . '` /*!40100 DEFAULT CHARACTER SET utf8mb4 */');
+		$db->query('CREATE DATABASE IF NOT EXISTS `' . $dbName . '` /*!40100 DEFAULT CHARACTER SET utf8 */');
 	}
 
 	$db->query('USE ' . $dbName);
