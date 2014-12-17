@@ -5,7 +5,7 @@ CREATE TABLE `configs` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `configs` (
   `id`, `key`, `value`
@@ -26,7 +26,7 @@ CREATE TABLE `files` (
   KEY `group_id` (`group_id`),
   CONSTRAINT `files_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `files_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `files` (`id`, `user_id`, `group_id`, `content`, `type`, `created`)
 VALUES
@@ -43,7 +43,7 @@ CREATE TABLE `groups` (
   PRIMARY KEY (`id`),
   KEY `portrait_file_id` (`portrait_file_id`),
   CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`portrait_file_id`) REFERENCES `files` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Create syntax for TABLE 'likes'
 CREATE TABLE `likes` (
@@ -77,7 +77,7 @@ CREATE TABLE `posts` (
   CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `posts_ibfk_4` FOREIGN KEY (`parent_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `posts_ibfk_5` FOREIGN KEY (`root_post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Create syntax for TABLE 'relations'
 CREATE TABLE `relations` (
@@ -89,7 +89,7 @@ CREATE TABLE `relations` (
   KEY `user_id` (`user_id`,`confirmed`),
   KEY `user_id2` (`user_id2`,`confirmed`),
   CONSTRAINT `relations_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Create syntax for TABLE 'user_groups'
 CREATE TABLE `user_groups` (
@@ -97,7 +97,7 @@ CREATE TABLE `user_groups` (
   `group_id` bigint(20) unsigned NOT NULL,
   `created_by` bigint(20) unsigned DEFAULT NULL,
   `confirmed` bigint(20) DEFAULT NULL,
-  `role` enum('member','admin') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'member',
+  `role` enum('member','admin') NOT NULL DEFAULT 'member',
   PRIMARY KEY (`user_id`,`group_id`),
   KEY `group_id` (`group_id`),
   KEY `created_by` (`created_by`),
@@ -125,4 +125,4 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   KEY `portrait_file_id` (`portrait_file_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`portrait_file_id`) REFERENCES `files` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
