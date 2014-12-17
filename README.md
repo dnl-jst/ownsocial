@@ -13,8 +13,8 @@
 
 ## Minimum requirements
 
-	* PHP 5.4 (PHP 5.5 recommended)
-	* MySQL 5.5 (due to the lack of utf8mb4 support in prior versions)
+	* PHP 5.3.7 (PHP 5.5 recommended)
+	* MySQL 5.1
 
 ## Installation:
 
