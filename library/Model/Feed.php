@@ -14,6 +14,7 @@ class Feed extends Model
 	protected $visiblity;
 	protected $content;
 	protected $imageFileId;
+	protected $attachmentFileId;
 	protected $created;
 	protected $modified;
 	protected $firstName;
@@ -261,6 +262,22 @@ class Feed extends Model
 	public function setImageFileId($imageFileId)
 	{
 		$this->imageFileId = $imageFileId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getAttachmentFileId()
+	{
+		return $this->attachmentFileId;
+	}
+
+	/**
+	 * @param mixed $attachmentFileId
+	 */
+	public function setAttachmentFileId($attachmentFileId)
+	{
+		$this->attachmentFileId = $attachmentFileId;
 	}
 
 }

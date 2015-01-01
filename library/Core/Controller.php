@@ -77,10 +77,15 @@ class Controller
 		$this->_response->setOuput(json_encode($data));
 	}
 
-	public function file($type, $content)
+	public function file($type, $content, $filename = null)
 	{
 		$this->_disableRender = true;
 		header('Content-Type: ' . $type);
+
+		if ($filename !== null) {
+			header('Content-Disposition: attachment; filename="' . $filename . '"');
+		}
+
 		$this->_response->setOuput($content);
 	}
 

@@ -1,5 +1,23 @@
 emojione.ascii = true;
 
+function humanReadableSize(size) {
+
+    var unit = 'b';
+
+    if (size > 1073741824) {
+        size = (size / 1073741824);
+        unit = 'gb';
+    } else if (size > 1048576) {
+        size = (size / 1048576);
+        unit = 'mb';
+    } else if (size > 1024) {
+        size = (size / 1024);
+        unit = 'kb';
+    }
+
+    return (Math.round(size * 100) / 100) + ' ' + unit;
+}
+
 function getPost(post) {
 
     var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
@@ -25,6 +43,10 @@ function getPost(post) {
 
     if (post.imageFileId) {
         $('<p class="image"><a href="/file/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></p>').appendTo(element);
+    }
+
+    if (post.attachmentFileId) {
+        $('<div class="file well well-sm col col-xs-3"><a href="/file/?file=' + post.attachmentFileId + '" data-file-id="' + post.attachmentFileId + '"></a></div><div class="clearfix"></div>').appendTo(element);
     }
 
     var interactionLine = '<hr><p class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
@@ -59,6 +81,39 @@ function getPost(post) {
     return element;
 }
 
+function loadAttachments() {
+
+    $('.post .file a').each(function(index, element) {
+
+        var fileTag = $(this);
+
+        $.ajax({
+            type: 'get',
+            url: '/file/meta/',
+            data: {
+                file: $(fileTag).data('file-id')
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                var icon = 'fa-file-o';
+
+                switch (result.type) {
+
+                    case 'application/pdf':
+                        icon = 'fa-file-pdf-o';
+                    break;
+
+                }
+
+                $(fileTag).html('<i class="fa ' + icon + '"></i><br />' + result.name + '<br />' + humanReadableSize(result.size));
+            }
+        });
+
+    });
+
+}
+
 $(function() {
 
     var body = $('body');
@@ -90,7 +145,7 @@ $(function() {
 
         $.ajax({
             type: 'post',
-            url: '/file/add/',
+            url: '/file/add-image/',
             data: file,
             processData: false,
             dataType: 'json',
@@ -98,6 +153,53 @@ $(function() {
                 $('#post_image_id').val(result.file_id);
                 $('#post_select_image').removeClass('btn-default').addClass('btn-danger').html('<i class="fa fa-times"></i> <i class="fa fa-file-image-o">');
                 $('#image_area').html('<img class="img-responsive" src="/file/?file=' + result.file_id + '" />')
+            }
+        })
+
+    });
+
+    $('#post_select_file').click(function(event) {
+
+        event.preventDefault();
+
+        if ($('#post_file_id').val()) {
+
+            $('#post_file_id').val('');
+            $('#file_area').html('');
+            $('#post_select_file').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-o">');
+
+        } else {
+
+            $('#file_upload').click();
+
+        }
+
+    });
+
+    $('#file_upload').change(function(event) {
+
+        var file = $(this)[0].files[0];
+
+        $('#post_select_file').html('<i class="fa fa-spinner fa-spin"></i> uploading...');
+
+        $.ajax({
+            type: 'post',
+            url: '/file/add/',
+            data: file,
+            processData: false,
+            contentType: file.type,
+            dataType: 'json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('x-file-name', file.name);
+            },
+            success: function(result) {
+
+                $('#post_file_id').val(result.file_id);
+
+                $('#file_area').append('<div class="well well-sm"><div class="col-xs-3"><div class="file"><i class="fa fa-file-o"></i></div></div><div class="col-xs-9"><div class="file_name">' + file.name + '</div></div><div class="clearfix"></div></div>');
+
+                $('#post_select_file').removeClass('btn-default').addClass('btn-danger').html('<i class="fa fa-times"></i> <i class="fa fa-file-image-o">');
+
             }
         })
 
@@ -111,7 +213,8 @@ $(function() {
 
             var data = {
                 content: emojione.toShort($('#post_content').val()),
-                image: $('#post_image_id').val()
+                image: $('#post_image_id').val(),
+                file: $('#post_file_id').val()
             };
 
             if (window.groupId != undefined) {
@@ -125,9 +228,13 @@ $(function() {
                 dataType: 'json',
                 success: function(result) {
                     $('#post_select_image').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-image-o">');
+                    $('#post_select_file').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-o">');
                     $(getPost(result)).prependTo('.posts');
                     $('#post_content').val('');
                     $('#image_area').html('');
+                    $('#file_area').html('');
+                    $('#post_image_id').val('');
+                    $('#post_file_id').val('');
                 }
             });
 

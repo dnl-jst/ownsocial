@@ -30,6 +30,7 @@ class File extends Service
 		$query->setUserId($file->getUserId());
 		$query->setGroupId($file->getGroupId());
 		$query->setContent($file->getContent());
+		$query->setName($file->getName());
 		$query->setType($file->getType());
 		$query->setCreated($file->getCreated());
 

@@ -19,13 +19,14 @@ CREATE TABLE `files` (
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `group_id` bigint(20) unsigned DEFAULT NULL,
   `content` longblob NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) NOT NULL DEFAULT '',
   `created` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`),
-  CONSTRAINT `files_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `files_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `files_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `files_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `files` (`id`, `user_id`, `group_id`, `content`, `type`, `created`)
@@ -66,6 +67,7 @@ CREATE TABLE `posts` (
   `visibility` enum('public','contacts','me','group','comment') NOT NULL DEFAULT 'public',
   `content` mediumtext NOT NULL,
   `image_file_id` bigint(20) unsigned DEFAULT NULL,
+  `attachment_file_id` bigint(20) unsigned DEFAULT NULL,
   `created` bigint(20) NOT NULL,
   `modified` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),

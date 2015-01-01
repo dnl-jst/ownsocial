@@ -20,6 +20,9 @@ class File extends Model
 	protected $content;
 
 	/** @var string */
+	protected $name;
+
+	/** @var string */
 	protected $type;
 
 	/** @var integer */
@@ -119,6 +122,22 @@ class File extends Model
 	public function setGroupId($groupId)
 	{
 		$this->groupId = $groupId;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
 	}
 
 }

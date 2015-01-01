@@ -21,6 +21,7 @@ class GetById extends Query
 				visibility,
 				content,
 				image_file_id,
+				attachment_file_id,
 				created,
 				modified
 			FROM

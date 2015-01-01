@@ -28,6 +28,25 @@ img.portrait {
     width: 100%;
 }
 
+.posts .post .file {
+    text-align: center;
+    font-size: 0.7em;
+    overflow: hidden;
+}
+
+.posts .post .file i {
+    font-size: 30px;
+}
+
+#create_post .file {
+    text-align: center;
+    font-size: 30px;
+}
+
+#create_post .file_name {
+    padding-top: 10px;
+}
+
 .unconfirmed_contacts .unconfirmed_contact img.portrait {
     width: 40px;
     height: 40px;

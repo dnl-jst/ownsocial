@@ -23,6 +23,7 @@ class GetByGroupId extends Query
 				p.visibility,
 				p.content,
 				p.image_file_id,
+				p.attachment_file_id,
 				p.created,
 				p.modified,
 				u.first_name,

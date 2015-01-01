@@ -17,6 +17,8 @@ $(function() {
 
             postsLoaded = true;
 
+            loadAttachments();
+
         }
     });
 
@@ -54,6 +56,8 @@ $(function() {
                     $('body').data('last-update', result.last_update);
 
                     postsLoaded = true;
+
+                    loadAttachments();
 
                 }
             });

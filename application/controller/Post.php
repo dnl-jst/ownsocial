@@ -31,6 +31,12 @@ class Post extends Controller
 			$imageFileId = null;
 		}
 
+		$attachmentFileId = $this->getRequest()->getPost('file', null);
+
+		if (!$attachmentFileId) {
+			$attachmentFileId = null;
+		}
+
 		$post = new PostModel();
 		$post->setRootPostId(null);
 		$post->setParentPostId(null);
@@ -38,6 +44,7 @@ class Post extends Controller
 		$post->setGroupId($groupId);
 		$post->setContent($content);
 		$post->setImageFileId($imageFileId);
+		$post->setAttachmentFileId($attachmentFileId);
 		$post->setCreated(time());
 		$post->setModified(time());
 
@@ -85,6 +92,7 @@ class Post extends Controller
 		$comment->setVisibility('comment');
 		$comment->setContent($content);
 		$comment->setImageFileId(null);
+		$comment->setAttachmentFileId(null);
 		$comment->setCreated(time());
 		$comment->setModified(time());
 

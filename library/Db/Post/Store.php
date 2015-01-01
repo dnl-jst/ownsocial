@@ -15,6 +15,7 @@ class Store extends Query
 	protected $visibility;
 	protected $content;
 	protected $imageFileId;
+	protected $attachmentFileId;
 	protected $created;
 	protected $modified;
 
@@ -32,11 +33,13 @@ class Store extends Query
 					visibility,
 					content,
 					image_file_id,
+					attachment_file_id,
 					created,
 					modified
 				)
 			VALUES
 				(
+					?,
 					?,
 					?,
 					?,
@@ -56,6 +59,7 @@ class Store extends Query
 				visibility = VALUES(visibility),
 				content = VALUES(content),
 				image_file_id = VALUES(image_file_id),
+				attachment_file_id = VALUES(attachment_file_id),
 				created = VALUES(created),
 				modified = VALUES(modified)';
 
@@ -67,6 +71,7 @@ class Store extends Query
 		$this->addBind($this->visibility);
 		$this->addBind($this->content);
 		$this->addBind($this->imageFileId);
+		$this->addBind($this->attachmentFileId);
 		$this->addBind($this->created);
 		$this->addBind($this->modified);
 
@@ -151,6 +156,14 @@ class Store extends Query
 	public function setGroupId($groupId)
 	{
 		$this->groupId = $groupId;
+	}
+
+	/**
+	 * @param mixed $attachmentFileId
+	 */
+	public function setAttachmentFileId($attachmentFileId)
+	{
+		$this->attachmentFileId = $attachmentFileId;
 	}
 
 }

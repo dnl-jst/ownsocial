@@ -20,6 +20,9 @@ class Store extends Query
 	protected $content;
 
 	/** @var string */
+	protected $name;
+
+	/** @var string */
 	protected $type;
 
 	/** @var integer */
@@ -35,6 +38,7 @@ class Store extends Query
 					user_id,
 					group_id,
 					content,
+					name,
 					type,
 					created
 				)
@@ -45,16 +49,19 @@ class Store extends Query
 					?,
 					?,
 					?,
+					?,
 					?
 				)
 			ON DUPLICATE KEY UPDATE
 				content = VALUES(content),
+				name = VALUES(name),
 				type = VALUES(type)';
 
 		$this->addBind($this->id);
 		$this->addBind($this->userId);
 		$this->addBind($this->groupId);
 		$this->addBind($this->content);
+		$this->addBind($this->name);
 		$this->addBind($this->type);
 		$this->addBind($this->created);
 
@@ -107,6 +114,14 @@ class Store extends Query
 	public function setGroupId($groupId)
 	{
 		$this->groupId = $groupId;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
 	}
 
 }

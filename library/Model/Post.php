@@ -14,6 +14,7 @@ class Post extends Model
 	protected $visibility;
 	protected $content;
 	protected $imageFileId;
+	protected $attachmentFileId;
 	protected $created;
 	protected $modified;
 
@@ -175,6 +176,22 @@ class Post extends Model
 	public function setGroupId($groupId)
 	{
 		$this->groupId = $groupId;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getAttachmentFileId()
+	{
+		return $this->attachmentFileId;
+	}
+
+	/**
+	 * @param mixed $attachmentFileId
+	 */
+	public function setAttachmentFileId($attachmentFileId)
+	{
+		$this->attachmentFileId = $attachmentFileId;
 	}
 
 }
