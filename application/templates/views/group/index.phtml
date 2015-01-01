@@ -16,7 +16,7 @@
 				<small><?= $this->escape($this->group->getDescription()); ?></small>
 			</p>
 			<?php if ($this->isGroupAdmin): ?>
-			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group_user_add_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> Add member</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group_user_add_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> <?= $this->_('group_action_add_member'); ?></button>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -152,12 +152,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="group_user_modal_title">Add group member</h4>
+				<h4 class="modal-title" id="group_user_modal_title"><?= $this->_('group_user_modal_title'); ?></h4>
 			</div>
 			<div class="modal-body">
 				<form role="form">
 					<div class="form-group">
-						<input type="text" class="form-control" id="group_user_add_search" value="" placeholder="Search for user..." />
+						<input type="text" class="form-control" id="group_user_add_search" value="" placeholder="<?= $this->_('group_user_add_search'); ?>" />
 					</div>
 
 					<div id="group_user_add_suggestions">
@@ -165,26 +165,37 @@
 					</div>
 
 					<div id="group_user_add_selected">
-						<h3>Selected:</h3>
+						<h3><?= $this->_('group_user_add_selected'); ?>:</h3>
 						<div class="well well-sm">
-							No members selected yet. Search above!
+							<?= $this->_('group_user_add_selected_no_selected'); ?>
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary" id="action_add_group_members">Add member(s)</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><?= $this->_('btn_cancel'); ?></button>
+				<button type="button" class="btn btn-primary" id="action_add_group_members"><?= $this->_('group_user_add_btn_add_members'); ?></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <?php endif; ?>
 
+<script type="text/javascript">
+
+var translations = {
+	group_user_add_no_user_matched_search_criteria: <?= json_encode($this->_('group_user_add_no_user_matched_search_criteria')); ?>,
+	group_user_add_suggestions: <?= json_encode($this->_('group_user_add_suggestions')); ?>
+};
+
+</script>
+
 <?php if ($this->isGroupAdmin): ?>
+
 	<script type="text/javascript">
 
 		$(function() {
+
 			var croppicContainerModalOptions = {
 				uploadUrl: '/group/save-pic/',
 				uploadData: {
@@ -197,6 +208,8 @@
 			};
 
 			var cropContainerModal = new Croppic('croppic-area', croppicContainerModalOptions);
+
 		});
 	</script>
+
 <?php endif; ?>

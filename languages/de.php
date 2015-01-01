@@ -55,6 +55,15 @@ return array(
 	'group_tab_members' => 'Mitglieder',
 	'group_tab_requests' => 'Anfragen',
 
+	'group_action_add_member' => 'Mitglied hinzufügen',
+	'group_user_modal_title' => 'Mitglied hinzufügen',
+	'group_user_add_search' => 'Nach Benutzern suchen...',
+	'group_user_add_selected' => 'Ausgewählte Benutzer',
+	'group_user_add_selected_no_selected' => 'Keine Benutzer ausgewählt.',
+	'group_user_add_btn_add_members' => 'Benutzer hinzufügen',
+	'group_user_add_suggestions' => 'Vorschläge',
+	'group_user_add_no_user_matched_search_criteria' => 'Zu den gewählten Suchkriterien wurde kein Benutzer gefunden.',
+
 	'group_post_placeholder_text' => 'Beitrag an Gruppe schreiben...',
 	'group_post_btn_post' => 'Posten',
 

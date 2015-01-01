@@ -37,10 +37,10 @@ $(function() {
 
                     var suggestions = $('#group_user_add_suggestions');
 
-                    suggestions.html('<h3>Suggestions:</h3>');
+                    suggestions.html('<h3>' + translations.group_user_add_suggestions + ':</h3>');
 
                     if (result.length === 0) {
-                        suggestions.append('<div class="well well-sm">No users matched your search critera.</div>');
+                        suggestions.append('<div class="well well-sm">' + translations.group_user_add_no_user_matched_search_criteria + '</div>');
                     }
 
                     for (var i = 0; i < result.length; i++) {

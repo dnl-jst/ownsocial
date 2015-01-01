@@ -55,6 +55,15 @@ return array(
 	'group_tab_members' => 'Members',
 	'group_tab_requests' => 'Requests',
 
+	'group_action_add_member' => 'Add member',
+	'group_user_modal_title' => 'Add member',
+	'group_user_add_search' => 'Search for users...',
+	'group_user_add_selected' => 'Selected users',
+	'group_user_add_selected_no_selected' => 'No users selected. Search above.',
+	'group_user_add_btn_add_members' => 'Add member(s)',
+	'group_user_add_suggestions' => 'Suggestions',
+	'group_user_add_no_user_matched_search_criteria' => 'No users matched your search criteria.',
+
 	'group_post_placeholder_text' => 'Post to this group...',
 	'group_post_btn_post' => 'Post',
 
