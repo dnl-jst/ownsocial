@@ -460,4 +460,8 @@ $(function() {
 
     });
 
+    $('.convert-emoji').each(function() {
+        $(this).html(emojione.toImage($(this).html()));
+    });
+
 });

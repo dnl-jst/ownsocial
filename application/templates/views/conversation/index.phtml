@@ -10,14 +10,14 @@
 					<?php foreach ($this->conversations as $i => $conversation): ?>
 						<li role="presentation" id="conversation_<?= $conversation->getId(); ?>" class="conversation <?= ($i === 0) ? ' active' : ''; ?>" data-conversation-id="<?= $conversation->getId(); ?>">
 							<a href="#">
-								<strong>
+								<strong class="convert-emoji">
 									<?php if ($conversation->getTitle()): ?>
 									<?= $this->escape($conversation->getTitle()); ?>
 									<?php else: ?>
 									<?= $this->_('conversation_no_title'); ?>
 									<?php endif; ?>
 								</strong><br />
-								<small>
+								<small class="convert-emoji">
 									<?php if ($lastPost = $conversation->getLastPost($this->_currentUser->getId())): ?>
 										<?= $this->escape($this->shorten($lastPost->getMessage(), 50)); ?>
 									<?php else: ?>
@@ -165,7 +165,7 @@ $(function() {
 
 						$(rightCol).appendTo(message);
 
-						$(rightCol).append('<p>' + result[i].message + '</p>');
+						$(rightCol).append('<p>' + emojione.toImage(result[i].message) + '</p>');
 						$(message).prependTo('#message_box_inner');
 						$('<hr>').prependTo('#message_box_inner');
 
@@ -265,7 +265,7 @@ $(function() {
 			url: '/conversation/add-post/',
 			data: {
 				conversation_id: currentConversation,
-				message: $('#conversation_post_message').val()
+				message: emojione.toShort($('#conversation_post_message').val())
 			},
 			dataType: 'json',
 			success: function (result) {
