@@ -96,6 +96,7 @@ return array(
 
 	'conversation_create' => 'Create conversation',
 	'conversation_create_post' => 'Post',
+	'conversations_no_conversations_yet' => 'You had no conversations yet...',
 	'conversations_load_more_posts' => 'Load more posts...',
 	'conversations_no_posts_yet' => 'No messages yet...',
 	'conversations_members' => 'Members',

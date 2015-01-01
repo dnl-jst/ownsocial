@@ -3,7 +3,7 @@
 
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 			<div class="">
-				<a id="conversation_create" class="btn btn-default" href="#"><i class="fa fa-bullhorn"></i> <?= $this->_('conversation_create'); ?></a>
+				<a class="btn btn-default conversation_create" href="#"><i class="fa fa-bullhorn"></i> <?= $this->_('conversation_create'); ?></a>
 				<hr>
 				<?php if ($this->conversations): ?>
 					<ul id="conversation_list" class="nav nav-pills nav-stacked">
@@ -28,14 +28,13 @@
 						</li>
 					<?php endforeach; ?>
 					</ul>
-				<?php else: ?>
-					<p><?= $this->_('conversations_no_conversations_yet'); ?></p>
 				<?php endif; ?>
 			</div>
 		</div>
 
 		<div class="col-xm-8 col-sm-8 col-md-8 col-lg-8">
 
+			<?php if ($this->conversations): ?>
 			<div class="well well-sm">
 				<span>
 					<?= $this->_('conversations_members'); ?>:
@@ -43,8 +42,11 @@
 					<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#conversation_add_member_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> <?= $this->_('conversations_add_members'); ?></button>
 				</span>
 			</div>
+			<?php endif; ?>
 
 			<div class="well well-sm">
+
+				<?php if ($this->conversations): ?>
 
 				<div id="message_box" style="height: 350px; padding: 20px; overflow-y: auto;">
 
@@ -58,8 +60,22 @@
 
 				</div>
 
+				<?php else: ?>
+
+					<div style="text-align: center;">
+						<p>
+							<?= $this->_('conversations_no_conversations_yet'); ?>
+						</p>
+						<p>
+							<a class="btn btn-default conversation_create" href="#"><i class="fa fa-bullhorn"></i> <?= $this->_('conversation_create'); ?></a>
+						</p>
+					</div>
+
+				<?php endif; ?>
+
 			</div>
 
+			<?php if ($this->conversations): ?>
 			<div class="well well-sm">
 
 				<div id="add_message_box" style="height: 80px;">
@@ -71,6 +87,7 @@
 				</div>
 
 			</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
@@ -110,7 +127,11 @@
 
 <script type="text/javascript">
 
+<?php if ($this->conversations): ?>
 var currentConversation = <?= json_encode($this->conversations[0]->getId()); ?>;
+<?php else: ?>
+var currentConversation = null;
+<?php endif; ?>
 
 $(function() {
 
@@ -263,7 +284,7 @@ $(function() {
 		});
 	});
 
-	$('#conversation_create').click(function(event) {
+	$('.conversation_create').click(function(event) {
 
 		event.preventDefault();
 
@@ -274,9 +295,15 @@ $(function() {
 			dataType: 'json',
 			success: function (result) {
 
-				$('#conversation_list').prepend('<li role="presentation" id="conversation_' + result.conversation_id + '" class="conversation' +  + '" data-conversation-id="' + result.conversation_id + '"><a href="#"><strong></strong><br /><small><p><?= $this->_('conversations_no_posts_yet'); ?></p></small></a></li>');
+				if (currentConversation == null) {
+					location.reload();
+				} else {
 
-				switchConversation(result.conversation_id);
+					$('#conversation_list').prepend('<li role="presentation" id="conversation_' + result.conversation_id + '" class="conversation' +  + '" data-conversation-id="' + result.conversation_id + '"><a href="#"><strong></strong><br /><small><p><?= $this->_('conversations_no_posts_yet'); ?></p></small></a></li>');
+
+					switchConversation(result.conversation_id);
+
+				}
 
 			}
 		});

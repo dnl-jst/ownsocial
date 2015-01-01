@@ -96,6 +96,7 @@ return array(
 
 	'conversation_create' => 'Gespräch starten',
 	'conversation_create_post' => 'Posten',
+	'conversations_no_conversations_yet' => 'Du hast noch keine Gespräche geführt...',
 	'conversations_load_more_posts' => 'Mehr Nachrichten laden',
 	'conversations_no_posts_yet' => 'Noch keine Nachrichten...',
 	'conversations_members' => 'Mit',
