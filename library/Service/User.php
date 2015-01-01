@@ -4,6 +4,7 @@ namespace Service;
 
 use Core\Controller\Request;
 use Db\User\Delete;
+use Db\User\GetByConversationId;
 use Db\User\GetByGroupId;
 use Db\User\GetGroupRequests;
 use Db\User\GetUnconfirmedUsers;
@@ -209,6 +210,9 @@ class User extends Service
 
 	}
 
+	/**
+	 * @return UserModel[]
+	 */
 	public static function getUnconfirmedUsers()
 	{
 		$query = new GetUnconfirmedUsers();
@@ -222,6 +226,9 @@ class User extends Service
 		return $users;
 	}
 
+	/**
+	 * @param $id
+	 */
 	public static function delete($id)
 	{
 		$query = new Delete();
@@ -229,6 +236,10 @@ class User extends Service
 		$query->query();
 	}
 
+	/**
+	 * @param $groupId
+	 * @return UserModel[]
+	 */
 	public static function getByGroupId($groupId)
 	{
 		$query = new GetByGroupId();
@@ -243,10 +254,32 @@ class User extends Service
 		return $users;
 	}
 
+	/**
+	 * @param $groupId
+	 * @return UserModel[]
+	 */
 	public static function getGroupRequests($groupId)
 	{
 		$query = new GetGroupRequests();
 		$query->setGroupId($groupId);
+
+		try {
+			$users = self::fillCollection(new UserModel(), $query->fetchAll());
+		} catch (NoResultException $e) {
+			$users = array();
+		}
+
+		return $users;
+	}
+
+	/**
+	 * @param $conversationId
+	 * @return UserModel[]
+	 */
+	public static function getByConversationId($conversationId)
+	{
+		$query = new GetByConversationId();
+		$query->setConversationId($conversationId);
 
 		try {
 			$users = self::fillCollection(new UserModel(), $query->fetchAll());

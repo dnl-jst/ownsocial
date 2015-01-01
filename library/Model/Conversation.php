@@ -3,6 +3,12 @@
 namespace Model;
 
 use Core\Model;
+use Core\Query\NoResultException;
+use Model\User as UserModel;
+use Model\Conversation\User as ConversationUserModel;
+use Service\Conversation\Post;
+use Service\Conversation\User as ConversationUserService;
+use Service\User as UserService;
 
 class Conversation extends Model
 {
@@ -100,6 +106,45 @@ class Conversation extends Model
 	public function setTitle($title)
 	{
 		$this->title = $title;
+	}
+
+	/**
+	 * @param User $user
+	 * @return ConversationUserModel
+	 */
+	public function getRelation(UserModel $user)
+	{
+		return ConversationUserService::getByConversationIdAndUserId($this->getId(), $user->getId());
+	}
+
+	/**
+	 * @param UserModel $user
+	 * @return bool
+	 */
+	public function hasRelation(UserModel $user)
+	{
+		try {
+			$this->getRelation($user);
+			return true;
+		} catch (NoResultException $e) {
+			return false;
+		}
+	}
+
+	public function getLastPost($userId)
+	{
+		try {
+			$post = reset(Post::getLastByConversationId($this->getId(), $userId, 0, 1));
+		} catch (NoResultException $e) {
+			$post = false;
+		}
+
+		return $post;
+	}
+
+	public function getMembers()
+	{
+		return UserService::getByConversationId($this->getId());
 	}
 
 }

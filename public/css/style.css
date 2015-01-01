@@ -62,3 +62,17 @@ img.portrait {
     border-top-right-radius: 0;
 }
 
+#main-navigation .conversation-icon {
+    font-size: 1.5em;
+    position: relative;
+}
+
+#main-navigation .conversation-icon .badge {
+    font-size: 0.5em;
+    position: absolute;
+    top: 8px;
+    left: 25px;
+    border: 1px solid #ebccd1;
+    background-color: #f2dede;
+    color: #a94442;
+}

@@ -93,4 +93,10 @@ return array(
 	'registration_confirm_private_network' => 'Dieses ist ein privates Netzwerk. Du musst warten, bis ein Administrator deinen Account freischaltet.',
 
 	'profile_language' => 'Ausgewählte Sprache',
+
+	'conversation_create_post' => 'Posten',
+	'conversations_load_more_posts' => 'Mehr Nachrichten laden',
+	'conversations_no_posts_yet' => 'Noch keine Nachrichten...',
+	'conversations_members' => 'Mit',
+
 );

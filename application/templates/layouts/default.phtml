@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav id="main-navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
 
 		<a class="navbar-brand" href="/"><?= $this->escape($this->_config['site_title']['value']); ?></a>
@@ -53,6 +53,10 @@
 
 		<p class="navbar-text navbar-right"><?= $this->_('top_navigation_logged_in_as'); ?> <a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></p>
 
+		<ul class="nav navbar-nav navbar-right">
+			<li class="conversation-icon"><a href="/conversation/"><i class="fa fa-envelope"></i><?php if ($this->getUnreadConversationPostCount() > 0): ?> <span class="badge"><?= $this->escape($this->getUnreadConversationPostCount()); ?></span><?php endif; ?></a></li>
+		</ul>
+
 		<?php else: ?>
 
 		<form class="navbar-form form-inline pull-right" role="form" method="post" action="/index/login">
@@ -75,6 +79,7 @@
 <div class="container">
 	<div class="row">
 
+		<?php if (!$this->hideLeftColumn): ?>
 		<div class="col-md-3 col-lg-3">
 			<?php if ($this->_currentUser): ?>
 			<div class="well">
@@ -96,11 +101,13 @@
 			</div>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 
-		<div class="col-md-6 col-lg-6">
+		<div class="<?= ($this->middleColumnClasses) ? $this->middleColumnClasses : 'col-md-6 col-lg-6'; ?>">
 			<?= $html; ?>
 		</div>
 
+		<?php if (!$this->hideRightColumn): ?>
 		<div class="col-md-3 col-lg-3">
 			<?php if ($this->_currentUser): ?>
 			<div class="well">
@@ -160,6 +167,7 @@
 			</div>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 	</div>
 </div>
 

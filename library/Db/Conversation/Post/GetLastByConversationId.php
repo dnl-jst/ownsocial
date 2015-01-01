@@ -11,25 +11,34 @@ class GetLastByConversationId extends Query
 	protected $conversationId;
 
 	/** @var integer */
+	protected $userId;
+
+	/** @var integer */
 	protected $offset;
+
+	/** @var integer */
+	protected $limit = 10;
 
 	protected function build()
 	{
 		$query = '
 			SELECT
-				id,
-				conversation_id,
-				user_id,
-				message,
-				created
+				cp.id,
+				cp.conversation_id,
+				cp.user_id,
+				cp.message,
+				cp.created,
+				IF(IFNULL(cps.created, 0) = 0, 0, 1) AS seen
 			FROM
-				conversation_posts
+				conversation_posts cp
+			LEFT JOIN conversation_post_seen cps ON cps.post_id = cp.id AND cps.user_id = ?
 			WHERE
-				conversation_id = ?
+				cp.conversation_id = ?
 			ORDER BY
-				created DESC
-			LIMIT ' . (integer)$this->offset . ', 10';
+				cp.created DESC
+			LIMIT ' . (integer)$this->offset . ', ' . (integer)$this->limit;
 
+		$this->addBind($this->userId);
 		$this->addBind($this->conversationId);
 
 		return $query;
@@ -49,6 +58,22 @@ class GetLastByConversationId extends Query
 	public function setOffset($offset)
 	{
 		$this->offset = $offset;
+	}
+
+	/**
+	 * @param int $userId
+	 */
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+	}
+
+	/**
+	 * @param int $limit
+	 */
+	public function setLimit($limit)
+	{
+		$this->limit = $limit;
 	}
 
 }

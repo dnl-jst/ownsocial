@@ -22,6 +22,9 @@ class Post extends Model
 	/** @var integer */
 	protected $created;
 
+	/** @var integer */
+	protected $seen;
+
 	/**
 	 * @return int
 	 */
@@ -100,6 +103,22 @@ class Post extends Model
 	public function setUserId($userId)
 	{
 		$this->userId = $userId;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSeen()
+	{
+		return $this->seen;
+	}
+
+	/**
+	 * @param int $seen
+	 */
+	public function setSeen($seen)
+	{
+		$this->seen = $seen;
 	}
 
 }

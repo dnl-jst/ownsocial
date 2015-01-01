@@ -3,6 +3,7 @@
 namespace Core;
 
 use Service\Config;
+use Service\Conversation\Post;
 use Service\User;
 
 class View
@@ -20,6 +21,8 @@ class View
 	protected $_layout = null;
 	protected $_rendered = false;
 	protected $translator;
+
+	private $_unreadConversationCount = null;
 
 	public function __construct($controller, $action, $templatePath, $templateFile)
 	{
@@ -52,7 +55,7 @@ class View
 
 	public function __get($name)
 	{
-		return $this->_templateVars[$name];
+		return @$this->_templateVars[$name];
 	}
 
 	public function render($templateFile)
@@ -100,6 +103,24 @@ class View
 	protected function _($key)
 	{
 		return $this->escape($this->translator->translate($key));
+	}
+
+	protected function getUnreadConversationPostCount()
+	{
+		if ($this->_unreadConversationCount === null) {
+			$this->_unreadConversationCount = Post::getUnreadCount();
+		}
+
+		return $this->_unreadConversationCount;
+	}
+
+	protected function shorten($input, $maxLength)
+	{
+		if (strlen($input) > ($maxLength - 3)) {
+			$input = substr($input, 0, $maxLength - 3) . '...';
+		}
+
+		return $input;
 	}
 
 }
