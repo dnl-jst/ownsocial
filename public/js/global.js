@@ -42,7 +42,7 @@ function getPost(post) {
     $('<div class="content">' + emojione.toImage(post.content) + '</div>').appendTo(element);
 
     if (post.imageFileId) {
-        $('<div class="image"><a href="/file/image/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></div>').appendTo(element);
+        $('<div class="image"><a href="/file/image/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/image/?file=' + post.imageFileId + '" /></a></div>').appendTo(element);
     }
 
     if (post.attachmentFileId) {
