@@ -94,11 +94,13 @@ return array(
 
 	'profile_language' => 'Chosen language',
 
+	'conversation_create' => 'Create conversation',
 	'conversation_create_post' => 'Post',
 	'conversations_load_more_posts' => 'Load more posts...',
 	'conversations_no_posts_yet' => 'No messages yet...',
 	'conversations_members' => 'Members',
 	'conversation_add_member_modal_title' => 'Add members',
 	'conversations_add_members' => 'Add members',
+	'conversation_no_title' => 'Unnamed conversation',
 
 );
