@@ -17,6 +17,17 @@ img.portrait {
     right: 10px;
 }
 
+.posts .post .image {
+    text-align: center;
+    height: 15em;
+    overflow: hidden;
+    border: 1px solid rgba(51, 51, 51, 0.2);
+}
+
+.posts .post .image img {
+    width: 100%;
+}
+
 .unconfirmed_contacts .unconfirmed_contact img.portrait {
     width: 40px;
     height: 40px;

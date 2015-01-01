@@ -24,7 +24,7 @@ function getPost(post) {
     $('<hr><p class="content">' + emojione.toImage(post.content) + '</p>').appendTo(element);
 
     if (post.imageFileId) {
-        $('<p class="image"><img class="img-responsive" src="/file/?file=' + post.imageFileId + '" /></p>').appendTo(element);
+        $('<p class="image"><a href="/file/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></p>').appendTo(element);
     }
 
     var interactionLine = '<hr><p class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
