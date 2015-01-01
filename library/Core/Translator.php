@@ -33,13 +33,19 @@ class Translator
 		$this->translations = require($languageDir . $language . '.php');
 	}
 
-	public function translate($key)
+	public function translate($key, $replacements = array())
 	{
 		if (!isset($this->translations[$key])) {
 			return '[[' . $key . ']]';
 		}
 
-		return $this->translations[$key];
+		$translation = $this->translations[$key];
+
+		foreach ($replacements as $key => $value) {
+			$translation = str_replace('%%' . $key . '%%', $value, $translation);
+		}
+
+		return $translation;
 	}
 
 	public function _($key)

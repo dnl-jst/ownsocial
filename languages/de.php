@@ -113,4 +113,10 @@ return array(
 	'conversations_add_members' => 'Personen hinzufügen',
 	'conversation_no_title' => 'Unbenanntes Gespräch',
 
+	'helper_datesince_few_seconds_ago' => 'vor wenigen Sekunden',
+	'helper_datesince_few_minutes_ago' => 'vor wenigen Minuten',
+	'helper_datesince_minutes_ago' => 'vor %%minutes%% Minuten',
+	'helper_datesince_hours_ago' => 'vor %%hours%% Stunden',
+	'helper_datesince_days_ago' => 'vor %%days%% Tagen',
+
 );

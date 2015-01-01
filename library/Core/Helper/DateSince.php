@@ -2,7 +2,9 @@
 
 namespace Core\Helper;
 
-class DateSince
+use Core\Helper;
+
+class DateSince extends Helper
 {
 
 	public static function format($timespam)
@@ -11,15 +13,21 @@ class DateSince
 		$difference = $now - $timespam;
 
 		if ($difference < 60) {
-			return 'few seconds ago';
+			return self::translate('helper_datesince_few_seconds_ago');
 		} else if ($difference < 300) {
-			return 'few minutes ago';
+			return self::translate('helper_datesince_few_minutes_ago');
 		} else if ($difference < 3600) {
-			return floor($difference / 60) . ' minutes ago';
+			return self::translate('helper_datesince_minutes_ago', array(
+				'minutes' => floor($difference / 60)
+			));
 		} else if ($difference < 86400) {
-			return floor($difference / 60 / 60) . ' hours ago';
+			return self::translate('helper_datesince_hours_ago', array(
+				'hours' => floor($difference / 60 / 60)
+			));
 		} else {
-			return floor($difference / 60 / 60 / 24) . ' days ago';
+			return self::translate('helper_datesince_days_ago', array(
+				'days' => floor($difference / 60 / 60 / 24)
+			));
 		}
 	}
 

@@ -113,4 +113,10 @@ return array(
 	'conversations_add_members' => 'Add members',
 	'conversation_no_title' => 'Unnamed conversation',
 
+	'helper_datesince_few_seconds_ago' => 'few seconds ago',
+	'helper_datesince_few_minutes_ago' => 'few minutes ago',
+	'helper_datesince_minutes_ago' => '%%minutes%% minutes ago',
+	'helper_datesince_hours_ago' => '%%hours%% hours ago',
+	'helper_datesince_days_ago' => '%%days%% days ago',
+
 );
