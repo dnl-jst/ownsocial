@@ -229,12 +229,14 @@ $(function() {
                 success: function(result) {
                     $('#post_select_image').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-image-o">');
                     $('#post_select_file').removeClass('btn-danger').addClass('btn-default').html('<i class="fa fa-plus"></i> <i class="fa fa-file-o">');
-                    $(getPost(result)).prependTo('.posts');
                     $('#post_content').val('');
                     $('#image_area').html('');
                     $('#file_area').html('');
                     $('#post_image_id').val('');
                     $('#post_file_id').val('');
+
+                    $(getPost(result)).prependTo('.posts');
+                    loadAttachments();
                 }
             });
 
