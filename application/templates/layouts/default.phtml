@@ -23,6 +23,7 @@
 	<script type="text/javascript">
 
 		var currentUserId = <?= json_encode(($this->_currentUser) ? $this->_currentUser->getId() : null); ?>;
+		var currentUserPortraitFileId = <?= json_encode(($this->_currentUser) ? $this->_currentUser->getPortraitFileId() : null); ?>;
 
 		var globalTranslations = {
 			post_like: <?= json_encode($this->_('post_like')); ?>,
@@ -95,30 +96,39 @@
 			<div class="well">
 				<div id="left_box">
 
-					<a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a>
-
-					<div class="groups">
-						<ul>
-							<li><a href="#" data-toggle="modal" data-target="#group_add_modal"><?= $this->_('navigation_add_group'); ?></a></li>
-							<?php if ($groups = $this->_currentUser->getGroups()): ?>
-								<?php foreach ($groups as $group): ?>
-									<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
-						</ul>
+					<div>
+						<img style="width: 40px; height: 40px;" src="/file/?file=<?= $this->_currentUser->getPortraitFileId(); ?>" />
+						<strong><a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></strong>
 					</div>
+
+					<hr>
+
+					<ul>
+						<li><a href="/"><?= $this->_('navigation_news'); ?></a></li>
+						<li><a href="#" data-toggle="modal" data-target="#group_add_modal"><?= $this->_('navigation_add_group'); ?></a></li>
+						<li class="section">
+							<span class="navigation_headline"><?= $this->_('navigation_my_groups'); ?></span>
+							<ul class="groups subnavigation">
+								<?php if ($groups = $this->_currentUser->getGroups()): ?>
+									<?php foreach ($groups as $group): ?>
+										<li><a href="/group/?id=<?= $group->getId(); ?>"><?= $this->escape($group->getName()); ?></a></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<?php endif; ?>
 		</div>
 		<?php endif; ?>
 
-		<div class="<?= ($this->middleColumnClasses) ? $this->middleColumnClasses : 'col-md-6 col-lg-6'; ?>">
+		<div class="<?= ($this->middleColumnClasses) ? $this->middleColumnClasses : 'col-md-5 col-lg-5'; ?>">
 			<?= $html; ?>
 		</div>
 
 		<?php if (!$this->hideRightColumn): ?>
-		<div class="col-md-3 col-lg-3">
+		<div class="col-md-4 col-lg-4">
 			<?php if ($this->_currentUser): ?>
 			<div class="well">
 				<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>

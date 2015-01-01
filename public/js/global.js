@@ -26,30 +26,30 @@ function getPost(post) {
         $('<a class="action_delete_post btn btn-default" href="#" data-post="' + post.id + '"><i class="fa fa-trash-o"></i></a>').appendTo(element);
     }
 
-    var userP = $('<div class="row user"></p>');
-    $('<div class="col-xs-2"><a href="/profile/?user=' + post.userId + '"><img class="img-responsive" src="/file/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userP);
-    $('<span class="name"><a href="/profile/?user=' + post.userId + '">' + post.firstName + ' ' + post.lastName + '</a></span>').appendTo(userP);
+    var userDiv = $('<div class="row user"></div>');
+    $('<div class="col-xs-2 feed_user_portrait"><a href="/profile/?user=' + post.userId + '"><img src="/file/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userDiv);
+    $('<span class="name"><a href="/profile/?user=' + post.userId + '">' + post.firstName + ' ' + post.lastName + '</a></span>').appendTo(userDiv);
 
     if (post.groupId) {
-        $('<span class="in_group"> in <a href="/group/?id=' + post.groupId + '">' + post.group.name + '</a></span>').appendTo(userP);
+        $('<span class="in_group"> in <a href="/group/?id=' + post.groupId + '">' + post.group.name + '</a></span>').appendTo(userDiv);
     }
 
-    $('<br><small><span class="created">' + post.created + '</span></small></p>').appendTo('<div class="col-xs-10"></div>').appendTo(userP);
+    $('<br><small><span class="created">' + post.created + '</span></small>').appendTo('<div class="col-xs-10"></div>').appendTo(userDiv);
 
-    $(userP).appendTo(element);
+    $(userDiv).appendTo(element);
 
-    $('<div class="clear"></p>').appendTo(element);
-    $('<hr><p class="content">' + emojione.toImage(post.content) + '</p>').appendTo(element);
+    $('<div class="clear"></div>').appendTo(element);
+    $('<div class="content">' + emojione.toImage(post.content) + '</div>').appendTo(element);
 
     if (post.imageFileId) {
-        $('<p class="image"><a href="/file/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></p>').appendTo(element);
+        $('<div class="image"><a href="/file/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></div>').appendTo(element);
     }
 
     if (post.attachmentFileId) {
-        $('<div class="file well well-sm col col-xs-3"><a href="/file/?file=' + post.attachmentFileId + '" data-file-id="' + post.attachmentFileId + '"></a></div><div class="clearfix"></div>').appendTo(element);
+        $('<div class="file well well-sm"><a href="/file/?file=' + post.attachmentFileId + '" data-file-id="' + post.attachmentFileId + '"></a></div><div class="clearfix"></div>').appendTo(element);
     }
 
-    var interactionLine = '<hr><p class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
+    var interactionLine = '<hr><div class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
 
     if (post.liked == 0) {
         interactionLine += globalTranslations.post_like;
@@ -67,13 +67,13 @@ function getPost(post) {
         interactionLine += ' &bull; <i class="fa fa-comments-o"></i> ' + post.comments;
     }
 
-    interactionLine += '</p>';
+    interactionLine += '</div><hr>';
 
     $(interactionLine).appendTo(element);
 
-    var comments = $('<div class="comments" style="display: none;"><hr><div class="comments_inner"></div></div>');
+    var comments = $('<div class="comments"><div class="comments_inner"></div></div>');
 
-    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-9 form-group"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="' + globalTranslations.post_comments_write_comment + '"></div><div class="col-xs-3 form-group"><button type="submit" class="form-control action_add_comment" data-post-id="' + post.id + '" class="col-xs-2 btn btn-primary">' + globalTranslations.post_comments_write_comment_send + '</button></div></form></div>').appendTo(comments);
+    $('<div class="add_comment"><div class="comment_user_portrait"><img style="width: 32px; height: 32px;" src="/file/?file=' + currentUserPortraitFileId + '" /></div><div class="comment_message_box"><input type="text" class="form-control new_comment" data-post-id="' + post.id + '" placeholder="' + globalTranslations.post_comments_write_comment + '"></div></div>').appendTo(comments);
 
     $(comments).appendTo(element);
     $('<div class="clearfix"></div>').appendTo(comments);
@@ -261,6 +261,7 @@ $(function() {
             dataType: 'json',
             success: function(result) {
                 $('#post_' + postId).replaceWith(getPost(result));
+                loadAttachments();
             }
         });
 
@@ -290,7 +291,7 @@ $(function() {
                     if ($(theComment).length > 0) {
                         $(theComment).replaceWith(getPost(result.posts[i]));
                     } else {
-                        $('#post_' + postId + '>.comments .comments_inner').append(getPost(result.posts[i]));
+                        $('#post_' + postId + '>.comments>.comments_inner').append(getPost(result.posts[i]));
                     }
                 }
             }
@@ -298,31 +299,37 @@ $(function() {
 
     });
 
-    $(body).on('click', '.action_add_comment', function(event) {
+    $(body).on('keyup', '.new_comment', function(event) {
 
         event.preventDefault();
 
-        var postId = $(this).data('post-id');
-        var content = emojione.toShort($('#new_comment_' + postId).val());
+        var commentBox = $(this);
 
-        if (content == '') {
-            $('#new_comment_' + postId).parent('.form-group').addClass('has-error');
-            return;
-        }
+        if (event.keyCode == 13) {
 
-        $.ajax({
-            method: 'post',
-            url: '/post/add-comment/',
-            data: {
-                post: postId,
-                content: content
-            },
-            dataType: 'json',
-            success: function(result) {
-                $('#new_comment_' + postId).val('');
-                $('#post_' + postId + '>.comments .comments_inner').append(getPost(result));
+            var postId = $(commentBox).data('post-id');
+            var content = emojione.toShort($(commentBox).val());
+
+            if (content == '') {
+                $(commentBox).parent('.form-group').addClass('has-error');
+                return;
             }
-        });
+
+            $.ajax({
+                method: 'post',
+                url: '/post/add-comment/',
+                data: {
+                    post: postId,
+                    content: content
+                },
+                dataType: 'json',
+                success: function(result) {
+                    $(commentBox).val('');
+                    $('#post_' + postId + '>.comments .comments_inner').append(getPost(result));
+                }
+            });
+
+        }
 
     });
 

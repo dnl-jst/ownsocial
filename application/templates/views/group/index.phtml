@@ -48,6 +48,7 @@
 							<div class="form-group">
 								<textarea id="post_content" class="form-control" name="content" placeholder="<?= $this->_('group_post_placeholder_text'); ?>"></textarea>
 								<input type="hidden" id="post_image_id" value="">
+								<input type="hidden" id="post_file_id" value="">
 							</div>
 
 							<div id="image_area"></div>
@@ -56,6 +57,9 @@
 
 								<button id="post_select_image" class="btn btn-default"><i class="fa fa-plus"></i> <i class="fa fa-file-image-o"></i></button>
 								<input type="file" id="image_upload" accept="image/*" style="display: none;" />
+
+								<button id="post_select_file" class="btn btn-default" title="<?= $this->_('post_btn_add_file'); ?>"><i class="fa fa-plus"></i> <i class="fa fa-file-o"></i></button>
+								<input type="file" id="file_upload" accept="application/*" style="display: none;" />
 
 								<input type="submit" class="btn btn-primary" value="<?= $this->_('group_post_btn_post'); ?>" />
 							</div>

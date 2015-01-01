@@ -3,12 +3,49 @@ body {
 }
 
 img.portrait {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
+}
+
+#left_box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#left_box ul.subnavigation {
+    padding-left: 10px;
+}
+
+#left_box ul li.section {
+    margin-top: 10px;
+}
+
+#create_post,
+.posts .post {
+    margin-bottom: 10px;
 }
 
 .posts .post {
     position: relative;
+}
+
+.posts .post .name {
+    font-weight: bold;
+}
+
+.posts .post .content {
+    margin: 10px 0 10px 0;
+}
+
+.posts .post .feed_user_portrait {
+    float: left;
+    width: 65px !important;
+}
+
+.posts .post .feed_user_portrait img {
+    width: 40px;
+    border: 1px solid rgba(51, 51, 51, 0.2);
 }
 
 .posts .post a.action_delete_post {
@@ -24,6 +61,20 @@ img.portrait {
     border: 1px solid rgba(51, 51, 51, 0.2);
 }
 
+.posts .post .comment_user_portrait {
+    border: 1px solid rgba(51, 51, 51, 0.2);
+    width: 34px;
+    height: 34px;
+    float: left;
+}
+
+.posts .post .comment_message_box {
+    float: left;
+    width: 370px;
+    height: 34px;
+    margin-left: 10px;
+}
+
 .posts .post .image img {
     width: 100%;
 }
@@ -32,10 +83,21 @@ img.portrait {
     text-align: center;
     font-size: 0.7em;
     overflow: hidden;
+    margin-bottom: 0;
 }
 
 .posts .post .file i {
     font-size: 30px;
+}
+
+.posts .post .interaction {
+    font-size: 0.8em;
+}
+
+.posts .post hr {
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #create_post .file {

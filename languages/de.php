@@ -24,6 +24,8 @@ return array(
 	'top_navigation_login_btn_login' => 'Einloggen',
 
 	'navigation_add_group' => 'Gruppe gründen',
+	'navigation_news' => 'Neuigkeiten',
+	'navigation_my_groups' => 'Meine Gruppen',
 
 	'create_post_post_placeholder' => 'Was möchtest du mitteilen?',
 	'create_post_btn_post' => 'Posten',

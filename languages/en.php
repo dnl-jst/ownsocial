@@ -24,6 +24,8 @@ return array(
 	'top_navigation_login_btn_login' => 'Sign in',
 
 	'navigation_add_group' => 'Create group',
+	'navigation_news' => 'News',
+	'navigation_my_groups' => 'My groups',
 
 	'create_post_post_placeholder' => 'What\'s on your mind?',
 	'create_post_btn_post' => 'Post',
