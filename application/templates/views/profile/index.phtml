@@ -6,7 +6,7 @@
 				<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
 				<div class="portrait" id="croppic-area" style="width: 200px; height: 200px; position: relative; overflow: hidden;">
 				<?php endif; ?>
-					<img style="width: 200px; height: 200px;" src="/file/?file=<?= $this->user->getPortraitFileId(); ?>" />
+					<img style="width: 200px; height: 200px;" src="/file/image/?file=<?= $this->user->getPortraitFileId(); ?>" />
 				<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
 				</div>
 				<?php endif; ?>

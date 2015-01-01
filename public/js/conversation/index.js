@@ -28,7 +28,7 @@ $(function() {
 
                         var row = $('<div class="user row well well-sm" data-user-id="' + result[i].id + '"></div>');
 
-                        row.append('<div class="col-xs-3"><img style="width: 80px; height: 80px;" src="/file/?file=' + result[i].portrait_file_id + '" /></div>');
+                        row.append('<div class="col-xs-3"><img style="width: 80px; height: 80px;" src="/file/image/?file=' + result[i].portrait_file_id + '" /></div>');
                         row.append('<div class="col-xs-9"><h4 class="list-group-item-heading">' + result[i].first_name + ' ' + result[i].last_name + '</h4><p class="list-group-item-text">' + ((result[i].department) ? result[i].department : '') + '</p></div>');
 
                         suggestions.append(row);

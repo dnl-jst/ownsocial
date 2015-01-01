@@ -97,7 +97,7 @@
 				<div id="left_box">
 
 					<div>
-						<img style="width: 40px; height: 40px; border: 1px solid rgba(51, 51, 51, 0.2);" src="/file/?file=<?= $this->_currentUser->getPortraitFileId(); ?>" />
+						<img style="width: 40px; height: 40px; border: 1px solid rgba(51, 51, 51, 0.2);" src="/file/image/?file=<?= $this->_currentUser->getPortraitFileId(); ?>" />
 						<strong><a href="/profile/me/"><?= $this->escape($this->_currentUser->getFirstName() . ' ' . $this->_currentUser->getLastName()); ?></a></strong>
 					</div>
 
@@ -136,7 +136,7 @@
 						<p class="headline"><?= $this->_('contact_requests_title'); ?></p>
 						<?php foreach ($contacts as $contact): ?>
 							<div class="unconfirmed_contact">
-								<img class="portrait" src="/file/?file=<?= $contact->getPortraitFileId(); ?>" />
+								<img class="portrait" src="/file/image/?file=<?= $contact->getPortraitFileId(); ?>" />
 								<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
 								<br />
 								<div class="btn-group">
@@ -152,7 +152,7 @@
 						<p class="headline"><?= $this->_('group_requests_title'); ?></p>
 						<?php foreach ($groupInvitations as $group): ?>
 							<div class="group_invitation">
-								<img class="portrait" src="/file/?file=<?= $group->getPortraitFileId(); ?>" />
+								<img class="portrait" src="/file/image/?file=<?= $group->getPortraitFileId(); ?>" />
 								<?= $this->escape($group->getName()); ?>
 								<br />
 								<div class="btn-group">
@@ -169,7 +169,7 @@
 						<?php foreach ($this->_unconfirmedUsers as $user): ?>
 							<div class="unconfirmed_user">
 								<div class="col-sm-4">
-									<img class="img-responsive" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+									<img class="img-responsive" src="/file/image/?file=<?= $user->getPortraitFileId(); ?>" />
 								</div>
 								<div class="col-sm-6">
 									<?= $this->escape($user->getFirstName() . ' ' . $user->getLastName()); ?><br>

@@ -42,7 +42,7 @@ function getPost(post) {
     $('<div class="content">' + emojione.toImage(post.content) + '</div>').appendTo(element);
 
     if (post.imageFileId) {
-        $('<div class="image"><a href="/file/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></div>').appendTo(element);
+        $('<div class="image"><a href="/file/image/?file=' + post.imageFileId + '" target="_blank"><img class="" src="/file/?file=' + post.imageFileId + '" /></a></div>').appendTo(element);
     }
 
     if (post.attachmentFileId) {
@@ -73,7 +73,7 @@ function getPost(post) {
 
     var comments = $('<div class="comments"><div class="comments_inner"></div></div>');
 
-    $('<div class="add_comment"><div class="comment_user_portrait"><img style="width: 32px; height: 32px;" src="/file/?file=' + currentUserPortraitFileId + '" /></div><div class="comment_message_box"><input type="text" class="form-control new_comment" data-post-id="' + post.id + '" placeholder="' + globalTranslations.post_comments_write_comment + '"></div></div>').appendTo(comments);
+    $('<div class="add_comment"><div class="comment_user_portrait"><img style="width: 32px; height: 32px;" src="/file/image/?file=' + currentUserPortraitFileId + '" /></div><div class="comment_message_box"><input type="text" class="form-control new_comment" data-post-id="' + post.id + '" placeholder="' + globalTranslations.post_comments_write_comment + '"></div></div>').appendTo(comments);
 
     $(comments).appendTo(element);
     $('<div class="clearfix"></div>').appendTo(comments);
@@ -91,7 +91,7 @@ function getComment(post) {
 
     var userDiv = $('<div class="row user"></div>');
 
-    $('<div class="col-xs-2 feed_user_portrait"><a href="/profile/?user=' + post.userId + '"><img src="/file/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userDiv);
+    $('<div class="col-xs-2 feed_user_portrait"><a href="/profile/?user=' + post.userId + '"><img src="/file/image/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userDiv);
 
     var colRight = $('<div class="col-xs-10"></div>');
 
@@ -198,7 +198,7 @@ $(function() {
             success: function(result) {
                 $('#post_image_id').val(result.file_id);
                 $('#post_select_image').removeClass('btn-default').addClass('btn-danger').html('<i class="fa fa-times"></i> <i class="fa fa-file-image-o">');
-                $('#image_area').html('<img class="img-responsive" src="/file/?file=' + result.file_id + '" />')
+                $('#image_area').html('<img class="img-responsive" src="/file/image/?file=' + result.file_id + '" />')
             }
         })
 

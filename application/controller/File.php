@@ -17,6 +17,14 @@ class File extends Controller
 		$this->file($file->getType(), $file->getContent(), $file->getName());
 	}
 
+	public function imageAction()
+	{
+		$fileId = $this->getRequest()->getGet('file');
+		$file = FileService::getById($fileId);
+
+		$this->image($file->getType(), $file->getContent());
+	}
+
 	public function metaAction()
 	{
 		$fileId = $this->getRequest()->getGet('file');

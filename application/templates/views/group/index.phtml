@@ -6,7 +6,7 @@
 				<?php if ($this->isGroupAdmin): ?>
 				<div class="portait" id="croppic-area" style="width: 200px; height: 200px; position: relative;">
 				<?php endif; ?>
-					<img style="width: 200px; height: 200px;" src="/file/?file=<?= $this->group->getPortraitFileId(); ?>" />
+					<img style="width: 200px; height: 200px;" src="/file/image/?file=<?= $this->group->getPortraitFileId(); ?>" />
 				<?php if ($this->isGroupAdmin): ?>
 				</div>
 				<?php endif; ?>
@@ -87,7 +87,7 @@
 							<div class="well well-sm">
 								<div class="col-xs-3">
 									<a href="/profile/?user=<?= $user->getId(); ?>">
-										<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+										<img style="width: 80px; height: 80px;" src="/file/image/?file=<?= $user->getPortraitFileId(); ?>" />
 									</a>
 								</div>
 								<div class="col-xs-9">
@@ -116,7 +116,7 @@
 							<div class="well well-sm">
 								<div class="col-xs-3">
 									<a href="/profile/?user=<?= $user->getId(); ?>">
-										<img style="width: 80px; height: 80px;" src="/file/?file=<?= $user->getPortraitFileId(); ?>" />
+										<img style="width: 80px; height: 80px;" src="/file/image/?file=<?= $user->getPortraitFileId(); ?>" />
 									</a>
 								</div>
 								<div class="col-xs-9">

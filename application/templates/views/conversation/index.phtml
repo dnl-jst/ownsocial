@@ -159,7 +159,7 @@ $(function() {
 
 						var message = $('<div class="row message" id="message_' + post.id + '"></div>');
 
-						$(message).append('<div class="col-xs-2"><a href="/profile/?user=' + post.user.id + '"><img class="img-responsive" src="/file/?file=' + post.user.portrait_file_id + '" /></a></div>');
+						$(message).append('<div class="col-xs-2"><a href="/profile/?user=' + post.user.id + '"><img class="img-responsive" src="/file/image/?file=' + post.user.portrait_file_id + '" /></a></div>');
 
 						var rightCol = $('<div class="col-xs-10"><a href="/profile/?user=' + post.user.id + '">' + post.user.first_name + ' ' + post.user.last_name + '</a></div>');
 
