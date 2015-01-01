@@ -11,6 +11,7 @@
 Download latest version:
 
 as .zip: https://github.com/dnl-jst/ownsocial/archive/master.zip
+
 as .tar.gz: https://github.com/dnl-jst/ownsocial/archive/master.tar.gz
 	
 Extract the file and upload the contents to your webspace.
