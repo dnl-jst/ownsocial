@@ -15,7 +15,9 @@
 			<p>
 				<?= $this->_('user_department'); ?>:
 				<span id="profile_department"><?= $this->escape($this->user->getDepartment()); ?></span>
+				<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
 				<a href="#" class="profile_update_property" data-property="department"><i class="fa fa-edit"></i></a>
+				<?php endif; ?>
 			</p>
 			<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
 			<p>
