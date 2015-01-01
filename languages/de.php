@@ -101,6 +101,12 @@ return array(
 	'registration_confirm_success' => 'Danke! Dein Account wurde bestätigt.',
 	'registration_confirm_private_network' => 'Dieses ist ein privates Netzwerk. Du musst warten, bis ein Administrator deinen Account freischaltet.',
 
+	'post_like' => 'Gefällt mir',
+	'post_dislike' => 'Gefällt mir nicht mehr',
+	'post_comments' => 'Kommentare',
+	'post_comments_write_comment' => 'Schreibe einen Kommentar',
+	'post_comments_write_comment_send' => 'Abschicken',
+
 	'profile_language' => 'Ausgewählte Sprache',
 
 	'conversation_create' => 'Gespräch starten',

@@ -24,6 +24,14 @@
 
 		var currentUserId = <?= json_encode(($this->_currentUser) ? $this->_currentUser->getId() : null); ?>;
 
+		var globalTranslations = {
+			post_like: <?= json_encode($this->_('post_like')); ?>,
+			post_dislike: <?= json_encode($this->_('post_dislike')); ?>,
+			post_comments: <?= json_encode($this->_('post_comments')); ?>,
+			post_comments_write_comment: <?= json_encode($this->_('post_comments_write_comment')); ?>,
+			post_comments_write_comment_send: <?= json_encode($this->_('post_comments_write_comment_send')); ?>
+		};
+
 	</script>
 </head>
 <body>

@@ -30,12 +30,12 @@ function getPost(post) {
     var interactionLine = '<hr><p class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
 
     if (post.liked == 0) {
-        interactionLine += 'Like';
+        interactionLine += globalTranslations.post_like;
     } else {
-        interactionLine += 'Dislike';
+        interactionLine += globalTranslations.post_dislike;
     }
 
-    interactionLine += '</a> &bull; <a class="action_comments" href="#" data-post="' + post.id + '">Comments</a>';
+    interactionLine += '</a> &bull; <a class="action_comments" href="#" data-post="' + post.id + '">' + globalTranslations.post_comments + '</a>';
 
     if (post.likes > 0) {
         interactionLine += ' &bull; <i class="fa fa-thumbs-o-up"></i> ' + post.likes;
@@ -51,7 +51,7 @@ function getPost(post) {
 
     var comments = $('<div class="comments" style="display: none;"><hr><div class="comments_inner"></div></div>');
 
-    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-9 form-group"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="Write comment"></div><div class="col-xs-3 form-group"><button type="submit" class="form-control action_add_comment" data-post-id="' + post.id + '" class="col-xs-2 btn btn-primary">Send</button></div></form></div>').appendTo(comments);
+    $('<div class="add_comment"><form class="" role="form"><div class="col-xs-9 form-group"><input type="text" class="form-control" id="new_comment_' + post.id + '" placeholder="' + globalTranslations.post_comments_write_comment + '"></div><div class="col-xs-3 form-group"><button type="submit" class="form-control action_add_comment" data-post-id="' + post.id + '" class="col-xs-2 btn btn-primary">' + globalTranslations.post_comments_write_comment_send + '</button></div></form></div>').appendTo(comments);
 
     $(comments).appendTo(element);
     $('<div class="clearfix"></div>').appendTo(comments);

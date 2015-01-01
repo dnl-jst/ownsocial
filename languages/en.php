@@ -101,6 +101,12 @@ return array(
 	'registration_confirm_success' => 'Thanks! Your account is confirmed now.',
 	'registration_confirm_private_network' => 'This is a private network. An administrator has to confirm your account before you can use it.',
 
+	'post_like' => 'Like',
+	'post_dislike' => 'Dislike',
+	'post_comments' => 'Comments',
+	'post_comments_write_comment' => 'Write a comment',
+	'post_comments_write_comment_send' => 'Comment',
+
 	'profile_language' => 'Chosen language',
 
 	'conversation_create' => 'Create conversation',
