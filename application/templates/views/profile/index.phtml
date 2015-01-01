@@ -1,63 +1,64 @@
 <div class="profile_index">
 
-	<div class="row">
-		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-			<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
-			<div class="portait" id="croppic-area" style="width: 200px; height: 200px; position: relative;">
-			<?php endif; ?>
-				<img style="width: 200px; height: 200px;" src="/file/?file=<?= $this->user->getPortraitFileId(); ?>" />
-			<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
-			</div>
-			<?php endif; ?>
-		</div>
-		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-			<h2><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></h2>
-			<p>
-				<?= $this->_('user_department'); ?>:
-				<span id="profile_department"><?= $this->escape($this->user->getDepartment()); ?></span>
+	<div class="well">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 				<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
-				<a href="#" class="profile_update_property" data-property="department"><i class="fa fa-edit"></i></a>
+				<div class="portait" id="croppic-area" style="width: 200px; height: 200px; position: relative;">
 				<?php endif; ?>
-			</p>
-			<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
-			<p>
-				<?= $this->_('profile_language'); ?>:
-				<span id="profile_current_language"><?= $this->_('language_' . $this->_currentUser->getLanguage()); ?> <a href="#" id="profile_edit_language"><i class="fa fa-edit"></i></a></span>
-				<span id="profile_change_language" style="display: none;">
-					<select id="profile_new_language">
-						<option value="en"<?= ($this->_currentUser->getLanguage() == 'en') ? ' selected="selected"' : ''; ?>><?= $this->_('language_en'); ?></option>
-						<option value="de"<?= ($this->_currentUser->getLanguage() == 'de') ? ' selected="selected"' : ''; ?>><?= $this->_('language_de'); ?></option>
-					</select>
-				</span>
-			</p>
-			<?php endif; ?>
-
-			<?php if ($this->_currentUser->getId() !== $this->user->getId()): ?>
+					<img style="width: 200px; height: 200px;" src="/file/?file=<?= $this->user->getPortraitFileId(); ?>" />
+				<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
+				</div>
+				<?php endif; ?>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 profile_information">
+				<span class="name"><?= $this->escape($this->user->getFirstName() . ' ' . $this->user->getLastName()); ?></span>
 				<p>
-				<?php
-
-				$relation = $this->_currentUser->getRelationTo($this->user);
-
-				if ($relation === null): ?>
-					<a href="#" class="btn btn-primary add_request" data-id="<?= $this->user->getId(); ?>">
-						<i class="fa fa-user"></i> <?= $this->_('relation_send_request'); ?>
-					</a>
-				<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->user->getId()): ?>
-					<a href="#" class="btn btn-primary">
-						<i class="fa fa-clock-o"></i> <?= $this->_('relation_request_pending'); ?>
-					</a>
-				<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->_currentUser->getId()): ?>
-					<div class="btn-group">
-						<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-primary accept_request"><i class="fa fa-check"></i> <?= $this->_('btn_accept'); ?></button>
-						<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-default decline_request"><i class="fa fa-times"></i> <?= $this->_('btn_decline'); ?></button>
-					</div>
-				<?php else: ?>
-					<button class="btn btn-default">
-						<i class="fa fa-thumbs-o-up"></i> Confirmed
-					</button>
+					<?= $this->_('user_department'); ?>:
+					<span id="profile_department"><?= $this->escape($this->user->getDepartment()); ?></span>
+					<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
+					<a href="#" class="profile_update_property" data-property="department"><i class="fa fa-edit"></i></a>
+					<?php endif; ?>
+				<?php if ($this->_currentUser->getId() === $this->user->getId()): ?>
+					<br>
+					<?= $this->_('profile_language'); ?>:
+					<span id="profile_current_language"><?= $this->_('language_' . $this->_currentUser->getLanguage()); ?> <a href="#" id="profile_edit_language"><i class="fa fa-edit"></i></a></span>
+					<span id="profile_change_language" style="display: none;">
+						<select id="profile_new_language">
+							<option value="en"<?= ($this->_currentUser->getLanguage() == 'en') ? ' selected="selected"' : ''; ?>><?= $this->_('language_en'); ?></option>
+							<option value="de"<?= ($this->_currentUser->getLanguage() == 'de') ? ' selected="selected"' : ''; ?>><?= $this->_('language_de'); ?></option>
+						</select>
+					</span>
 				<?php endif; ?>
 				</p>
-			<?php endif; ?>
+
+				<?php if ($this->_currentUser->getId() !== $this->user->getId()): ?>
+					<p>
+					<?php
+
+					$relation = $this->_currentUser->getRelationTo($this->user);
+
+					if ($relation === null): ?>
+						<a href="#" class="btn btn-primary add_request" data-id="<?= $this->user->getId(); ?>">
+							<i class="fa fa-user"></i> <?= $this->_('relation_send_request'); ?>
+						</a>
+					<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->user->getId()): ?>
+						<a href="#" class="btn btn-primary">
+							<i class="fa fa-clock-o"></i> <?= $this->_('relation_request_pending'); ?>
+						</a>
+					<?php elseif (!$relation->getConfirmed() && $relation->getUserId2() === $this->_currentUser->getId()): ?>
+						<div class="btn-group">
+							<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-primary accept_request"><i class="fa fa-check"></i> <?= $this->_('btn_accept'); ?></button>
+							<button type="button" data-id="<?= $this->user->getId(); ?>" class="btn btn-default decline_request"><i class="fa fa-times"></i> <?= $this->_('btn_decline'); ?></button>
+						</div>
+					<?php else: ?>
+						<button class="btn btn-default">
+							<i class="fa fa-thumbs-o-up"></i> Confirmed
+						</button>
+					<?php endif; ?>
+					</p>
+				<?php endif; ?>
+			</div>
 		</div>
 	</div>
 

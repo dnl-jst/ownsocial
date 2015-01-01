@@ -173,3 +173,13 @@ img.portrait {
     background-color: #f2dede;
     color: #a94442;
 }
+
+.profile_index span.name {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.profile_index .profile_information {
+    font-size: 0.8em;
+}
