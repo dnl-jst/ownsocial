@@ -1,3 +1,5 @@
+emojione.ascii = true;
+
 function getPost(post) {
 
     var element = $('<div class="post well" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
@@ -19,7 +21,7 @@ function getPost(post) {
     $(userP).appendTo(element);
 
     $('<div class="clear"></p>').appendTo(element);
-    $('<hr><p class="content">' + post.content + '</p>').appendTo(element);
+    $('<hr><p class="content">' + emojione.toImage(post.content) + '</p>').appendTo(element);
 
     if (post.imageFileId) {
         $('<p class="image"><img class="img-responsive" src="/file/?file=' + post.imageFileId + '" /></p>').appendTo(element);
@@ -108,7 +110,7 @@ $(function() {
         if ($('#post_content').val()) {
 
             var data = {
-                content: $('#post_content').val(),
+                content: emojione.toShort($('#post_content').val()),
                 image: $('#post_image_id').val()
             };
 
@@ -192,7 +194,7 @@ $(function() {
         event.preventDefault();
 
         var postId = $(this).data('post-id');
-        var content = $('#new_comment_' + postId).val();
+        var content = emojione.toShort($('#new_comment_' + postId).val());
 
         if (content == '') {
             $('#new_comment_' + postId).parent('.form-group').addClass('has-error');

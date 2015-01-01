@@ -2,7 +2,7 @@
     "require": {
         "zendframework/zend-db" : "*",
         "zendframework/zend-loader" : "*",
-	"zendframework/zend-mail" : "*",
-	"ircmaxell/password-compat": "1.0.4"
+        "zendframework/zend-mail" : "*",
+        "ircmaxell/password-compat": "1.0.4"
     }
 }
