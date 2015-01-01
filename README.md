@@ -1,28 +1,18 @@
 # ownsocial
 
-## Currently developed on:
-
-	* nginx 1.4.6
-	* PHP 5.5.9 (FastCGI)
-	* MySQL 5.5.40
-
-## Prequisites
-
-	* Vagrant (https://www.vagrantup.com)
-	* VirtualBox (https://www.virtualbox.org)
-
 ## Minimum requirements
 
-	* PHP 5.3.7 (PHP 5.5 recommended)
-	* MySQL 5.1
+	* nginx or Apache
+	* PHP 5.3.7 (PHP 5.5 recommended) (FPM or Apache module)
+	* MySQL 5.1 (MySQL 5.5 recommended)
 
 ## Installation:
 
 Download latest version:
 
-	as .zip: https://github.com/dnl-jst/ownsocial/archive/0.1.6.zip
-	as .tar.gz: https://github.com/dnl-jst/ownsocial/archive/0.1.6.tar.gz
-
+	as .zip: https://github.com/dnl-jst/ownsocial/archive/master.zip
+	as .tar.gz: https://github.com/dnl-jst/ownsocial/archive/master.tar.gz
+	
 Extract the file and upload the contents to your webspace.
 
 You need to set the root-folder of your webspace to the public-subfolder.
@@ -30,6 +20,19 @@ You need to set the root-folder of your webspace to the public-subfolder.
 Open the site and you will be guided through the installation process.
 
 ## Development:
+
+### Currently developed on:
+
+	* nginx 1.4.6
+	* PHP 5.5.9 (FastCGI)
+	* MySQL 5.5.40
+
+### Prequisites
+
+	* Vagrant (https://www.vagrantup.com)
+	* VirtualBox (https://www.virtualbox.org)
+	
+### Get your development environment up and running
 
 Clone from git:
 
