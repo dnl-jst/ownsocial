@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Core\Controller;
+use Core\Query\NoResultException;
 use Model\Conversation as ConversationModel;
 use Model\Conversation\User as ConversationUser;
 use Model\Conversation\Post as ConversationPostModel;
@@ -146,18 +147,80 @@ class Conversation extends Controller
 		));
 	}
 
-	public function addMemberAction()
+	public function suggestMembersAction()
 	{
 		$conversationId = $this->getRequest()->getPost('conversation_id');
-		$userId = $this->getRequest()->getPost('user_id');
+		$search = $this->getRequest()->getPost('search');
+		$users = array();
 
-		$conversationUser = new ConversationUser();
-		$conversationUser->setConversationId($conversationId);
-		$conversationUser->setUserId($userId);
-		$conversationUser->setCreated(time());
-		$conversationUser->setCreatedBy($this->_currentUser->getId());
+		if (!$search) {
+			$this->json($users);
+			return;
+		}
 
-		ConversationUserService::store($conversationUser);
+		if ($this->_config['network_type']['value'] === 'public') {
+
+			try {
+				$resultUsers = User::searchContactsNotInConversation(
+					$search,
+					$this->_currentUser->getId(),
+					$conversationId
+				);
+
+				foreach($resultUsers as $user) {
+
+					$users[] = array(
+						'id' => $user->getId(),
+						'first_name' => $user->getFirstName(),
+						'last_name' => $user->getLastName(),
+						'department' => $user->getDepartment(),
+						'portrait_file_id' => $user->getPortraitFileId()
+					);
+
+				}
+
+			} catch (NoResultException $e) {}
+
+		} else {
+
+			try {
+				$resultUsers = User::searchNotInConversation($search, $conversationId);
+
+				foreach($resultUsers as $user) {
+
+					$users[] = array(
+						'id' => $user->getId(),
+						'first_name' => $user->getFirstName(),
+						'last_name' => $user->getLastName(),
+						'department' => $user->getDepartment(),
+						'portrait_file_id' => $user->getPortraitFileId()
+					);
+
+				}
+
+			} catch (NoResultException $e) {}
+
+		}
+
+		$this->json($users);
+	}
+
+	public function addMembersAction()
+	{
+		$conversationId = $this->getRequest()->getPost('conversation_id');
+		$newMembers = $this->getRequest()->getPost('new_members');
+
+		foreach ($newMembers as $userId) {
+
+			$conversationUser = new ConversationUser();
+			$conversationUser->setConversationId($conversationId);
+			$conversationUser->setUserId($userId);
+			$conversationUser->setCreated(time());
+			$conversationUser->setCreatedBy($this->_currentUser->getId());
+
+			ConversationUserService::store($conversationUser);
+
+		}
 
 		$this->json(array(
 			'success' => true

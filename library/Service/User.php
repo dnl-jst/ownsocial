@@ -9,7 +9,9 @@ use Db\User\GetByGroupId;
 use Db\User\GetGroupRequests;
 use Db\User\GetUnconfirmedUsers;
 use Db\User\SearchContacts;
+use Db\User\SearchContactsNotInConversation;
 use Db\User\SearchContactsNotInGroup;
+use Db\User\SearchNotInConversation;
 use Db\User\SearchNotInGroup;
 use Zend\Mail;
 use Core\Service;
@@ -102,6 +104,12 @@ class User extends Service
 		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
 
+	/**
+	 * @param $search
+	 * @param $userId
+	 * @return UserModel[]
+	 * @throws NoResultException
+	 */
 	public static function searchContacts($search, $userId)
 	{
 		$query = new SearchContacts();
@@ -111,6 +119,12 @@ class User extends Service
 		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
 
+	/**
+	 * @param $search
+	 * @param $groupId
+	 * @return UserModel[]
+	 * @throws NoResultException
+	 */
 	public static function searchNotInGroup($search, $groupId)
 	{
 		$query = new SearchNotInGroup();
@@ -120,12 +134,34 @@ class User extends Service
 		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
 
-	public static function searchContactsNotInGroup($search, $userId, $groupId)
+	/**
+	 * @param $search
+	 * @param $conversationId
+	 * @return UserModel[]
+	 * @throws NoResultException
+	 */
+	public static function searchNotInConversation($search, $conversationId)
 	{
-		$query = new SearchContactsNotInGroup();
+		$query = new SearchNotInConversation();
+		$query->setSearch($search);
+		$query->setConversationId($conversationId);
+
+		return self::fillCollection(new UserModel(), $query->fetchAll());
+	}
+
+	/**
+	 * @param $search
+	 * @param $userId
+	 * @param $conversationId
+	 * @return UserModel[]
+	 * @throws NoResultException
+	 */
+	public static function searchContactsNotInConversation($search, $userId, $conversationId)
+	{
+		$query = new SearchContactsNotInConversation();
 		$query->setSearch($search);
 		$query->setUserId($userId);
-		$query->setGroupId($groupId);
+		$query->setConversationId($conversationId);
 
 		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}

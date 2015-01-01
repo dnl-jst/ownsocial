@@ -98,5 +98,7 @@ return array(
 	'conversations_load_more_posts' => 'Load more posts...',
 	'conversations_no_posts_yet' => 'No messages yet...',
 	'conversations_members' => 'Members',
+	'conversation_add_member_modal_title' => 'Add members',
+	'conversations_add_members' => 'Add members',
 
 );

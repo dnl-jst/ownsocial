@@ -33,13 +33,14 @@ CREATE TABLE `conversation_users` (
   `created` bigint(20) NOT NULL,
   `created_by` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `conversation_id_2` (`conversation_id`,`user_id`),
   KEY `conversation_id` (`conversation_id`),
   KEY `user_id` (`user_id`),
   KEY `created_by` (`created_by`),
-  CONSTRAINT `conversation_users_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `conversation_users_ibfk_1` FOREIGN KEY (`conversation_id`) REFERENCES `conversations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `conversation_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `conversation_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `conversation_users_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Create syntax for TABLE 'conversations'
 CREATE TABLE `conversations` (
