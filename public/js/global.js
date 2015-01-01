@@ -93,7 +93,7 @@ function getComment(post) {
 
     $('<div class="col-xs-2 feed_user_portrait"><a href="/profile/?user=' + post.userId + '"><img src="/file/image/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userDiv);
 
-    var colRight = $('<div class="col-xs-10"></div>');
+    var colRight = $('<div class="col-xs-9"></div>');
 
     $('<span class="name"><a href="/profile/?user=' + post.userId + '">' + post.firstName + ' ' + post.lastName + '</a></span>').appendTo(colRight);
 
