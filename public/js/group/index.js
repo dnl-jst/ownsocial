@@ -17,6 +17,8 @@ $(function() {
 
             postsLoaded = true;
 
+            loadAttachments();
+
         }
     });
 

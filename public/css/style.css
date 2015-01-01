@@ -7,6 +7,10 @@ img.portrait {
     height: 75px;
 }
 
+div.portrait {
+    border: 1px solid rgba(51, 51, 51, 0.2);
+}
+
 #left_box ul {
     list-style: none;
     padding: 0;
@@ -37,6 +41,14 @@ img.portrait {
 .posts .post .comments .post {
     font-size: 0.8em;
     line-height: 1.2em;
+}
+
+.posts .post > .content {
+    padding: 10px 0 10px 0;
+}
+
+.posts .post > .interaction {
+    padding: 5px 0 5px 0;
 }
 
 .posts .post .comments .content {
@@ -174,7 +186,8 @@ img.portrait {
     color: #a94442;
 }
 
-.profile_index span.name {
+.profile_index span.name,
+.group_index #group_information span.name{
     display: block;
     font-size: 2em;
     font-weight: bold;

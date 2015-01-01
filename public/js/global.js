@@ -49,7 +49,7 @@ function getPost(post) {
         $('<div class="file well well-sm"><a href="/file/?file=' + post.attachmentFileId + '" data-file-id="' + post.attachmentFileId + '"></a></div><div class="clearfix"></div>').appendTo(element);
     }
 
-    var interactionLine = '<hr><div class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
+    var interactionLine = '<div class="interaction"><a class="action_like" href="#" data-post="' + post.id + '">';
 
     if (post.liked == 0) {
         interactionLine += globalTranslations.post_like;
@@ -67,7 +67,7 @@ function getPost(post) {
         interactionLine += ' &bull; <i class="fa fa-comments-o"></i> ' + post.comments;
     }
 
-    interactionLine += '</div><hr>';
+    interactionLine += '</div>';
 
     $(interactionLine).appendTo(element);
 

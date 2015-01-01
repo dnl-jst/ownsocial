@@ -1,23 +1,25 @@
-<div class="profile_index">
+<div class="group_index">
 
-	<div class="row">
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<?php if ($this->isGroupAdmin): ?>
-			<div class="portait" id="croppic-area" style="width: 150px; height: 150px; position: relative;">
-			<?php endif; ?>
-				<img class="img-responsive" src="/file/?file=<?= $this->group->getPortraitFileId(); ?>" />
-			<?php if ($this->isGroupAdmin): ?>
+	<div id="group_information" class="well">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<?php if ($this->isGroupAdmin): ?>
+				<div class="portait" id="croppic-area" style="width: 200px; height: 200px; position: relative;">
+				<?php endif; ?>
+					<img style="width: 200px; height: 200px;" src="/file/?file=<?= $this->group->getPortraitFileId(); ?>" />
+				<?php if ($this->isGroupAdmin): ?>
+				</div>
+				<?php endif; ?>
 			</div>
-			<?php endif; ?>
-		</div>
-		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-			<h2><?= $this->escape($this->group->getName()); ?></h2>
-			<p>
-				<small><?= $this->escape($this->group->getDescription()); ?></small>
-			</p>
-			<?php if ($this->isGroupAdmin): ?>
-			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group_user_add_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> <?= $this->_('group_action_add_member'); ?></button>
-			<?php endif; ?>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<span class="name"><?= $this->escape($this->group->getName()); ?></span>
+				<p>
+					<small><?= $this->escape($this->group->getDescription()); ?></small>
+				</p>
+				<?php if ($this->isGroupAdmin): ?>
+				<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#group_user_add_modal"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> <?= $this->_('group_action_add_member'); ?></button>
+				<?php endif; ?>
+			</div>
 		</div>
 	</div>
 
