@@ -81,6 +81,52 @@ function getPost(post) {
     return element;
 }
 
+function getComment(post) {
+
+    var element = $('<div class="post well well-sm" id="post_' + post.id + '" data-id="' + post.id + '" data-modified="' + post.modified + '"></div>');
+
+    if (post.userId == currentUserId) {
+        $('<a class="action_delete_post btn btn-default" href="#" data-post="' + post.id + '"><i class="fa fa-trash-o"></i></a>').appendTo(element);
+    }
+
+    var userDiv = $('<div class="row user"></div>');
+
+    $('<div class="col-xs-2 feed_user_portrait"><a href="/profile/?user=' + post.userId + '"><img src="/file/?file=' + post.portraitFileId + '" /></a></div>').appendTo(userDiv);
+
+    var colRight = $('<div class="col-xs-10"></div>');
+
+    $('<span class="name"><a href="/profile/?user=' + post.userId + '">' + post.firstName + ' ' + post.lastName + '</a></span>').appendTo(colRight);
+
+    if (post.groupId) {
+        $('<span class="in_group"> in <a href="/group/?id=' + post.groupId + '">' + post.group.name + '</a></span>').appendTo(colRight);
+    }
+
+    $('<small><span class="created"> ' + post.created + '</span></small>').appendTo('<div class="col-xs-10"></div>').appendTo(colRight);
+
+    $(colRight).appendTo(userDiv);
+
+    $('<div class="content">' + emojione.toImage(post.content) + '</div>').appendTo(colRight);
+
+    var interactionLine = '<div class="interaction"><a class="action_like_comment" href="#" data-post="' + post.id + '">';
+
+    if (post.liked == 0) {
+        interactionLine += globalTranslations.post_like;
+    } else {
+        interactionLine += globalTranslations.post_dislike;
+    }
+
+    if (post.likes > 0) {
+        interactionLine += '</a> &bull; <i class="fa fa-thumbs-o-up"></i> ' + post.likes;
+    }
+
+    interactionLine += '</div>';
+
+    $(interactionLine).appendTo(colRight);
+    $(userDiv).appendTo(element);
+
+    return element;
+}
+
 function loadAttachments() {
 
     $('.post .file a').each(function(index, element) {
@@ -267,6 +313,26 @@ $(function() {
 
     });
 
+    $(body).on('click', '.action_like_comment', function(event) {
+
+        event.preventDefault();
+
+        var postId = $(this).data('post');
+
+        $.ajax({
+            method: 'post',
+            url: '/post/toggle-like/',
+            data: {
+                post: postId
+            },
+            dataType: 'json',
+            success: function(result) {
+                $('#post_' + postId).replaceWith(getComment(result));
+            }
+        });
+
+    });
+
     $(body).on('click', '.action_comments', function(event) {
 
         event.preventDefault();
@@ -289,9 +355,9 @@ $(function() {
                     var theComment = $('#post_' + postId + '>.comments #post_' + result.posts[i].id);
 
                     if ($(theComment).length > 0) {
-                        $(theComment).replaceWith(getPost(result.posts[i]));
+                        $(theComment).replaceWith(getComment(result.posts[i]));
                     } else {
-                        $('#post_' + postId + '>.comments>.comments_inner').append(getPost(result.posts[i]));
+                        $('#post_' + postId + '>.comments>.comments_inner').append(getComment(result.posts[i]));
                     }
                 }
             }
@@ -325,7 +391,7 @@ $(function() {
                 dataType: 'json',
                 success: function(result) {
                     $(commentBox).val('');
-                    $('#post_' + postId + '>.comments .comments_inner').append(getPost(result));
+                    $('#post_' + postId + '>.comments .comments_inner').append(getComment(result));
                 }
             });
 

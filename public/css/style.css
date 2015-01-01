@@ -34,8 +34,13 @@ img.portrait {
     font-weight: bold;
 }
 
-.posts .post .content {
-    margin: 10px 0 10px 0;
+.posts .post .comments .post {
+    font-size: 0.8em;
+    line-height: 1.2em;
+}
+
+.posts .post .comments .content {
+    padding: 0;
 }
 
 .posts .post .feed_user_portrait {
