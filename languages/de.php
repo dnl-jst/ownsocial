@@ -133,5 +133,9 @@ return array(
 	'mail_user_admin_accept_body' => "Dein Account bei \"%%site_title%%\" wurde von einem Administrator bestätigt.\n\nDu kannst dich nun einloggen: %%login_link%%",
 	'mail_new_user_subject' => 'Neuer Benutzer auf "%%site_title%%".',
 	'mail_new_user_body' => "Ein neuer Benutzer hat sich bei \"%%site_title%%\" angemeldet.\n\nVorname: %%first_name%%\nNachname: %%last_name%%\nE-Mail: %%email%%\n\nMelde dich mit deinem Account an, um den neuen Benutzer zu bestätigen.",
+	'mail_user_new_contact_request_subject' => 'Neue Kontaktanfrage von %%first_name%% %%last_name%% bei %%site_title%%.',
+	'mail_user_new_contact_request_body' => "Du hast eine neue Kontaktanfrage von %%first_name%% %%last_name%% bei \"%%site_title%%\".\n\nMelde dich mit deinem Account an, um diese Anfrage zu bestätigen oder abzulehnen.",
+	'mail_user_contact_request_accepted_subject' => '%%first_name%% %%last_name%% hat deine Kontaktanfrage bei %%site_title%% akzeptiert.',
+	'mail_user_contact_request_accepted_body' => "Deine Kontaktanfrage an %%first_name%% %%last_name%% bei \"%%site_title%%\" wurde akzeptiert.\n\nMelde dich mit deinem Account an, um die sein Profil anzusehen.",
 
 );

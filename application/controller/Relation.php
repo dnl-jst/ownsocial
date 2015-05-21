@@ -14,6 +14,7 @@ class Relation extends Controller
 	{
 		$user = $this->_currentUser;
 		$relUserId = $this->getRequest()->getPost('user');
+		$relUser = User::getById($relUserId);
 
 		$relation = new RelationModel();
 		$relation->setUserId($user->getId());
@@ -22,6 +23,7 @@ class Relation extends Controller
 		$relation->setConfirmed(null);
 
 		RelationService::store($relation);
+		User::sendNewContactRequestMail($this->getTranslator(), $this->getRequest(), $user, $relUser);
 
 		$this->json(true);
 	}
@@ -30,10 +32,13 @@ class Relation extends Controller
 	{
 		$user = User::getCurrent();
 		$relUserId = $this->getRequest()->getPost('user');
+		$relUser = User::getById($relUserId);
 
 		$relation = RelationService::getByUsers($relUserId, $user->getId());
 		$relation->setConfirmed(time());
+
 		RelationService::store($relation);
+		User::sendContactRequestAcceptedMail($this->getTranslator(), $this->getRequest(), $user, $relUser);
 
 		$this->json(true);
 	}

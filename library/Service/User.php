@@ -343,6 +343,84 @@ class User extends Service
 		$transport->send($mail);
 	}
 
+	public static function sendNewContactRequestMail(Translator $translator, Request $request, UserModel $user, UserModel $relUser)
+	{
+		$mail = new Mail\Message();
+		$mail->setEncoding("UTF-8");
+		$mail->setFrom('no-reply@' . $request->getHost());
+		$mail->addTo($relUser->getEmail());
+
+		$mail->setSubject(
+			$translator->_(
+				'mail_user_new_contact_request_subject',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName()
+				),
+				$relUser->getLanguage()
+			)
+		);
+
+		$mail->setBody(
+			$translator->_(
+				'mail_user_new_contact_request_body',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName()
+				),
+				$relUser->getLanguage()
+			)
+		);
+
+		$headers = $mail->getHeaders();
+		$headers->removeHeader('Content-Type');
+		$headers->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
+
+		$transport = new Mail\Transport\Sendmail();
+		$transport->send($mail);
+	}
+
+	public static function sendContactRequestAcceptedMail(Translator $translator, Request $request, UserModel $user, UserModel $relUser)
+	{
+		$mail = new Mail\Message();
+		$mail->setEncoding("UTF-8");
+		$mail->setFrom('no-reply@' . $request->getHost());
+		$mail->addTo($relUser->getEmail());
+
+		$mail->setSubject(
+			$translator->_(
+				'mail_user_contact_request_accepted_subject',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName()
+				),
+				$relUser->getLanguage()
+			)
+		);
+
+		$mail->setBody(
+			$translator->_(
+				'mail_user_contact_request_accepted_body',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName()
+				),
+				$relUser->getLanguage()
+			)
+		);
+
+		$headers = $mail->getHeaders();
+		$headers->removeHeader('Content-Type');
+		$headers->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
+
+		$transport = new Mail\Transport\Sendmail();
+		$transport->send($mail);
+	}
+
 	/**
 	 * @return UserModel[]
 	 */
