@@ -14,6 +14,41 @@ class Translator
 	{
 		$languageDir = rtrim($languageDir, '/') . '/';
 
+		$dir = dir($languageDir);
+
+		while (($entry = $dir->read()) !== false) {
+			if ($entry[0] !== '.' && substr($entry, -4) === '.php') {
+				$this->translations[substr($entry, 0, 2)] = require($languageDir . $entry);
+			}
+		}
+	}
+
+	public function translate($key, $replacements = array(), $language = null)
+	{
+		if ($language === null) {
+			$language = $this->getCurrentLanguage();
+		}
+
+		if (!isset($this->translations[$language][$key])) {
+			return '[[' . $key . ']]';
+		}
+
+		$translation = $this->translations[$language][$key];
+
+		foreach ($replacements as $key => $value) {
+			$translation = str_replace('%%' . $key . '%%', $value, $translation);
+		}
+
+		return $translation;
+	}
+
+	public function _($key)
+	{
+		return $this->translate($key);
+	}
+
+	protected function getCurrentLanguage()
+	{
 		$language = 'en';
 
 		if ($defaultLanguage = Config::getByKey('default_language')) {
@@ -26,31 +61,11 @@ class Translator
 			$language = $user->getLanguage();
 		}
 
-		if (!is_file($languageDir . $language . '.php')) {
+		if (!isset($this->translations[$language])) {
 			$language = 'en';
 		}
 
-		$this->translations = require($languageDir . $language . '.php');
-	}
-
-	public function translate($key, $replacements = array())
-	{
-		if (!isset($this->translations[$key])) {
-			return '[[' . $key . ']]';
-		}
-
-		$translation = $this->translations[$key];
-
-		foreach ($replacements as $key => $value) {
-			$translation = str_replace('%%' . $key . '%%', $value, $translation);
-		}
-
-		return $translation;
-	}
-
-	public function _($key)
-	{
-		return $this->translate($key);
+		return $language;
 	}
 
 }
