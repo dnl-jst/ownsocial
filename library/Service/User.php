@@ -15,6 +15,7 @@ use Db\User\SearchContactsNotInConversation;
 use Db\User\SearchContactsNotInGroup;
 use Db\User\SearchNotInConversation;
 use Db\User\SearchNotInGroup;
+use Model\Group;
 use Zend\Mail;
 use Core\Service;
 use Core\Query\NoResultException;
@@ -408,6 +409,47 @@ class User extends Service
 					'site_title' => Config::getByKey('site_title'),
 					'first_name' => $user->getFirstName(),
 					'last_name' => $user->getLastName()
+				),
+				$relUser->getLanguage()
+			)
+		);
+
+		$headers = $mail->getHeaders();
+		$headers->removeHeader('Content-Type');
+		$headers->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
+
+		$transport = new Mail\Transport\Sendmail();
+		$transport->send($mail);
+	}
+
+	public static function sendNewGroupRequestMail(Translator $translator, Request $request, UserModel $user, UserModel $relUser, Group $group)
+	{
+		$mail = new Mail\Message();
+		$mail->setEncoding("UTF-8");
+		$mail->setFrom('no-reply@' . $request->getHost());
+		$mail->addTo($relUser->getEmail());
+
+		$mail->setSubject(
+			$translator->_(
+				'mail_user_new_group_request_subject',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName(),
+					'group_name' => $group->getName()
+				),
+				$relUser->getLanguage()
+			)
+		);
+
+		$mail->setBody(
+			$translator->_(
+				'mail_user_new_group_request_body',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName(),
+					'group_name' => $group->getName()
 				),
 				$relUser->getLanguage()
 			)

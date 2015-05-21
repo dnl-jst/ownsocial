@@ -137,5 +137,7 @@ return array(
 	'mail_user_new_contact_request_body' => "You have a new contact request from %%first_name%% %%last_name%% at \"%%site_title%%\".\n\nLog in to your account to accept or decline this request.",
 	'mail_user_contact_request_accepted_subject' => '%%first_name%% %%last_name%% accepted your contact request at %%site_title%%.',
 	'mail_user_contact_request_accepted_body' => "Your contact request to %%first_name%% %%last_name%% at \"%%site_title%%\" was accepted.\n\nLog in to your account to view his profile.",
+	'mail_user_new_group_request_subject' => '%%first_name%% %%last_name%% invited you to the group %%group_name%%.',
+	'mail_user_new_group_request_body' => "You have a new group invitation to %%group_name%% by %%first_name%% %%last_name%% at \"%%site_title%%\".\n\nLog in to your account to accept or decline this request.",
 
 );

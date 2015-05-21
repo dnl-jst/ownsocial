@@ -340,6 +340,8 @@ class Group extends Controller
 	public function addMembersAction()
 	{
 		$groupId = $this->getRequest()->getGet('id');
+		$group = GroupService::getById($groupId);
+
 		$newMembers = $this->getRequest()->getPost('new_members');
 
 		try {
@@ -361,22 +363,25 @@ class Group extends Controller
 
 		if (is_array($newMembers)) {
 
-			foreach ($newMembers as $newMember) {
+			foreach ($newMembers as $newMemberId) {
+
+				$newMember = User::getById($newMemberId);
 
 				# continue if connection already exists
 				try {
-					UserGroup::get($newMember, $groupId);
+					UserGroup::get($newMemberId, $groupId);
 					continue;
 				} catch (NoResultException $e) {}
 
 				$userGroup = new UserGroupModel();
-				$userGroup->setUserId($newMember);
+				$userGroup->setUserId($newMemberId);
 				$userGroup->setGroupId($groupId);
 				$userGroup->setCreatedBy($this->_currentUser->getId());
 				$userGroup->setConfirmed(null);
 				$userGroup->setRole(UserGroupModel::ROLE_MEMBER);
 
 				UserGroup::store($userGroup);
+				User::sendNewGroupRequestMail($this->getTranslator(), $this->getRequest(), $this->_currentUser, $newMember, $group);
 			}
 
 		}

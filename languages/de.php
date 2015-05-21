@@ -137,5 +137,7 @@ return array(
 	'mail_user_new_contact_request_body' => "Du hast eine neue Kontaktanfrage von %%first_name%% %%last_name%% bei \"%%site_title%%\".\n\nMelde dich mit deinem Account an, um diese Anfrage zu bestätigen oder abzulehnen.",
 	'mail_user_contact_request_accepted_subject' => '%%first_name%% %%last_name%% hat deine Kontaktanfrage bei %%site_title%% akzeptiert.',
 	'mail_user_contact_request_accepted_body' => "Deine Kontaktanfrage an %%first_name%% %%last_name%% bei \"%%site_title%%\" wurde akzeptiert.\n\nMelde dich mit deinem Account an, um die sein Profil anzusehen.",
+	'mail_user_new_group_request_subject' => '%%first_name%% %%last_name%% möchte dich in die Gruppe %%group_name%% einladen.',
+	'mail_user_new_group_request_body' => "Du hast eine neue Gruppeneinladung in die Gruppe %%group_name%% von %%first_name%% %%last_name%% bei \"%%site_title%%\".\n\nMelde dich mit deinem Account an, um diese Anfrage zu bestätigen oder abzulehnen.",
 
 );
