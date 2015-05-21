@@ -24,7 +24,7 @@ class View
 
 	private $_unreadConversationCount = null;
 
-	public function __construct($controller, $action, $templatePath, $templateFile)
+	public function __construct($controller, $action, $templatePath, $templateFile, $translator)
 	{
 		$this->_controller = $controller;
 		$this->_action = $action;
@@ -35,7 +35,7 @@ class View
 		$this->_templatePath = $templatePath;
 		$this->_templateFile = $templateFile;
 		$this->_layout = APPLICATION_ROOT . '/application/templates/layouts/default.phtml';
-		$this->translator = new Translator(APPLICATION_ROOT . '/languages/');
+		$this->translator = $translator;
 
 		if ($this->_currentUser && $this->_currentUser->getType() === 'admin') {
 			$this->_unconfirmedUsers = User::getUnconfirmedUsers();

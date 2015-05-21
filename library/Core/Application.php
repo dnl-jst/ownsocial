@@ -67,10 +67,14 @@ class Application
 		$origAction = (isset($parts[1]) && $parts[1]) ? $parts[1] : 'index';
 		$action = $this->sanitizeName($origAction);
 
-		$view = new View($controller, $origAction, APPLICATION_ROOT . '/application/templates/views/', $controller . '/' . $origAction . '.phtml');
+		$translator = new Translator(APPLICATION_ROOT . '/languages/');
+		$templatePath = APPLICATION_ROOT . '/application/templates/views/';
+		$templateFile = $controller . '/' . $origAction . '.phtml';
+
+		$view = new View($controller, $origAction, $templatePath, $templateFile, $translator);
 
 		$controllerClass = 'Application\Controller\\' . ucfirst($controller);
-		$controllerInstance = new $controllerClass($request, $response, $view);
+		$controllerInstance = new $controllerClass($request, $response, $view, $translator);
 
 		if (!$controllerInstance instanceof Controller) {
 			throw new Exception('controller ' . $controllerClass . ' not instance of Core_Controller');

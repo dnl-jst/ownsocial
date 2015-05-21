@@ -33,13 +33,17 @@ class Controller
 	/** @var array */
 	protected $_config;
 
-	public function __construct(Request $request, Response $response, View $view)
+	/** @var Translator */
+	protected $_translator;
+
+	public function __construct(Request $request, Response $response, View $view, Translator $translator)
 	{
 		$this->_request = $request;
 		$this->_response = $response;
 		$this->_view = $view;
 		$this->_currentUser = User::getCurrent();
 		$this->_config = Config::getAll();
+		$this->_translator = $translator;
 	}
 
 	public function init() {}
@@ -105,6 +109,14 @@ class Controller
 	{
 		header('Location: ' . $url);
 		exit();
+	}
+
+	/**
+	 * @return Translator
+	 */
+	public function getTranslator()
+	{
+		return $this->_translator;
 	}
 
 }

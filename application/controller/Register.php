@@ -146,7 +146,7 @@ class Register extends Controller
 
 				$messages[] = array(
 					'class' => 'warning',
-					'message' => 'registration_confirm_already_confirmed'
+					'message' => $this->getTranslator()->_('registration_confirm_already_confirmed')
 				);
 
 			} else if ($user->getEmailConfirmationHash() === $confirmationHash) {
@@ -162,7 +162,7 @@ class Register extends Controller
 
 				$messages[] = array(
 					'class' => 'success',
-					'message' => 'registration_confirm_success'
+					'message' => $this->getTranslator()->_('registration_confirm_success')
 				);
 
 				if (Config::getByKey('network_type') === 'private') {
@@ -175,7 +175,7 @@ class Register extends Controller
 
 					$messages[] = array(
 						'class' => 'warning',
-						'message' => 'registration_confirm_private_network'
+						'message' => $this->getTranslator()->_('registration_confirm_private_network')
 					);
 
 				}
@@ -186,7 +186,7 @@ class Register extends Controller
 
 			$messages[] = array(
 				'class' => 'danger',
-				'message' => 'error'
+				'message' => $this->getTranslator()->_('error')
 			);
 		}
 
