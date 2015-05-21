@@ -4,10 +4,8 @@ namespace Db\User;
 
 use Core\Query;
 
-class GetByEmail extends Query
+class GetAdmins extends Query
 {
-
-	protected $email;
 
 	protected function build()
 	{
@@ -30,19 +28,9 @@ class GetByEmail extends Query
 				users u
 			JOIN configs cnfg ON cnfg.key = \'default_portrait_id\'
 			WHERE
-				u.type = ?';
-
-		$this->addBind($this->email);
+				u.type = \'admin\'';
 
 		return $query;
 	}
 
-	/**
-	 * @param mixed $email
-	 */
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-	
 }

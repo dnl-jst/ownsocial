@@ -8,6 +8,7 @@ use Service\Config;
 use Service\User as UserService;
 use Service\Config as ConfigService;
 use Model\User as UserModel;
+use Service\User;
 
 class Register extends Controller
 {
@@ -165,6 +166,12 @@ class Register extends Controller
 				);
 
 				if (Config::getByKey('network_type') === 'private') {
+
+					$admins = User::getAdmins();
+
+					foreach ($admins as $admin) {
+						UserService::sendNewUserNotification($this->getRequest(), $admin, $user);
+					}
 
 					$messages[] = array(
 						'class' => 'warning',

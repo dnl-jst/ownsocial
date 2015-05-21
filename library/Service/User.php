@@ -4,6 +4,7 @@ namespace Service;
 
 use Core\Controller\Request;
 use Db\User\Delete;
+use Db\User\GetAdmins;
 use Db\User\GetByConversationId;
 use Db\User\GetByGroupId;
 use Db\User\GetGroupRequests;
@@ -76,6 +77,17 @@ class User extends Service
 		$user = self::fillModel(new UserModel(), $query->fetchRow());
 
 		return $user;
+	}
+
+	/**
+	 * @return UserModel[]
+	 * @throws NoResultException
+	 */
+	public static function getAdmins()
+	{
+		$query = new GetAdmins();
+
+		return self::fillCollection(new UserModel(), $query->fetchAll());
 	}
 
 	/**
@@ -244,6 +256,52 @@ class User extends Service
 		$transport = new Mail\Transport\Sendmail();
 		$transport->send($mail);
 
+	}
+
+	public static function sendAdminAcceptMail(Request $request, UserModel $user)
+	{
+		$loginLink = sprintf(
+			'%s://%s/',
+			($request->isSecure()) ? 'https' : 'http',
+			$request->getHost()
+		);
+
+		$mail = new Mail\Message();
+		$mail->setFrom('no-reply@' . $request->getHost());
+		$mail->addTo($user->getEmail());
+		$mail->setSubject('Your account was confirmed by an administrator.');
+
+		$body = array();
+		$body[] = 'Your account at "' . Config::getByKey('site_title') . '" was confirmed by an administrator.';
+		$body[] = '';
+		$body[] = 'You may now login under ' . $loginLink;
+
+		$mail->setBody(join(chr(10), $body));
+
+		$transport = new Mail\Transport\Sendmail();
+		$transport->send($mail);
+	}
+
+	public static function sendNewUserNotification(Request $request, UserModel $admin, UserModel $user)
+	{
+		$mail = new Mail\Message();
+		$mail->setFrom('no-reply@' . $request->getHost());
+		$mail->addTo($admin->getEmail());
+		$mail->setSubject('A new user account was created.');
+
+		$body = array();
+		$body[] = 'A new user account was created at "' . Config::getByKey('site_title') . '".';
+		$body[] = '';
+		$body[] = 'First name: ' . $user->getFirstName();
+		$body[] = 'Last name: ' . $user->getLastName();
+		$body[] = 'E-Mail: ' . $user->getEmail();
+		$body[] = '';
+		$body[] = 'Log in to your network to accept or decline this user.';
+
+		$mail->setBody(join(chr(10), $body));
+
+		$transport = new Mail\Transport\Sendmail();
+		$transport->send($mail);
 	}
 
 	/**
