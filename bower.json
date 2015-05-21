@@ -1,9 +1,9 @@
 {
   "name": "ownsocial",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/dnl-jst/ownsocial",
   "authors": [
-    "djost <dj@jost-solutions.de>"
+    "Daniel Jost <info@daniel-jost.de>"
   ],
   "license": "MIT",
   "private": true,
