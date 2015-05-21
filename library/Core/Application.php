@@ -74,6 +74,12 @@ class Application
 		$view = new View($controller, $origAction, $templatePath, $templateFile, $translator);
 
 		$controllerClass = 'Application\Controller\\' . ucfirst($controller);
+
+		if (!class_exists($controllerClass)) {
+			header('404 file not found', true, 404);
+			die('404 file not found');
+		}
+
 		$controllerInstance = new $controllerClass($request, $response, $view, $translator);
 
 		if (!$controllerInstance instanceof Controller) {
@@ -83,7 +89,8 @@ class Application
 		$actionMethod = $action . 'Action';
 
 		if (!method_exists($controllerInstance, $actionMethod)) {
-			throw new Exception('action ' . $actionMethod . ' not found in controller ' . $controllerClass);
+			header('404 file not found', true, 404);
+			die('404 file not found');
 		}
 
 		$request->setController($controller);

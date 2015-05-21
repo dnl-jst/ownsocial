@@ -34,4 +34,10 @@ if (!is_file(APPLICATION_ROOT . 'config.php')) {
 $config = include(APPLICATION_ROOT . '/config.php');
 
 $application = new \Core\Application($config);
-$application->run();
+
+try {
+	$application->run();
+} catch (\Core\Exception $e) {
+	header('500 internal server error', true, 500);
+	die('500 internal server error');
+}
