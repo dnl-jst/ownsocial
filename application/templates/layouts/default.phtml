@@ -135,7 +135,7 @@
 					<div class="unconfirmed_contacts">
 						<p class="headline"><?= $this->_('contact_requests_title'); ?></p>
 						<?php foreach ($contacts as $contact): ?>
-							<div class="unconfirmed_contact">
+							<div class="unconfirmed_contact row">
 								<img class="portrait" src="/file/image/?file=<?= $contact->getPortraitFileId(); ?>" />
 								<?= $this->escape($contact->getFirstName() . ' ' . $contact->getLastName()); ?>
 								<br />
@@ -151,7 +151,7 @@
 					<div class="group_invitations">
 						<p class="headline"><?= $this->_('group_requests_title'); ?></p>
 						<?php foreach ($groupInvitations as $group): ?>
-							<div class="group_invitation">
+							<div class="group_invitation row">
 								<img class="portrait" src="/file/image/?file=<?= $group->getPortraitFileId(); ?>" />
 								<?= $this->escape($group->getName()); ?>
 								<br />
@@ -167,7 +167,7 @@
 					<div class="unconfirmed_users">
 						<p class="headline"><?= $this->_('registration_requests_title'); ?></p>
 						<?php foreach ($this->_unconfirmedUsers as $user): ?>
-							<div class="unconfirmed_user">
+							<div class="unconfirmed_user row">
 								<div class="col-sm-4">
 									<img class="img-responsive" src="/file/image/?file=<?= $user->getPortraitFileId(); ?>" />
 								</div>
