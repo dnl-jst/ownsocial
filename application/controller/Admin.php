@@ -24,7 +24,7 @@ class Admin extends Controller
 		$user->setAccountConfirmed(1);
 
 		User::store($user);
-		User::sendAdminAcceptMail($this->getRequest(), $user);
+		User::sendAdminAcceptMail($this->getTranslator(), $this->getRequest(), $user);
 
 		$this->json(array(
 			'success' => true

@@ -127,4 +127,11 @@ return array(
 	'helper_datesince_hours_ago' => 'vor %%hours%% Stunden',
 	'helper_datesince_days_ago' => 'vor %%days%% Tagen',
 
+	'mail_user_confirmation_subject' => 'Deine Anmeldung bei "%%site_title%%"',
+	'mail_user_confirmation_body' => "Du hast dich bei \"%%site_title%%\" angemeldet.\n\nUm deinen Account zu bestätigen, klicke auf den folgenden Link:\n\n%%confirmation_link%%",
+	'mail_user_admin_accept_subject' => 'Dein Account bei "%%site_title%%" wurde von einem Administrator bestätigt.',
+	'mail_user_admin_accept_body' => "Dein Account bei \"%%site_title%%\" wurde von einem Administrator bestätigt.\n\nDu kannst dich nun einloggen: %%login_link%%",
+	'mail_new_user_subject' => 'Neuer Benutzer auf "%%site_title%%".',
+	'mail_new_user_body' => "Ein neuer Benutzer hat sich bei \"%%site_title%%\" angemeldet.\n\nVorname: %%first_name%%\nNachname: %%last_name%%\nE-Mail: %%email%%\n\nMelde dich mit deinem Account an, um den neuen Benutzer zu bestätigen.",
+
 );

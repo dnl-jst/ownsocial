@@ -105,7 +105,7 @@ class Register extends Controller
 				$user->setPortraitFileId(ConfigService::getByKey('default_portrait_id'));
 
 				UserService::store($user);
-				UserService::sendConfirmationMail($this->getRequest(), $user);
+				UserService::sendConfirmationMail($this->getTranslator(), $this->getRequest(), $user);
 
 				$this->redirect('/register/action-required/');
 			}
@@ -170,7 +170,7 @@ class Register extends Controller
 					$admins = User::getAdmins();
 
 					foreach ($admins as $admin) {
-						UserService::sendNewUserNotification($this->getRequest(), $admin, $user);
+						UserService::sendNewUserNotification($this->getTranslator(), $this->getRequest(), $admin, $user);
 					}
 
 					$messages[] = array(

@@ -127,4 +127,11 @@ return array(
 	'helper_datesince_hours_ago' => '%%hours%% hours ago',
 	'helper_datesince_days_ago' => '%%days%% days ago',
 
+	'mail_user_confirmation_subject' => 'Your registration at "%%site_title%%"',
+	'mail_user_confirmation_body' => "You registered at \"%%site_title%%\"\n\nTo confirm and use your account, click the following link:\n\n%%confirmation_link%%",
+	'mail_user_admin_accept_subject' => 'Your account at %%site_title%% was confirmed by an administrator.',
+	'mail_user_admin_accept_body' => "Your account at \"%%site_title%%\" was confirmed by an administrator.\n\nYou may now login under %%login_link%%",
+	'mail_new_user_subject' => 'A new user account at "%%site_title%%" was created.',
+	'mail_new_user_body' => "A new user account at \"%%site_title%%\" was created.\n\nFirst name: %%first_name%%\nLast name: %%last_name%%\nE-Mail: %%email%%\n\nLog in to your network to accept or decline this user.",
+
 );

@@ -42,9 +42,9 @@ class Translator
 		return $translation;
 	}
 
-	public function _($key)
+	public function _($key, $replacements = array(), $language = null)
 	{
-		return $this->translate($key);
+		return $this->translate($key, $replacements, $language);
 	}
 
 	protected function getCurrentLanguage()

@@ -3,6 +3,7 @@
 namespace Service;
 
 use Core\Controller\Request;
+use Core\Translator;
 use Db\User\Delete;
 use Db\User\GetAdmins;
 use Db\User\GetByConversationId;
@@ -229,7 +230,7 @@ class User extends Service
 		}
 	}
 
-	public static function sendConfirmationMail(Request $request, UserModel $user)
+	public static function sendConfirmationMail(Translator $translator, Request $request, UserModel $user)
 	{
 		$confirmationLink = sprintf(
 			'%s://%s/register/confirm/?user=%u&hash=%s',
@@ -240,25 +241,36 @@ class User extends Service
 		);
 
 		$mail = new Mail\Message();
+		$mail->setEncoding("UTF-8");
 		$mail->setFrom('no-reply@' . $request->getHost());
 		$mail->addTo($user->getEmail());
-		$mail->setSubject('Your registration at "' . Config::getByKey('site_title') . '"');
 
-		$body = array();
-		$body[] = 'You registered at "' . Config::getByKey('site_title') . '".';
-		$body[] = '';
-		$body[] = 'To confirm and use your account, click the following link:';
-		$body[] = '';
-		$body[] = $confirmationLink;
+		$mail->setSubject(
+			$translator->_(
+				'mail_user_confirmation_subject',
+				array('site_title' => Config::getByKey('site_title')),
+				$user->getLanguage()
+			)
+		);
 
-		$mail->setBody(join(chr(10), $body));
+		$mail->setBody(
+			$translator->_(
+				'mail_user_confirmation_body',
+				array('site_title' => Config::getByKey('site_title'), 'confirmation_link' => $confirmationLink),
+				$user->getLanguage()
+			)
+		);
+
+		$headers = $mail->getHeaders();
+		$headers->removeHeader('Content-Type');
+		$headers->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
 
 		$transport = new Mail\Transport\Sendmail();
 		$transport->send($mail);
 
 	}
 
-	public static function sendAdminAcceptMail(Request $request, UserModel $user)
+	public static function sendAdminAcceptMail(Translator $translator, Request $request, UserModel $user)
 	{
 		$loginLink = sprintf(
 			'%s://%s/',
@@ -267,38 +279,65 @@ class User extends Service
 		);
 
 		$mail = new Mail\Message();
+		$mail->setEncoding("UTF-8");
 		$mail->setFrom('no-reply@' . $request->getHost());
 		$mail->addTo($user->getEmail());
-		$mail->setSubject('Your account was confirmed by an administrator.');
 
-		$body = array();
-		$body[] = 'Your account at "' . Config::getByKey('site_title') . '" was confirmed by an administrator.';
-		$body[] = '';
-		$body[] = 'You may now login under ' . $loginLink;
+		$mail->setSubject(
+			$translator->_(
+				'mail_user_admin_accept_subject',
+				array('site_title' => Config::getByKey('site_title')),
+				$user->getLanguage()
+			)
+		);
 
-		$mail->setBody(join(chr(10), $body));
+		$mail->setBody(
+			$translator->_(
+				'mail_user_admin_accept_body',
+				array('site_title' => Config::getByKey('site_title'), 'login_link' => $loginLink),
+				$user->getLanguage()
+			)
+		);
+
+		$headers = $mail->getHeaders();
+		$headers->removeHeader('Content-Type');
+		$headers->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
 
 		$transport = new Mail\Transport\Sendmail();
 		$transport->send($mail);
 	}
 
-	public static function sendNewUserNotification(Request $request, UserModel $admin, UserModel $user)
+	public static function sendNewUserNotification(Translator $translator, Request $request, UserModel $admin, UserModel $user)
 	{
 		$mail = new Mail\Message();
+		$mail->setEncoding("UTF-8");
 		$mail->setFrom('no-reply@' . $request->getHost());
 		$mail->addTo($admin->getEmail());
-		$mail->setSubject('A new user account was created.');
 
-		$body = array();
-		$body[] = 'A new user account was created at "' . Config::getByKey('site_title') . '".';
-		$body[] = '';
-		$body[] = 'First name: ' . $user->getFirstName();
-		$body[] = 'Last name: ' . $user->getLastName();
-		$body[] = 'E-Mail: ' . $user->getEmail();
-		$body[] = '';
-		$body[] = 'Log in to your network to accept or decline this user.';
+		$mail->setSubject(
+			$translator->_(
+				'mail_new_user_subject',
+				array('site_title' => Config::getByKey('site_title')),
+				$admin->getLanguage()
+			)
+		);
 
-		$mail->setBody(join(chr(10), $body));
+		$mail->setBody(
+			$translator->_(
+				'mail_new_user_body',
+				array(
+					'site_title' => Config::getByKey('site_title'),
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName(),
+					'email' => $user->getEmail()
+				),
+				$admin->getLanguage()
+			)
+		);
+
+		$headers = $mail->getHeaders();
+		$headers->removeHeader('Content-Type');
+		$headers->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
 
 		$transport = new Mail\Transport\Sendmail();
 		$transport->send($mail);
