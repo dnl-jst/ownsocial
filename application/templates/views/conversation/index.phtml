@@ -78,12 +78,12 @@
 			<?php if ($this->conversations): ?>
 			<div class="well well-sm">
 
-				<div id="add_message_box" style="height: 80px;">
-
+				<div id="add_message_box">
 					<textarea class="form-control" id="conversation_post_message"></textarea>
+				</div>
 
+				<div class="text-right" style="margin-top: 5px;">
 					<button class="btn btn-primary" id="conversation_post_add"><?= $this->_('conversation_create_post'); ?></button>
-
 				</div>
 
 			</div>
@@ -135,10 +135,14 @@ var currentConversation = null;
 
 $(function() {
 
-	var loadPosts = function(offset, callback) {
+	var loadPosts = function(offset, callback, append) {
 
 		if (typeof offset == 'undefined') {
 			offset = 0;
+		}
+
+		if (typeof append == 'undefined') {
+			append = false;
 		}
 
 		$.ajax({
@@ -166,8 +170,14 @@ $(function() {
 						$(rightCol).appendTo(message);
 
 						$(rightCol).append('<p>' + emojione.toImage(result[i].message) + '</p>');
-						$(message).prependTo('#message_box_inner');
-						$('<hr>').prependTo('#message_box_inner');
+
+						if (append) {
+							$(message).appendTo('#message_box_inner');
+							$('<hr>').appendTo('#message_box_inner');
+						} else {
+							$(message).prependTo('#message_box_inner');
+							$('<hr>').prependTo('#message_box_inner');
+						}
 
 					}
 				}
@@ -220,16 +230,11 @@ $(function() {
 
 		event.preventDefault();
 
-		var heightBefore = $(this).height();
-
 		loadPosts($('.message').length, function(loadedPosts) {
-
 			if (loadedPosts > 0) {
-				$('#message_box').animate({scrollTop: $(this).height() - heightBefore }, 1);
+				$('#message_box').animate({scrollTop: 0}, 500);
 			}
-
 		});
-
 	});
 
 	var switchConversation = function(conversationId) {
@@ -244,7 +249,7 @@ $(function() {
 		loadMembers(currentConversation);
 
 		loadPosts(0, function() {
-			$('#message_box').animate({scrollTop: 9999999}, 1);
+			$('#message_box').animate({ scrollTop: $('#message_box')[0].scrollHeight}, 500);
 		});
 
 	};
@@ -273,11 +278,10 @@ $(function() {
 				if (result.success) {
 
 					$('#conversation_post_message').val('');
-					$('#message_box_inner').html('');
 
-					loadPosts(function() {
-						$('#message_box').animate({scrollTop: 9999999}, 1);
-					});
+					loadPosts(null, function() {
+						$('#message_box').animate({ scrollTop: $('#message_box')[0].scrollHeight}, 500);
+					}, true);
 
 				}
 			}
