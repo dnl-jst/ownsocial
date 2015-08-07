@@ -105,13 +105,13 @@
 			var field = $('#profile_' + property);
 			var currentValue = field.html();
 
-			field.html($('<input type="text" id="profile_' + property + '_input" value="' + currentValue + '" />'));
+			field.html($('<input type="text" class="form-control" id="profile_' + property + '_input" value="' + currentValue + '" />'));
 
-			var saveButton = $('<a href="#"><i class="fa fa-save"></i></a>');
+			var saveButton = $('<a class="btn btn-default" href="#"><i class="fa fa-save"></i></a>');
 
 			saveButton.appendTo($(field));
 
-			var cancelButton = $('<a href="#"><i class="fa fa-times"></i></a>');
+			var cancelButton = $('<a class="btn btn-default" href="#"><i class="fa fa-times"></i></a>');
 
 			cancelButton.appendTo($(field));
 
