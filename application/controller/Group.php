@@ -162,7 +162,6 @@ class Group extends Controller
 		$imgX1 = $request->getPost('imgX1');
 		$cropW = $request->getPost('cropW');
 		$cropH = $request->getPost('cropH');
-		$jpegQuality = 100;
 
 		$file = File::getById($fileId);
 		$group = GroupService::getById($file->getGroupId());
@@ -176,12 +175,16 @@ class Group extends Controller
 			return;
 		}**/
 
-		$rSourceImage = imagecreatefromstring($file->getContent());
-		$rResizedImage = imagecreatetruecolor($imgW, $imgH);
+		$sourceImage = imagecreatefromstring($file->getContent());
+		$resizedImage = imagecreatetruecolor($imgW, $imgH);
+
+		imagealphablending($sourceImage, true);
+		imagealphablending($resizedImage, false);
+		imagesavealpha($resizedImage, true);
 
 		imagecopyresampled(
-			$rResizedImage,
-			$rSourceImage,
+			$resizedImage,
+			$sourceImage,
 			0,
 			0,
 			0,
@@ -193,11 +196,14 @@ class Group extends Controller
 		);
 
 
-		$rDestImage = imagecreatetruecolor($cropW, $cropH);
+		$destImage = imagecreatetruecolor($cropW, $cropH);
+
+		imagealphablending($destImage, false);
+		imagesavealpha($destImage, true);
 
 		imagecopyresampled(
-			$rDestImage,
-			$rResizedImage,
+			$destImage,
+			$resizedImage,
 			0,
 			0,
 			$imgX1,
@@ -210,8 +216,9 @@ class Group extends Controller
 
 		ob_start();
 
-		imagejpeg($rDestImage, null, $jpegQuality);
+		imagepng($destImage);
 
+		$file->setType('image/png');
 		$file->setContent(ob_get_clean());
 
 		File::store($file);
