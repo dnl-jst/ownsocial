@@ -399,7 +399,7 @@ $(function() {
 
     });
 
-    $(body).on('click', '.action_delete_post', function() {
+    $(body).on('click', '.action_delete_post', function(event) {
 
         event.preventDefault();
 
