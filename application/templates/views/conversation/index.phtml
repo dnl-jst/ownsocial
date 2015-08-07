@@ -18,11 +18,13 @@
 									<?php endif; ?>
 								</strong><br />
 								<small class="convert-emoji">
-									<?php if ($lastPost = $conversation->getLastPost($this->_currentUser->getId())): ?>
-										<?= $this->escape($this->shorten($lastPost->getMessage(), 50)); ?>
-									<?php else: ?>
-										<p><?= $this->_('conversations_no_posts_yet'); ?></p>
-									<?php endif; ?>
+									<span class="last-post">
+										<?php if ($lastPost = $conversation->getLastPost($this->_currentUser->getId())): ?>
+											<?= $this->escape($this->shorten($lastPost->getMessage(), 50)); ?>
+										<?php else: ?>
+											<p><?= $this->_('conversations_no_posts_yet'); ?></p>
+										<?php endif; ?>
+									</span>
 								</small>
 							</a>
 						</li>
@@ -155,11 +157,15 @@ $(function() {
 			dataType: 'json',
 			success: function(result) {
 
+				var newPosts = 0;
+
 				for (var i = 0; i < result.length; i++) {
 
 					var post = result[i];
 
 					if ($('#message_' + post.id).length === 0) {
+
+						newPosts++;
 
 						var message = $('<div class="row message" id="message_' + post.id + '"></div>');
 
@@ -182,7 +188,12 @@ $(function() {
 					}
 				}
 
-				if (typeof callback !== 'undefined') {
+				if (newPosts > 0) {
+					var firstPost = result[0];
+					$('#conversation_' + currentConversation + ' .last-post').html(emojione.toImage(firstPost.message));
+				}
+
+				if (typeof callback !== 'undefined' && callback !== null) {
 					callback(result.length);
 				}
 			}
@@ -313,6 +324,12 @@ $(function() {
 		});
 
 	});
+
+	setInterval(function() {
+		loadPosts(0, function() {
+			$('#message_box').animate({ scrollTop: $('#message_box')[0].scrollHeight}, 500);
+		}, true);
+	}, 1000);
 
 });
 
