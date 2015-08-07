@@ -15,4 +15,5 @@ return array(
     'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader/src'),
     'Zend\\Db\\' => array($vendorDir . '/zendframework/zend-db/src'),
     'Zend\\Crypt\\' => array($vendorDir . '/zendframework/zend-crypt/src'),
+    'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
 );
