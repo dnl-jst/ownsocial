@@ -123,12 +123,12 @@
 		</div>
 		<?php endif; ?>
 
-		<div class="<?= ($this->middleColumnClasses) ? $this->middleColumnClasses : 'col-md-5 col-lg-5'; ?>">
+		<div class="<?= ($this->middleColumnClasses) ? $this->middleColumnClasses : 'col-md-6 col-lg-6'; ?>">
 			<?= $html; ?>
 		</div>
 
 		<?php if (!$this->hideRightColumn): ?>
-		<div class="col-md-4 col-lg-4">
+		<div class="col-md-3 col-lg-3">
 			<?php if ($this->_currentUser): ?>
 			<div class="well">
 				<?php if ($contacts = $this->_currentUser->getUnconfirmedContacts()): ?>
